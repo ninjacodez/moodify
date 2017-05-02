@@ -1,1 +1,3 @@
-web: npm run server-dev
+web:
+npm install;
+npm run server-dev;
