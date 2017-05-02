@@ -1,5 +1,8 @@
 const { resolve } = require('path');
 const webpack = require('webpack');
+const SRC_DIR = path.join(__dirname, '/react-client/src');
+const DIST_DIR = path.join(__dirname, '/react-client/dist');
+
 
 module.exports = {
   context: resolve(__dirname, 'src'),
@@ -16,7 +19,7 @@ module.exports = {
     // bundle the client for hot reloading
     // only- means to only hot reload for successful updates
 
-    './index.js'
+    './index.jsx'
     // the entry point of our app
   ],
   output: {

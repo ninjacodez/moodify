@@ -1,9 +1,8 @@
 {
-  "name": "",
-  "version": "",
-  "description": "",
+  "name": "ninjacodez",
+  "description": "Our first repo",
   "author": "",
-  "license": "",
+  "license": "ISC",
   "engines": {
     "node": ">=6.4.0"
   },
@@ -13,6 +12,7 @@
     "react-dom": "^15.5.4",
     "react-hot-loader": "^3.0.0-beta.6"
   },
+  "dependencies": {},
   "devDependencies": {
     "babel-cli": "^6.7.5",
     "babel-core": "^6.24.1",
@@ -22,12 +22,25 @@
     "css-loader": "^0.28.1",
     "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor",
     "style-loader": "^0.17.0",
-    "webpack": "^2.4.1",
-    "webpack-dev-server": "^2.4.5"
+    "webpack-dev-server": "^2.4.5",
+    "babel-register": "^6.7.2",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "webpack": "^2.4.1"
   },
   "babel": {
     "presets": [
       "es2015"
     ]
-  }
+  },
+  "version": "1.0.0",
+  "main": ".eslintrc.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ninjacodez/ninjacodez.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ninjacodez/ninjacodez/issues"
+  },
+  "homepage": "https://github.com/ninjacodez/ninjacodez#readme"
 }
