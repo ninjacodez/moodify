@@ -17,4 +17,4 @@ var TestSchema = mongoose.Schema({
 
 var Test = mongoose.model('Test', TestSchema);
 
-module.exports = Test; 
+module.exports = Test;
