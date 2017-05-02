@@ -1,0 +1,2 @@
+# ninjacodez
+Our first repo
