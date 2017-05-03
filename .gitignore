@@ -19,7 +19,7 @@ coverage
 .grunt
 
 # Compiled Dirs (http://nodejs.org/api/addons.html)
-react-client/dist/*
+react-client/dist/bundle.js
 !react-client/dist/index.html
 
 # Dependency directorys
