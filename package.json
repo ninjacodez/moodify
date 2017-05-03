@@ -13,14 +13,17 @@
     "start": "node server/index.js"
   },
   "dependencies": {
-    "react": "^15.5.4",
-    "react-dom": "^15.5.4",
-    "react-hot-loader": "^3.0.0-beta.6",
     "bluebird": "^3.5.0",
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
+    "mongodb": "^2.2.26",
     "path": "^0.12.7",
-    "mongodb": "^2.2.26"
+    "query-parse": "^1.0.0",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "react-hot-loader": "^3.0.0-beta.6",
+    "request": "^2.81.0",
+    "request-promise": "^4.2.0"
   },
   "devDependencies": {
     "babel-cli": "^6.7.5",
