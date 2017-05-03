@@ -19,7 +19,8 @@ coverage
 .grunt
 
 # Compiled Dirs (http://nodejs.org/api/addons.html)
-react-client/dist/bundle.js
+react-client/dist/*
+!react-client/dist/index.html
 
 # Dependency directorys
 # Deployed apps should consider commenting these lines out:
