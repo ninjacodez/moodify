@@ -7,7 +7,7 @@
     "node": ">=6.4.0"
   },
   "scripts": {
-    "heroku-postbuild": "webpack -p --config ./webpack.prod.config.js --progress",
+    "heroku-postbuild": "webpack -d",
     "react-dev": "webpack -d --watch",
     "server-dev": "nodemon --inspect server/index.js",
     "start": "node server/index.js"
