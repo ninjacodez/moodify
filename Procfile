@@ -1,3 +1,1 @@
-web:
-npm install;
-npm run server-dev;
+web: node server/index.js
