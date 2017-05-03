@@ -7,7 +7,7 @@
     "node": ">=6.4.0"
   },
   "scripts": {
-    "postinstall": "webpack -d --watch -- progress",
+    "postinstall": "webpack -d --watch --progress",
     "react-dev": "webpack -d --watch",
     "server-dev": "nodemon --inspect server/index.js",
     "start": "node server/index.js"
