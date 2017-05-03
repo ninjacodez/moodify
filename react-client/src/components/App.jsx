@@ -13,7 +13,7 @@ class App extends React.Component {
 
   render () {
     return (<div>
-      <h1>Spot a tie, with lyrics</h1>
+      <h1>Spot a tie, with lyrics. Test change!</h1>
       <Search />
       <Lyrics />
       <Mood />
