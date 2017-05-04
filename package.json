@@ -9,7 +9,9 @@
   "scripts": {
     "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
     "prod": "NODE_ENV=production node server.js",
-    "postinstall": "webpack -p"
+    "postinstall": "webpack -p",
+    "react-dev": "webpack -d --watch",
+    "server-dev": "node server/index.js"
   },
   "dependencies": {
     "bluebird": "^3.5.0",
