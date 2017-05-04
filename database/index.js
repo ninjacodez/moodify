@@ -11,19 +11,26 @@ db.once('open', function() {
   console.log('mongoose connection success! b(^.~)z');
 });
 
-var TestSchema = mongoose.Schema({
-	name: String
+var SongSchema = mongoose.Schema({
+	musicMatchID: {type: String, unique: true},
+	albumCoverArt100: String,
+	albumCoverArt350: String,
+	albumCoverArt500: String,
+	albumCoverArt800: String,
+	artistName: String,
+	name: String,
+	Lyrics: String,
+	Mood: String 
 });
 
-var Test = mongoose.model('Test', TestSchema);
+var Song = mongoose.model('Song', SongSchema);
+// var Test = mongoose.model('Test', TestSchema);
 
 // var SongSchema = mongoose.Schema({
 //   title: String,
 //   artist: String,
 //   lyrics: String
 // });
-// var Song = mongoose.model('Song', SongSchema);
 
-
-module.exports.Test = Test;
-// module.exports.Song = Song;
+// module.exports.Test = Test;
+module.exports.Song = Song;
