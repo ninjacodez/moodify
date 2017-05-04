@@ -20,7 +20,7 @@ var SongSchema = mongoose.Schema({
 	artistName: String,
 	name: String,
 	Lyrics: String,
-	Mood: String 
+	Mood: String
 });
 
 var Song = mongoose.model('Song', SongSchema);
@@ -32,5 +32,5 @@ var Song = mongoose.model('Song', SongSchema);
 //   lyrics: String
 // });
 
-// module.exports.Test = Test;
 module.exports.Song = Song;
+module.exports.Test = Test;
