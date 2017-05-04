@@ -5,7 +5,7 @@ import request from 'request';
 // const baseURL = 'https://api.spotify.com/v1/';
 
 
-const findSong = (songName) => {
+const findSongName = (songName) => {
   request('https://api.spotify.com/v1/search/?q=name:' + songName + '&type=track', (err, res, data) => {
 	  console.log(data);
 	  res.json(data);
@@ -34,6 +34,10 @@ const findAlbum = (albumName) => {
 //add other functions based on what to search on API
 //use URI retrieved from API request / other things (?)
   //can embed on front-end via iframes (look into)
-//results in arrays of objects
+//results are in arrays of objects
   //should consider what we want out of them
-  //also how to manipulate 
+  //also how to manipulate data
+
+module.exports.findSongName = findSongName;
+module.exports.findArtist = findArtist;
+module.exports.findAlbum = findAlbum;
