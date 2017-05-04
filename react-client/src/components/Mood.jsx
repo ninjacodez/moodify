@@ -1,15 +1,15 @@
 import React from 'react';
-import {Doughnut} from 'react-chartjs-2';
+import {Polar} from 'react-chartjs-2';
 
 class Mood extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       data: {
-        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+        labels: ["Joy", "Fear", "Disgust", "Anger", "Sadness"],
         datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
+            label: 'Kanye West - Famous',
+            data: [0.8, 1.3, 1.5, 5.6, 6.1],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
@@ -26,8 +26,16 @@ class Mood extends React.Component {
                 'rgba(153, 102, 255, 1)',
                 'rgba(255, 159, 64, 1)'
             ],
-            borderWidth: 1
-        }]}
+            borderWidth: 3
+        }]
+      },
+      options: {
+        title: {
+          display: true,
+          text: 'Kanye West - Famous',
+          fontSize: 24
+        }
+      }
     };
   }
 
@@ -35,7 +43,7 @@ class Mood extends React.Component {
     return (
       <div>
       <h4>Mood Component</h4>
-      <Doughnut data={this.state.data} width="500"/>
+      <Polar data={this.state.data} options={this.state.options} width="500"/>
       </div>
     )
   }
