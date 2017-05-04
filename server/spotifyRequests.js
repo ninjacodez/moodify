@@ -6,7 +6,7 @@ import request from 'request';
 
 
 const findSong = (songName) => {
-  request('https://api.spotify.com/v1/search/?q=name:' + songName + '&type=track', (err, response, data) => {
+  request('https://api.spotify.com/v1/search/?q=name:' + songName + '&type=track', (err, res, data) => {
 	  console.log(data);
 	  res.json(data);
 	  res.end()
@@ -14,7 +14,7 @@ const findSong = (songName) => {
 }
 
 const findArtist = (artistName) => {
-  request('https://api.spotify.com/v1/search/?q=name:' + artistName + '&type=artist', (err, response, data) => {
+  request('https://api.spotify.com/v1/search/?q=name:' + artistName + '&type=artist', (err, res, data) => {
 	  console.log(data);
 	  res.json(data);
 	  res.end()
@@ -22,7 +22,7 @@ const findArtist = (artistName) => {
 }
 
 const findAlbum = (albumName) => {
-  request('https://api.spotify.com/v1/search/?q=name:' + albumName + '&type=album', (err, response, data) => {
+  request('https://api.spotify.com/v1/search/?q=name:' + albumName + '&type=album', (err, res, data) => {
 	  console.log(data);
 	  res.json(data);
 	  res.end()
@@ -32,5 +32,8 @@ const findAlbum = (albumName) => {
 //can adjust API call with field filters, currently all functions search via name 
   //ex. track named, artist named, album named, etc. 
 //add other functions based on what to search on API
-//use URI retrieved from API request
+//use URI retrieved from API request / other things (?)
   //can embed on front-end via iframes (look into)
+//results in arrays of objects
+  //should consider what we want out of them
+  //also how to manipulate 
