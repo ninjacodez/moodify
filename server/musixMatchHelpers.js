@@ -14,9 +14,9 @@ const promiseHelper = (method, params) => {
       if (error) { reject(error); }
       let parsedBody = JSON.parse(body);
       if (parsedBody.message.header.status_code === 404) {
-        reject({errorMessage: 'lyrics not found'});
+        reject({errorMessage: 'not found'});
       } else {
-        let result = parsedBody.message.body.lyrics.lyrics_body;
+        let result = parsedBody.message.body;
         resolve(result);
       }
     });
@@ -46,5 +46,22 @@ const getLyricsByTitleAndArtist = (title, artist) => {
   return promiseHelper(method, params);
 };
 
+const searchByTitleAndArtist = (title, artist) => {
+  const method = 'track.search?';
+  let params = {
+    apikey: MM_API_KEY,
+    format: 'json',
+    callback: 'callback',
+    q_track: title,
+    q_artist: artist,
+    page_size: 10,
+    page: 1
+  };
+  return promiseHelper(method, params);
+};
+
+
+
 module.exports.getLyricsByTrackId = getLyricsByTrackId;
 module.exports.getLyricsByTitleAndArtist = getLyricsByTitleAndArtist;
+module.exports.searchByTitleAndArtist = searchByTitleAndArtist;

@@ -21,6 +21,12 @@ app.use(express.static(__dirname + '/../react-client/dist'));
 app.get('/', auth.verifySession, (req, res) => {
 });
 
+app.post('/search', (req, res) => {
+  return mmHelpers.searchByTitleAndArtist(req.body.title, req.body.artist)
+  .then(data => { res.send(data); })
+  .catch(error => { res.send(error); });
+});
+
 app.get('/fetchSong', (req, res) => {
   // let title = req.body.title ???
   // let artist = req.body.artist ???
