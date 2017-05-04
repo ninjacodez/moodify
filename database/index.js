@@ -4,11 +4,11 @@ mongoose.connect('mongodb://localhost/test')
 var db = mongoose.connection;
 
 db.on('error', function() {
-  console.log('fail ._____.');
+  console.log('mongoose connection fail ._____.');
 });
 
 db.once('open', function() {
-  console.log('success! b(^.~)z');
+  console.log('mongoose connection success! b(^.~)z');
 });
 
 var TestSchema = mongoose.Schema({
@@ -17,4 +17,13 @@ var TestSchema = mongoose.Schema({
 
 var Test = mongoose.model('Test', TestSchema);
 
-module.exports = Test;
+// var SongSchema = mongoose.Schema({
+//   title: String,
+//   artist: String,
+//   lyrics: String
+// });
+// var Song = mongoose.model('Song', SongSchema);
+
+
+module.exports.Test = Test;
+// module.exports.Song = Song;
