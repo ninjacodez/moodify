@@ -12,13 +12,13 @@ db.once('open', function() {
 });
 
 var SongSchema = mongoose.Schema({
-	musicMatchID: {type: String, unique: true},
-	albumCoverArt100: String,
-	albumCoverArt350: String,
-	albumCoverArt500: String,
-	albumCoverArt800: String,
-	artistName: String,
-	name: String,
+	track_id: {type: String, unique: true},
+	track_name: String,
+	artist_name: String,
+	album_coverart_100x100: String,
+	album_coverart_350x350: String,
+	album_coverart_500x500: String,
+	album_coverart_800x800: String,
 	Lyrics: String,
 	Mood: String
 });
@@ -33,4 +33,4 @@ var Song = mongoose.model('Song', SongSchema);
 // });
 
 module.exports.Song = Song;
-module.exports.Test = Test;
+// module.exports.Test = Test;

@@ -23,6 +23,17 @@ const promiseHelper = (method, params) => {
   });
 }
 
+const getTrackInfo = (trackId) => {
+  const method = 'track.get?';
+  let params = {
+    apikey: MM_API_KEY,
+    format: 'json',
+    callback: 'callback',
+    track_id: trackId
+  };
+  return promiseHelper(method, params);
+};
+
 const getLyricsByTrackId = (trackId) => {
   const method = 'track.lyrics.get?';
   let params = {
