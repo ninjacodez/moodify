@@ -27,43 +27,44 @@ app.post('/search', (req, res) => {
   .catch(error => { res.send(error); });
 });
 
-app.get('/fetchSong', (req, res) => {
-  // let title = req.body.title ???
-  // let artist = req.body.artist ???
-  let title = 'happy';
-  let artist = 'Pharrell Williams';
-  db.Song
-  .find({title: title, artist: artist})
-  .select('title artist lyrics')
-  .exec(songObj => {
-    res.send(songObj);
-  });
-});
+// app.get('/fetchSong', (req, res) => {
+//   // let title = req.body.title ???
+//   // let artist = req.body.artist ???
+//   let title = 'happy';
+//   let artist = 'Pharrell Williams';
+//   db.Song
+//   .find({title: title, artist: artist})
+//   .select('title artist lyrics')
+//   .exec(songObj => {
+//     res.send(songObj);
+//   });
+// });
 
-app.post('/saveLyricsByTrackId', (req, res) => {
+app.post('/fetchLyricsByTrackId', (req, res) => {
   let trackId = req.body.trackId;
   return mmHelpers.getLyricsByTrackId(trackId)
-  .then(lyrics => { res.send(lyrics); })
+  .then(data => { res.send(data.lyrics); })
   .catch(error => { res.send(error); });
 });
 
-app.post('/saveLyricsByTitleAndArtist', (req, res) => {
-  // let title = req.body.title ???
-  // let artist = req.body.artist ???
-  let title = 'happy';
-  let artist = 'Pharrell Williams';
-  return mmHelpers.getLyricsByTitleAndArtist(title, artist)
-  .tap(lyrics => {
-    let options = {
-      title: title,
-      artist: artist,
-      lyrics: lyrics
-    };
-    let newSong = new db.Song({options});
-    newSong.save();
-  })
-  .then(lyrics => { res.send(lyrics); })
-  .catch(error => { res.send(error); });
-});
+
+// app.post('/saveLyricsByTitleAndArtist', (req, res) => {
+//   // let title = req.body.title ???
+//   // let artist = req.body.artist ???
+//   let title = 'happy';
+//   let artist = 'Pharrell Williams';
+//   return mmHelpers.getLyricsByTitleAndArtist(title, artist)
+//   .tap(lyrics => {
+//     let options = {
+//       title: title,
+//       artist: artist,
+//       lyrics: lyrics
+//     };
+//     let newSong = new db.Song({options});
+//     newSong.save();
+//   })
+//   .then(lyrics => { res.send(lyrics); })
+//   .catch(error => { res.send(error); });
+// });
 
 module.exports = app;

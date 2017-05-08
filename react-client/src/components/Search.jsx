@@ -18,6 +18,7 @@ class Search extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     this.props.search(this.state.title, this.state.artist);
+    this.setState({ title: '', artist: ''});
   }
 
   render() {
