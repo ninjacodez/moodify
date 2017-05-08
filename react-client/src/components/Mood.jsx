@@ -1,6 +1,7 @@
 import React from 'react';
 import {Polar, Doughnut, Bar} from 'react-chartjs-2';
-import data from '../../../sampleWatsonData.js'
+import data from '../../../sampleWatsonData.js';
+
 class Mood extends React.Component {
   constructor(props) {
     super(props);
@@ -29,10 +30,10 @@ class Mood extends React.Component {
       },
       emotionOptions: {
         title: {
-          display: true,
+          display: false,
           text: 'Kanye West - Famous',
           fontSize: 24
-        }
+        },
       },
       languageData: {
         labels: ["Analytical", "Confident", "Tentative"],
@@ -54,7 +55,7 @@ class Mood extends React.Component {
       },
       languageOptions: {
         title: {
-          display: true,
+          display: false,
           text: 'Kanye West - Famous',
           fontSize: 24
         }
@@ -83,7 +84,7 @@ class Mood extends React.Component {
       },
       socialOptions: {
         title: {
-          display: true,
+          display: false,
           text: 'Kanye West - Famous',
           fontSize: 24
         }
@@ -94,10 +95,16 @@ class Mood extends React.Component {
   render() {
     return (
       <div className="item">
-      <h4>Mood Component</h4>
-      <Polar data={this.state.emotionData} options={this.state.emotionOptions} width={500}/>
-      <Doughnut data={this.state.languageData} options={this.state.languageOptions} width={500}/>
-      <Bar data={this.state.socialData} options={this.state.socialData} width={500}/>
+      <h5>Emotion</h5>
+      <Bar data={this.state.emotionData} options={this.state.emotionOptions} width={500}/>
+      <div className="minicol1">
+      <h5>Language</h5>
+      <Doughnut data={this.state.languageData} options={this.state.languageOptions} width={300}/>
+      </div>
+      <div className="minicol2">
+      <h5>Social</h5>
+      <Polar data={this.state.socialData} options={this.state.socialData} width={300}/>
+      </div>
       </div>
     )
   }
