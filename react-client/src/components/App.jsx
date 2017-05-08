@@ -16,8 +16,6 @@ class App extends React.Component {
     };
     this.search = this.search.bind(this);
     this.process = this.process.bind(this);
-    // this.retrieveById = this.retrieveById.bind(this);
-
   }
 
   search(title, artist) {

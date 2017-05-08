@@ -24,7 +24,6 @@ var SongSchema = mongoose.Schema({
 	lyrics: String
 
 });
-
 var Song = mongoose.model('Song', SongSchema);
 
 var watsonSchema = mongoose.Schema({
@@ -56,4 +55,3 @@ var Watson = mongoose.model('Watson', watsonSchema);
 
 module.exports.Song = Song;
 module.exports.Watson = Watson;
-// module.exports.Test = Test;
