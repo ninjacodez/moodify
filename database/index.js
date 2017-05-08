@@ -22,6 +22,7 @@ var SongSchema = mongoose.Schema({
 	album_coverart_500x500: String,
 	album_coverart_800x800: String,
 	lyrics: String
+
 });
 
 var Song = mongoose.model('Song', SongSchema);
