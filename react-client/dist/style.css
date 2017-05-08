@@ -17,8 +17,8 @@
   float: middle;
   display: flex;
   flex-direction: column;
-  width: 700;
-  height: 400;
+  width: 800;
+  height: 1000;
 }
 
 .col3 {
@@ -27,6 +27,18 @@
   flex-direction: column;
   width: 300;
   height: 400;
+}
+
+.minicol1 {
+  float: left;
+  width: 400;
+  height: 500;
+}
+
+.minicol2 {
+  float: right;
+  width: 400;
+  height: 500;
 }
 
 .item1 {
@@ -41,4 +53,11 @@
   flex: 0 2 auto;
   border-style: solid;
   border-width: 1;
+}
+
+h5 {
+  font-family: tahoma;
+  text-align: center;
+  font-size: 32;
+  margin: 10;
 }
