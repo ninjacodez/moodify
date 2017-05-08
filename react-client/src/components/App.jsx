@@ -16,6 +16,8 @@ class App extends React.Component {
     };
     this.search = this.search.bind(this);
     this.process = this.process.bind(this);
+    // this.retrieveById = this.retrieveById.bind(this);
+
   }
 
   search(title, artist) {
@@ -44,25 +46,14 @@ class App extends React.Component {
 
     $.post('/process', input)
     .done(data => {
+      console.log(data)
       this.setState({
-        currentLyrics: data
+        currentLyrics: data[0]
         // moood: data.mood
       });
     })
     .fail(error => { throw error; })
   }
-
-  // fetchLyrics(id) {
-  //   let options = { trackId: id };
-  //   $.post('/fetchLyricsByTrackId', options)
-  //   .done((data) => {
-  //     if (!data) { console.log('error'); };
-  //     this.setState({
-  //       currentLyrics: data
-  //     });
-  //   });
-  // }
-
 
   render () {
     return (<div className="container">
@@ -83,15 +74,3 @@ class App extends React.Component {
 
 export default App;
 
-// fetchLyrics(id) {
-//   let options = { trackId: id };
-//   $.post('/fetchLyricsByTrackId', options)
-//   .done((data) => {
-//     if (!data) { console.log('error'); };
-//     this.setState({
-//       currentLyrics: data
-//     });
-//   });
-// }
-
-      // <h1>Spot a tie, with lyrics. Test change!</h1>
