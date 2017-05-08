@@ -67,7 +67,6 @@ app.post('/process', (req, res) => {
     };
     const newEntry = new db.Watson(watsonData);
     newEntry.save()
-
     res.json([input.lyrics, watsonData]);
   })  
   // .then(data => {
