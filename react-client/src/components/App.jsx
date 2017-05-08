@@ -65,13 +65,18 @@ class App extends React.Component {
 
 
   render () {
-    return (<div>
-      <h1>Spot a tie, with lyrics. Test change!</h1>
+    return (<div className="container">
+      <div className="col1">
       <Search search={this.search} />
-      <SearchResults results={this.state.searchResults} process={this.process}/>
-      <Lyrics lyrics={this.state.currentLyrics}/>
+      <SearchResults results={this.state.searchResults} process={this.process} />
+      </div>
+      <div className="col2">
       <Mood />
+      </div>
+      <div className="col3">
+      <Lyrics lyrics={this.state.currentLyrics} />
       <PlayList />
+      </div>
     </div>)
   }
 }
@@ -88,3 +93,5 @@ export default App;
 //     });
 //   });
 // }
+
+      // <h1>Spot a tie, with lyrics. Test change!</h1>
