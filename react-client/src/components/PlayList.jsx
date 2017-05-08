@@ -11,7 +11,9 @@ class Playlist extends React.Component {
 
   render() {
     return (
+      <div className="item2" >
       <h4>Playlist Component</h4>
+      </div>
     )
   }
 }

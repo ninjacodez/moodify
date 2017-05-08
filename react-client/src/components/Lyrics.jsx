@@ -11,7 +11,7 @@ class Lyrics extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="item2" >
         <h4>Lyrics Component</h4>
         <pre>{this.props.lyrics}</pre>
       </div>

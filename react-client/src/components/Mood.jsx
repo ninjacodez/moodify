@@ -41,9 +41,9 @@ class Mood extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="item">
       <h4>Mood Component</h4>
-      <Polar data={this.state.data} options={this.state.options} width="500"/>
+      <Polar data={this.state.data} options={this.state.options}/>
       </div>
     )
   }
