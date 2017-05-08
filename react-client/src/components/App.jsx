@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import $ from "jquery";
 import Lyrics from './Lyrics.jsx';
 import Mood from './Mood.jsx';
-import PlayList from './PlayList.jsx';
+import Player from './Player.jsx';
 import Search from './Search.jsx';
 import SearchResults from './SearchResults.jsx';
 
@@ -44,9 +44,12 @@ class App extends React.Component {
 
     $.post('/process', input)
     .done(data => {
-      console.log(data)
+      let parsedData = JSON.parse(data);
       this.setState({
-        currentLyrics: data[0]
+        currentLyrics: parsedData[0],
+        watson: parsedData[1],
+        spotifyURI: parsedData[2]
+
         // moood: data.mood
       });
     })
@@ -64,7 +67,7 @@ class App extends React.Component {
       </div>
       <div className="col3">
       <Lyrics lyrics={this.state.currentLyrics} />
-      <PlayList />
+      <Player spotifyURI={this.state.spotifyURI} />
       </div>
     </div>)
   }
