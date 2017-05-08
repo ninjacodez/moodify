@@ -16,8 +16,6 @@ class App extends React.Component {
     };
     this.search = this.search.bind(this);
     this.process = this.process.bind(this);
-    // this.retrieveById = this.retrieveById.bind(this);
-
   }
 
   search(title, artist) {
@@ -73,3 +71,14 @@ class App extends React.Component {
 }
 
 export default App;
+
+// fetchLyrics(id) {
+//   let options = { trackId: id };
+//   $.post('/fetchLyricsByTrackId', options)
+//   .done((data) => {
+//     if (!data) { console.log('error'); };
+//     this.setState({
+//       currentLyrics: data
+//     });
+//   });
+// }
