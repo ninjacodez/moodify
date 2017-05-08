@@ -140,4 +140,51 @@ app.post('/watson-nlu', (req, res) => {
   })
 });
 
+<<<<<<< HEAD
+app.post('/watson-tone', (req, res) => {
+  console.log('WATSON TONE POST');
+  return watsonHelpers.queryWatsonToneHelper(req.body.song)
+  .then(results => {
+    const watsonData = {  
+      song: results.song,
+      anger: results.anger,
+      disgust: results.disgust,
+      fear: results.fear,
+      joy: results.joy,
+      sadness: results.sadness,
+      analytical: results.analytical,
+      confident: results.confident,
+      tentative: results.tentative,
+      openness: results.openness,
+      conscientiousness: results.conscientiousness,
+      extraversion: results.extraversion,
+      agreeableness: results.agreeableness,
+      emotionalrange: results.emotionalrange
+    };
+    const newEntry = new db.Watson(watsonData);
+    return newEntry.save()
+  })
+  .then(entry => {
+    console.log('ENTRY SAVED', entry);
+    res.send(JSON.stringify(entry));
+  })
+  .error(err => {
+    res.send(err);
+  });
+});
+
+app.post('/watson-nlu', (req, res) => {
+  console.log('WATSON NLU POST', req.body.song);
+  return watsonHelpers.queryWatsonNLUHelper(req.body.song)
+  .then(results => {
+    console.log('********************', results)
+    res.send(JSON.stringify(results));
+  })
+  .catch(err => {
+    res.send(err);
+  })
+});
+
+=======
+>>>>>>> 1e9d262c3917e784ef1aa719b4f595dd3f80d240
 module.exports = app;
