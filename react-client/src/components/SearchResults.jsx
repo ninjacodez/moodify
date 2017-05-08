@@ -9,7 +9,8 @@ class SearchResults extends React.Component {
   }
 
   handleClick(e) {
-    this.props.retrieveById(e.target.getAttribute('value'));
+    let index = e.target.getAttribute('value');
+    this.props.process(this.props.results[index].track);
   }
 
   render() {
@@ -17,10 +18,10 @@ class SearchResults extends React.Component {
       <div>
         <h4>Search Results:</h4>
         {this.props.results.map((trackObj, i) => (
-          <div key={i} value={trackObj.track} onClick={this.handleClick} >{trackObj.track.track_name} by {trackObj.track.artist_name}</div>
+          <div key={i} value={i} onClick={this.handleClick} >{trackObj.track.track_name} by {trackObj.track.artist_name}</div>
         ))}
       </div>
-    );
+    )
   }
 }
 

@@ -13,7 +13,7 @@ class Lyrics extends React.Component {
     return (
       <div>
         <h4>Lyrics Component</h4>
-        <div>{this.props.lyrics.lyrics_body}</div>
+        <pre>{this.props.lyrics}</pre>
       </div>
     )
   }

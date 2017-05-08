@@ -16,7 +16,8 @@ class App extends React.Component {
       searchResults: []
     };
     this.search = this.search.bind(this);
-    this.retrieveById = this.retrieveById.bind(this);
+    this.process = this.process.bind(this);
+    // this.retrieveById = this.retrieveById.bind(this);
   }
 
   search(title, artist) {
@@ -43,10 +44,10 @@ class App extends React.Component {
     input.album_coverart_500x500 = trackObj.album_coverart_500x500;
     input.album_coverart_800x800 = trackObj.album_coverart_800x800;
 
-    $.post('./process', input)
+    $.post('/process', input)
     .done(data => {
       this.setState({
-        currentLyrics: data.lyrics
+        currentLyrics: data
         // moood: data.mood
       });
     })
@@ -64,29 +65,11 @@ class App extends React.Component {
   //   });
   // }
 
-
-  // TO BE TESTED
-  // fetch lyrics by submitting a post request to server when lyrics are not in the database
-  // fetchLyrics(title, artist) {
-  //   let options = {
-  //     title: title,
-  //     artist: artist
-  //   };
-  //   $.post('/saveLyricsByTitleAndArtist', options)
-  //   .done((data) => {
-  //     if (!data) { console.log('error'); };
-  //     console.log('lyrics loaded');
-  //     this.setState({
-  //       currentLyrics: data
-  //     });
-  //   });
-  // }
-
   render () {
     return (<div>
       <h1>Spot a tie, with lyrics. Test change!</h1>
       <Search search={this.search} />
-      <SearchResults results={this.state.searchResults} retrieveById={this.retrieveById}/>
+      <SearchResults results={this.state.searchResults} process={this.process}/>
       <Lyrics lyrics={this.state.currentLyrics}/>
       <Mood />
       <PlayList />
