@@ -140,6 +140,7 @@ app.post('/watson-nlu', (req, res) => {
   })
 });
 
+<<<<<<< HEAD
 app.post('/watson-tone', (req, res) => {
   console.log('WATSON TONE POST');
   return watsonHelpers.queryWatsonToneHelper(req.body.song)
@@ -184,4 +185,6 @@ app.post('/watson-nlu', (req, res) => {
   })
 });
 
+=======
+>>>>>>> 1e9d262c3917e784ef1aa719b4f595dd3f80d240
 module.exports = app;
