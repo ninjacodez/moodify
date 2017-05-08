@@ -43,14 +43,49 @@ app.post('/search', (req, res) => {
 app.post('/fetchLyricsByTrackId', (req, res) => {
   let trackId = req.body.trackId;
   return mmHelpers.getLyricsByTrackId(trackId)
-  .then(data => { res.send(data.lyrics); })
+  .then(lyrics => { 
+    res.send(lyrics);
+  })
   .catch(error => { res.send(error); });
 });
 
+app.post('/process', (req, res) => {
+  let input = req.body;
+  return mmHelpers.getLyricsByTrackId(input.track_id)
+  .then(data => {
+    input.Lyrics = data;
+    var songEntry = new db.Song (input)
+
+    songEntry.save();
+    res.send('something')
+    res.end()
+  })
+}
 
 // app.post('/saveLyricsByTitleAndArtist', (req, res) => {
 //   // let title = req.body.title ???
 //   // let artist = req.body.artist ???
+//   // let title = 'happy';
+//   // let artist = 'Pharrell Williams';
+//   return mmHelpers.getTrackInfo(trackId)
+//   .then(obj => {
+//     let options = {
+//       name: obj.body.track.track_name,
+//       artist: obj.body.track.artist_name,
+//       albumCoverArt100: obj.body.track.album_coverart_100x100,
+//       albumCoverArt350: obj.body.track.album_coverart_350x350,
+//       albumCoverArt500: obj.body.track.album_coverart_500x500,
+//       albumCoverArt800: obj.body.track.album_coverart_800x800,
+//       // Mood: 
+//     };
+//   })
+//   return mmHelpers.getLyricsByTitleAndArtist(title, artist)
+//   .then(lyrics => {
+//     let newSong = new db.Song({options});
+//     newSong.save();
+//     res.send(lyrics)
+//   })
+//   // .then(lyrics => { res.send(lyrics); })
 //   let title = 'happy';
 //   let artist = 'Pharrell Williams';
 //   return mmHelpers.getLyricsByTitleAndArtist(title, artist)
