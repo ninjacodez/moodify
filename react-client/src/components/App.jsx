@@ -7,7 +7,6 @@ import PlayList from './PlayList.jsx';
 import Search from './Search.jsx';
 import SearchResults from './SearchResults.jsx';
 
-
 class App extends React.Component {
   constructor(props) {
     super(props);

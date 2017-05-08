@@ -1,13 +1,14 @@
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/test')
+const mongoose = require('mongoose');
+mongoose.Promise = require('bluebird');
+mongoose.connect('mongodb://localhost/test');
 
-var db = mongoose.connection;
+const db = mongoose.connection;
 
-db.on('error', function() {
+db.on('error', () => {
   console.log('mongoose connection fail ._____.');
 });
 
-db.once('open', function() {
+db.once('open', () => {
   console.log('mongoose connection success! b(^.~)z');
 });
 
@@ -22,15 +23,7 @@ var SongSchema = mongoose.Schema({
 	lyrics: String,
 	mood: String
 });
-
 var Song = mongoose.model('Song', SongSchema);
-// var Test = mongoose.model('Test', TestSchema);
-
-// var SongSchema = mongoose.Schema({
-//   title: String,
-//   artist: String,
-//   lyrics: String
-// });
 
 var watsonSchema = mongoose.Schema({
 
@@ -54,11 +47,10 @@ var watsonSchema = mongoose.Schema({
   extraversion: Number,
   agreeableness: Number,
   emotionalrange: Number
-  
+
 });
 
 var Watson = mongoose.model('Watson', watsonSchema);
 
 module.exports.Song = Song;
 module.exports.Watson = Watson;
-// module.exports.Test = Test;
