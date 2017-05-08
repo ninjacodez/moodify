@@ -51,8 +51,6 @@ class App extends React.Component {
         currentLyrics: data[0],
         watson: data[1],
         spotifyURI: data[2]
-
-        // moood: data.mood
       });
     })
     .fail(error => { throw error; })
