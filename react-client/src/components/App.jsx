@@ -71,14 +71,3 @@ class App extends React.Component {
 }
 
 export default App;
-
-// fetchLyrics(id) {
-//   let options = { trackId: id };
-//   $.post('/fetchLyricsByTrackId', options)
-//   .done((data) => {
-//     if (!data) { console.log('error'); };
-//     this.setState({
-//       currentLyrics: data
-//     });
-//   });
-// }
