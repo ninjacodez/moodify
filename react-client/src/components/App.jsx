@@ -23,12 +23,12 @@ class App extends React.Component {
     this.setState({ searchResults: [] });
 
     let options = { title: title, artist: artist };
-
     $.post('/search', options)
     .done((data) => {
       if (!data) { console.log('error'); };
       this.setState({
         searchResults: data.track_list //track_list is an array of objs
+
       });
     });
   }
