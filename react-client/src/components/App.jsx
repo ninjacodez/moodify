@@ -44,8 +44,9 @@ class App extends React.Component {
 
     $.post('/process', input)
     .done(data => {
+      console.log(data)
       this.setState({
-        currentLyrics: data
+        currentLyrics: data[0]
         // moood: data.mood
       });
     })

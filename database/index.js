@@ -21,8 +21,7 @@ var SongSchema = mongoose.Schema({
 	album_coverart_350x350: String,
 	album_coverart_500x500: String,
 	album_coverart_800x800: String,
-	lyrics: String,
-	mood: String
+	lyrics: String
 });
 var Song = mongoose.model('Song', SongSchema);
 
@@ -55,7 +54,7 @@ var Watson = mongoose.model('Watson', watsonSchema);
 
 var watsonSchema = mongoose.Schema({
 
-  song: String,
+  track_id: {type: Number, unique: true},
 
 	// Emotion Tone
   anger: Number,
