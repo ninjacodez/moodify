@@ -40,7 +40,7 @@ app.post('/search', (req, res) => {
 //   });
 // });
 
-app.post('/saveLyricsByTrackId', (req, res) => {
+app.post('/fetchLyricsByTrackId', (req, res) => {
   let trackId = req.body.trackId;
   return mmHelpers.getLyricsByTrackId(trackId)
   .then(lyrics => { 
@@ -86,6 +86,19 @@ app.post('/process', (req, res) => {
 //     res.send(lyrics)
 //   })
 //   // .then(lyrics => { res.send(lyrics); })
+//   let title = 'happy';
+//   let artist = 'Pharrell Williams';
+//   return mmHelpers.getLyricsByTitleAndArtist(title, artist)
+//   .tap(lyrics => {
+//     let options = {
+//       title: title,
+//       artist: artist,
+//       lyrics: lyrics
+//     };
+//     let newSong = new db.Song({options});
+//     newSong.save();
+//   })
+//   .then(lyrics => { res.send(lyrics); })
 //   .catch(error => { res.send(error); });
 // });
 
