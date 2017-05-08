@@ -53,14 +53,16 @@ app.post('/process', (req, res) => {
   let input = req.body;
   return mmHelpers.getLyricsByTrackId(input.track_id)
   .then(data => {
-    input.Lyrics = data;
-    var songEntry = new db.Song (input)
+    input.lyrics = data.lyrics.lyrics_body;
+    var songEntry = new db.Song(input);
 
-    songEntry.save();
-    res.send('something')
-    res.end()
+    songEntry.save((err, songEntry) => {
+      if (err) { throw error; }
+      console.log('saved: ', songEntry.track_name);
+      res.send(input.lyrics);
+    });
   })
-}
+})
 
 // app.post('/saveLyricsByTitleAndArtist', (req, res) => {
 //   // let title = req.body.title ???
