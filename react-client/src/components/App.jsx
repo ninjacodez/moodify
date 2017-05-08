@@ -7,7 +7,6 @@ import PlayList from './PlayList.jsx';
 import Search from './Search.jsx';
 import SearchResults from './SearchResults.jsx';
 
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -17,7 +16,6 @@ class App extends React.Component {
     };
     this.search = this.search.bind(this);
     this.process = this.process.bind(this);
-    // this.retrieveById = this.retrieveById.bind(this);
   }
 
   search(title, artist) {
@@ -65,6 +63,7 @@ class App extends React.Component {
   //   });
   // }
 
+
   render () {
     return (<div>
       <h1>Spot a tie, with lyrics. Test change!</h1>
@@ -78,3 +77,14 @@ class App extends React.Component {
 }
 
 export default App;
+
+// fetchLyrics(id) {
+//   let options = { trackId: id };
+//   $.post('/fetchLyricsByTrackId', options)
+//   .done((data) => {
+//     if (!data) { console.log('error'); };
+//     this.setState({
+//       currentLyrics: data
+//     });
+//   });
+// }
