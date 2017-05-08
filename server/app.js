@@ -17,9 +17,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/../react-client/dist'));
 
 // routes
-// user identity has to be verified before he/she reaches the homepage (?)
-app.get('/', auth.verifySession, (req, res) => {
-});
+app.get('/', auth.verifySession, (req, res) => {});
 
 app.post('/search', (req, res) => {
   return mmHelpers.searchByTitleAndArtist(req.body.title, req.body.artist)
@@ -43,7 +41,7 @@ app.post('/search', (req, res) => {
 app.post('/fetchLyricsByTrackId', (req, res) => {
   let trackId = req.body.trackId;
   return mmHelpers.getLyricsByTrackId(trackId)
-  .then(lyrics => { 
+  .then(lyrics => {
     res.send(lyrics);
   })
   .catch(error => { res.send(error); });
@@ -64,6 +62,7 @@ app.post('/process', (req, res) => {
   })
 })
 
+
 // app.post('/saveLyricsByTitleAndArtist', (req, res) => {
 //   // let title = req.body.title ???
 //   // let artist = req.body.artist ???
@@ -78,7 +77,7 @@ app.post('/process', (req, res) => {
 //       albumCoverArt350: obj.body.track.album_coverart_350x350,
 //       albumCoverArt500: obj.body.track.album_coverart_500x500,
 //       albumCoverArt800: obj.body.track.album_coverart_800x800,
-//       // Mood: 
+//       // Mood:
 //     };
 //   })
 //   return mmHelpers.getLyricsByTitleAndArtist(title, artist)
