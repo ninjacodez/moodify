@@ -8,6 +8,7 @@ const Promise = require('bluebird');
 // other module exports
 const auth = require('./auth.js');
 const mmHelpers = require('./musixMatchHelpers.js');
+const spotifyHelpers = require('./spotifyHelpers.js');
 const watsonHelpers = require('./watsonHelpers.js');
 const db = require('../database');
 
@@ -68,7 +69,7 @@ app.post('/process', (req, res) => {
     const newEntry = new db.Watson(watsonData);
     newEntry.save() //need return?
 
-    return getSongByTitleAndArtist(input.track_name, input.artist_name)
+    return spotifyHelpers.getSongByTitleAndArtist(input.track_name, input.artist_name)
   })  
   .then((spotifyData) => {
     spotifyURI = spotifyData.uri
