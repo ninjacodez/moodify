@@ -24,6 +24,7 @@ var SongSchema = mongoose.Schema({
 	lyrics: String,
 	mood: String
 });
+
 var Song = mongoose.model('Song', SongSchema);
 
 var watsonSchema = mongoose.Schema({
@@ -53,34 +54,6 @@ var watsonSchema = mongoose.Schema({
 
 var Watson = mongoose.model('Watson', watsonSchema);
 
-var watsonSchema = mongoose.Schema({
-
-  song: String,
-
-	// Emotion Tone
-  anger: Number,
-  disgust: Number,
-  fear: Number,
-  joy: Number,
-  sadness: Number,
-
-  // Language Tone
-  analytical: Number,
-  confident: Number,
-  tentative: Number,
-
-  // Social Tone
-  openness: Number,
-  conscientiousness: Number,
-  extraversion: Number,
-  agreeableness: Number,
-  emotionalrange: Number
-  
-});
-
-var Watson = mongoose.model('Watson', watsonSchema);
-
 module.exports.Song = Song;
 module.exports.Watson = Watson;
-
 // module.exports.Test = Test;
