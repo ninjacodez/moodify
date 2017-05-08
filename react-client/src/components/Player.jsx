@@ -11,7 +11,7 @@ class Player extends React.Component {
     return (
       <div className="player" >
         <h4>Player Component</h4>
-        <iframe src="https://open.spotify.com/embed?uri=spotify:track:5JunxkcjfCYcY7xJ29tLai"
+        <iframe src={this.props.srcURI}
                 frameborder="0"
                 allowtransparency="true">
         </iframe>

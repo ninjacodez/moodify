@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import $ from "jquery";
 import Lyrics from './Lyrics.jsx';
 import Mood from './Mood.jsx';
-import PlayList from './PlayList.jsx';
+import Player from './Player.jsx';
 import Search from './Search.jsx';
 import SearchResults from './SearchResults.jsx';
 
@@ -12,7 +12,9 @@ class App extends React.Component {
     super(props);
     this.state = {
       currentLyrics: '',
-      searchResults: []
+      searchResults: [],
+      watson: {},
+      spotifyURI: ''
     };
     this.search = this.search.bind(this);
     this.process = this.process.bind(this);
@@ -27,7 +29,6 @@ class App extends React.Component {
       if (!data) { console.log('error'); };
       this.setState({
         searchResults: data.track_list //track_list is an array of objs
-
       });
     });
   }
@@ -46,8 +47,9 @@ class App extends React.Component {
     .done(data => {
       console.log(data)
       this.setState({
-        currentLyrics: data[0]
-        // moood: data.mood
+        currentLyrics: data[0],
+        watson: data[1],
+        spotifyURI: data[2]
       });
     })
     .fail(error => { throw error; })
@@ -64,7 +66,7 @@ class App extends React.Component {
       </div>
       <div className="col3">
       <Lyrics lyrics={this.state.currentLyrics} />
-      <PlayList />
+      <Player srcURI={this.state.spotifyURI} />
       </div>
     </div>)
   }
