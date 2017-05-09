@@ -36,7 +36,7 @@ class App extends React.Component {
     this.setState({
       showResults: true,
       searchResultsLoading: true,
-      showPlayer: false
+      showPlayer: false,
     });
 
     let options = { title: title, artist: artist };

@@ -54,11 +54,13 @@ html {
 }
 
 .search {
+  float: left;
   order: 1;
   flex: 0;
   position: relative;
   top: 50%;
   width: 500;
+  vertical-align: middle;
 }
 
 .searchbar {
@@ -77,6 +79,7 @@ html {
   font-family: 'Open Sans', sans-serif;
   font-weight: 200;
   font-size: 16;
+  margin-left: 10;
 }
 
 .prevbutton {
@@ -102,6 +105,12 @@ html {
 .searchPrev {
   margin-left: 10;
   order: 2;
+}
+
+.searchPrev {
+  float: right;
+  margin-left: 10;
+  order: 1;
   flex: 0;
 }
 
@@ -230,6 +239,7 @@ h6 {
 
 .textbox {
   height: 20;
+  margin: 0;
 }
 
 .loading {
