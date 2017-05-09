@@ -13,40 +13,23 @@ html {
   flex-direction: row;
   flex-flow: row wrap;
   justify-content: space-between;
-  width: 80%;
   background-color: white;
-  position: absolute;
-  padding-left: 40;
-  padding-right: 40;
-}
-
-.searchbar {
-  display: flex;
-  order: 1;
-  flex: 0 0 auto;
-  height: 80;
-  width: 100%;
-  margin: 10;
-}
-
-.submitbutton {
-  padding: 10;
-}
-
-.prevbutton {
-  padding: 10;
+  position: relative;
+  padding-left: 100;
+  padding-right: 100;
 }
 
 .col1 {
   display: flex;
-  flex: 1 1 200;
+  flex: 1 1 500;
+  height: 400;
   order: 1;
   flex-direction: column;
 }
 
 .col2 {
   display: flex;
-  flex: 1 1 600;
+  flex: 1 1 500;
   order: 2;
   flex-direction: column;
 }
@@ -71,14 +54,39 @@ html {
 }
 
 .search {
+  float: left;
+  order: 1;
+  flex: 0;
+  vertical-align: middle;
+}
+
+.searchbar {
+  display: flex;
+  order: 1;
+  flex: 0 0 auto;
+  height: 80;
+  width: 100%;
+  margin: 10;
+}
+
+.submitbutton {
+  margin-left: 10;
+}
+
+.prevbutton {
+  padding: 0;
+}
+
+.searchPrev {
+  float: right;
+  margin-left: 10;
   order: 1;
   flex: 0;
 }
 
-.searchPrev {
-  order: 2;
-  flex: 0;
-  text-align: center;
+.searchPrev:hover {
+  background: #8e8e93;
+  border-radius: 5px;
 }
 
 .maingraph {
@@ -87,13 +95,21 @@ html {
 }
 
 .player {
-  order: 3;
-  flex: 0;
+  order: 2;
+  flex: 0 0 auto;
+  height: 80;
+  text-align: center;
+}
+
+.lyrics {
+  order: 1;
+  flex: 1 1 auto;
+  text-align: left;
 }
 
 #header {
   height:90;
-  background: #35465c;
+  background: #5fc9f8;
   width:100%;
   position: relative;
   margin: 0;
@@ -120,7 +136,7 @@ pre {
 h3 {
   font-family: 'Montserrat', sans-serif;
   text-align: left;
-  font-weight: 300;
+  font-style: bold;
   vertical-align: bottom;
   color: white;
   font-size: 42;
@@ -128,6 +144,7 @@ h3 {
   position: relative;
   top: 34;
   left: 30;
+  letter-spacing: 1;
 }
 
 h4 {
@@ -141,15 +158,27 @@ h4 {
 h5 {
   text-align: center;
   font-family: 'Open Sans', sans-serif;
-  font-weight: 200;
   font-style: black;
   font-size: 28;
   margin: 10;
+}
+
+h6 {
+  text-align: left;
+  font-family: 'Open Sans', sans-serif;
+  font-style: medium;
+  font-size: 28;
+  padding-bottom: 15;
+  padding-top: 10;
 }
 
 .searchText {
   font-family: 'Open Sans', sans-serif;
   font-weight: 200;
   font-size: 16;
-  margin: 10;
+  margin: 0;
+}
+
+.loading {
+  text-align: center;
 }
