@@ -20,8 +20,8 @@ html {
 
 .col1 {
   display: flex;
-  flex: 1 1 500;
-  height: 400;
+  flex: 1 2 auto;
+  /*height: 400;*/
   order: 1;
   flex-direction: column;
 }
@@ -102,11 +102,6 @@ html {
 }
 
 .searchPrev {
-  margin-left: 10;
-  order: 2;
-}
-
-.searchPrev {
   float: right;
   margin-left: 10;
   order: 1;
@@ -169,7 +164,12 @@ body {
 
 pre {
   font-family: 'Open Sans', sans-serif;
-  word-wrap: break-word;
+  width: 500;
+  white-space: pre-wrap;       /* css-3 */
+  white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+  white-space: -pre-wrap;      /* Opera 4-6 */
+  white-space: -o-pre-wrap;    /* Opera 7 */
+  word-wrap: break-word;       /* Internet Explorer 5.5+ */
 }
 
 h3 {
@@ -209,7 +209,8 @@ h6 {
   font-size: 28;
   padding-bottom: 15;
   padding-top: 10;
-  width: 500;
+  width: 600;
+  text-transform: capitalize;
 }
 
 .forms {
@@ -247,7 +248,11 @@ h6 {
   font-weight: 200;
   font-size: 16;
   text-align: right;
-  margin-bottom: 20;
+  margin-bottom: 25;
+}
+
+.resultsBox {
+  margin-bottom: 10;
 }
 
 .searchText {
@@ -255,8 +260,20 @@ h6 {
   font-weight: 200;
   font-size: 16;
   font-style: italic;
-  margin: 0;
+  margin-bottom: 0;
   width: 500;
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -o-transition: 0.5s;
+  transition: 0.5s;
+  opacity: 1;
+  visibility: visible;
+  text-transform: capitalize;
+}
+
+.searchText.hide {
+  opacity: 0;
+  visibility: hidden; 
 }
 
 .searchResultEntry {
@@ -271,5 +288,5 @@ h6 {
 }
 
 .loading {
-  text-align: center;
+  align-content: middle;
 }
