@@ -77,6 +77,13 @@ class App extends React.Component {
     .fail(error => { throw error; })
   }
 
+  login(username, password) {
+    $.post('/', {username, password})
+    .done(data => {
+      console.log('login successful')
+    })
+  }
+
   render () {
     return (
       <div>
