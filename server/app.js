@@ -83,6 +83,7 @@ app.post('/process', (req, res) => {
     res.json([songNameAndArtist, input.lyrics, watsonData, spotifyData]);
   })
 
+
   // .then(data => {
   //   //watson call 2?
   //   watsonHelpers.queryWatsonNLUHelper(input.lyrics)
