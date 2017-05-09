@@ -58,6 +58,11 @@ class App extends React.Component {
         // currentLyrics: '',
         // watson: {},
         // spotifyURI: ''
+        searchResultsLoading: false
+        currentSongNameAndArtist: ['Mel', "Melvo's Jams"],
+        currentLyrics: '',
+        watson: {},
+        spotifyURI: '',
       });
     });
   }
@@ -113,7 +118,7 @@ class App extends React.Component {
   }
 
   render () {
-    return (
+  return (
       <div>
         <Header url={this.state.url}/>
         <div className="container">
