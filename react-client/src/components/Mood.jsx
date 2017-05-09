@@ -12,7 +12,6 @@ class Mood extends React.Component {
             label: 'Kanye West - Famous',
             data: [data.anger, data.joy, data.disgust, data.sadness, data.fear],
             backgroundColor: [
-<<<<<<< HEAD
                 'rgba(206, 17, 38, 1)',
                 'rgba(242, 175, 0, 1)',
                 'rgba(122, 184, 0, 1)',
@@ -25,20 +24,6 @@ class Mood extends React.Component {
                 'rgba(122, 184, 0, 1)',
                 'rgba(0, 155, 187, 1)',
                 'rgba(110, 37, 133, 1)',
-=======
-                'rgba(234, 67, 53, 1)',
-                'rgba(251, 188, 5, 1)',
-                'rgba(52, 168, 83, 1)',
-                'rgba(66, 133, 244, 1)',
-                'rgba(153, 102, 255, 1)',
-            ],
-            borderColor: [
-                'rgba(234, 67, 53, 1)',
-                'rgba(251, 188, 5, 1)',
-                'rgba(52, 168, 83, 1)',
-                'rgba(66, 133, 244, 1)',
-                'rgba(153, 102, 255, 1)',
->>>>>>> bb6bdc64ddef9195991d5360c96c4e95e3fe3b46
             ],
             borderWidth: 3
         }]
@@ -56,7 +41,6 @@ class Mood extends React.Component {
             label: 'Kanye West - Famous',
             data: [data.analytical, data.confident, data.tentative],
             backgroundColor: [
-<<<<<<< HEAD
                 'rgba(206, 17, 38, 1)',
                 'rgba(242, 175, 0, 1)',
                 'rgba(122, 184, 0, 1)'
@@ -65,16 +49,6 @@ class Mood extends React.Component {
                 'rgba(206, 17, 38, 1)',
                 'rgba(242, 175, 0, 1)',
                 'rgba(122, 184, 0, 1)'
-=======
-                'rgba(234, 67, 53, 1)',
-                'rgba(251, 188, 5, 1)',
-                'rgba(52, 168, 83, 1)'
-            ],
-            borderColor: [
-                'rgba(234, 67, 53, 1)',
-                'rgba(251, 188, 5, 1)',
-                'rgba(52, 168, 83, 1)'
->>>>>>> bb6bdc64ddef9195991d5360c96c4e95e3fe3b46
             ],
             borderWidth: 3
         }]
@@ -92,7 +66,6 @@ class Mood extends React.Component {
             label: 'Kanye West - Famous',
             data: [data.openness, data.conscientiousness, data.extraversion, data.agreeableness, data.emotionalrange],
             backgroundColor: [
-<<<<<<< HEAD
                 'rgba(206, 17, 38, 1)',
                 'rgba(242, 175, 0, 1)',
                 'rgba(122, 184, 0, 1)',
@@ -105,20 +78,6 @@ class Mood extends React.Component {
                 'rgba(122, 184, 0, 1)',
                 'rgba(0, 155, 187, 1)',
                 'rgba(110, 37, 133, 1)',
-=======
-                'rgba(234, 67, 53, 1)',
-                'rgba(251, 188, 5, 1)',
-                'rgba(52, 168, 83, 1)',
-                'rgba(66, 133, 244, 1)',
-                'rgba(153, 102, 255, 1)',
-            ],
-            borderColor: [
-                'rgba(234, 67, 53, 1)',
-                'rgba(251, 188, 5, 1)',
-                'rgba(52, 168, 83, 1)',
-                'rgba(66, 133, 244, 1)',
-                'rgba(153, 102, 255, 1)',
->>>>>>> bb6bdc64ddef9195991d5360c96c4e95e3fe3b46
             ],
             borderWidth: 3
         }]
