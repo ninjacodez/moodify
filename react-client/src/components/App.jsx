@@ -58,11 +58,6 @@ class App extends React.Component {
         // currentLyrics: '',
         // watson: {},
         // spotifyURI: ''
-        searchResultsLoading: false
-        currentSongNameAndArtist: ['Mel', "Melvo's Jams"],
-        currentLyrics: '',
-        watson: {},
-        spotifyURI: '',
       });
     });
   }
