@@ -21,7 +21,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/../react-client/dist'));
 
 // routes
-app.get('/', (req, res) => {});
+app.post('/signup', auth.createUser, (req, res) => {
+  res.send({statusCode: 200});
+});
+
+app.post('/login', auth.verifyUser, (req, res) => {
+  res.send({statusCode: 200});
+});
 
 app.post('/search', (req, res) => {
   return mmHelpers.searchByTitleAndArtist(req.body.title, req.body.artist)

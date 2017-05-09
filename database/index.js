@@ -53,5 +53,12 @@ var watsonSchema = mongoose.Schema({
 
 var Watson = mongoose.model('Watson', watsonSchema);
 
+var userSchema = mongoose.Schema({
+  username: {type: String, unique: true},
+  password: String
+});
+
+var User = mongoose.model('User', userSchema);
+
 module.exports.Song = Song;
 module.exports.Watson = Watson;
