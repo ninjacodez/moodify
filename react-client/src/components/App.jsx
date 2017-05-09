@@ -15,27 +15,38 @@ class App extends React.Component {
       currentLyrics: '',
       watson: {},
       spotifyURI: '',
-      searchResults: []
+      searchResults: [],
+      searchResultsLoading: false,
+      spotifyLoading: false,
+      lyricsLoading: false
     };
     this.search = this.search.bind(this);
     this.process = this.process.bind(this);
   }
 
   search(title, artist) {
-    this.setState({ searchResults: [] });
+    this.setState({
+      searchResults: [],
+      searchResultsLoading: true
+    });
 
     let options = { title: title, artist: artist };
     $.post('/search', options)
     .done((data) => {
       if (!data) { console.log('error'); };
       this.setState({
-        searchResults: data.track_list //track_list is an array of objs
-
+        searchResults: data.track_list, //track_list is an array of objs
+        searchResultsLoading: false
       });
     });
   }
 
   process(trackObj) {
+    this.setState({
+      spotifyLoading: true,
+      lyricsLoading: true
+    });
+
     let input = {};
     input.track_id = trackObj.track_id;
     input.track_name = trackObj.track_name;
@@ -51,7 +62,9 @@ class App extends React.Component {
       this.setState({
         currentLyrics: data[0],
         watson: data[1],
-        spotifyURI: data[2]
+        spotifyURI: data[2],
+        spotifyLoading: false,
+        lyricsLoading: false
       });
     })
     .fail(error => { throw error; })
@@ -64,14 +77,17 @@ class App extends React.Component {
       <div className="container">
       <div className="col1">
       <Search search={this.search} />
-      <SearchResults results={this.state.searchResults} process={this.process} />
+      <SearchResults
+        results={this.state.searchResults}
+        process={this.process}
+        searchResultsLoading={this.state.searchResultsLoading} />
       </div>
       <div className="col2">
       <Mood watson={this.state.watson}/>
       </div>
       <div className="col3">
-      <Lyrics lyrics={this.state.currentLyrics} />
-      <Player spotifyURI={this.state.spotifyURI} />
+      <Player spotifyURI={this.state.spotifyURI} loading={this.state.spotifyLoading}/>
+      <Lyrics lyrics={this.state.currentLyrics} loading={this.state.lyricsLoading}/>
       </div>
     </div></div>)
   }
