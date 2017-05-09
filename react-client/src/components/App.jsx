@@ -38,6 +38,11 @@ class App extends React.Component {
       this.setState({
         searchResults: data.track_list, //track_list is an array of objs
         searchResultsLoading: false
+        currentSongNameAndArtist: ['Mel', "Melvo's Jams"],
+        currentLyrics: '',
+        watson: {},
+        spotifyURI: '',
+
       });
     });
   }
@@ -85,7 +90,7 @@ class App extends React.Component {
         searchResultsLoading={this.state.searchResultsLoading} />
       </div>
       <div className="col2">
-      <Mood watson={this.state.watson}/>
+      <Mood watson={this.state.watson} songNameAndArtist={this.state.currentSongNameAndArtist} />
       </div>
       <div className="col3">
       <Player spotifyURI={this.state.spotifyURI} loading={this.state.spotifyLoading}/>
