@@ -3,8 +3,6 @@ import ReactDOM from 'react-dom';
 import $ from "jquery";
 import { Redirect, Link } from 'react-router-dom';
 
-
-
 class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -32,8 +30,8 @@ class Login extends React.Component {
       } else if (data.errorMessage) {
         console.log(data.errorMessage);
       }
-    };
-  }
+    });
+  };
 
   signup(username, password) {
     let signupInfo = { username: username, password: password };
@@ -45,7 +43,7 @@ class Login extends React.Component {
       } else if (data.errorMessage) {
         console.log(data.errorMessage);
       }
-    }
+    });
   };
 
   handleLogin(e) {

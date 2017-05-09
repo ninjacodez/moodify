@@ -7,6 +7,8 @@ import Player from './Player.jsx';
 import Search from './Search.jsx';
 import SearchResults from './SearchResults.jsx';
 import Header from './Header.jsx';
+import LoginSignup from './LoginSignup.jsx';
+import { Switch, Route, Link } from 'react-router-dom';
 
 class App extends React.Component {
   constructor(props) {
