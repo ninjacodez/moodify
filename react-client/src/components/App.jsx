@@ -37,11 +37,11 @@ class App extends React.Component {
       if (!data) { console.log('error'); };
       this.setState({
         searchResults: data.track_list, //track_list is an array of objs
-        searchResultsLoading: false
+        searchResultsLoading: false,
         currentSongNameAndArtist: ['Mel', "Melvo's Jams"],
         currentLyrics: '',
         watson: {},
-        spotifyURI: '',
+        spotifyURI: ''
 
       });
     });
