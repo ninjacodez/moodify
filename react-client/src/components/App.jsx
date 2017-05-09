@@ -51,6 +51,11 @@ class App extends React.Component {
         // currentLyrics: '',
         // watson: {},
         // spotifyURI: ''
+        searchResultsLoading: false
+        currentSongNameAndArtist: ['Mel', "Melvo's Jams"],
+        currentLyrics: '',
+        watson: {},
+        spotifyURI: '',
       });
     });
   }
@@ -98,7 +103,7 @@ class App extends React.Component {
   }
 
   render () {
-    return (
+  return (
       <div>
       <Header />
       <div className="container">
@@ -117,7 +122,6 @@ class App extends React.Component {
         : null }
       </div>
       <div className="col2">
-      <User />
       {this.state.showPlayer ?
       <Player spotifyURI={this.state.spotifyURI} loading={this.state.spotifyLoading}/>
         : null }
