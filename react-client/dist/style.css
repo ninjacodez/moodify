@@ -11,7 +11,6 @@ html {
 .container {
   display: flex;
   flex-direction: row;
-  flex-flow: row wrap;
   justify-content: space-between;
   background-color: white;
   position: relative;
@@ -36,27 +35,27 @@ html {
 
 .col3 {
   display: flex;
-  flex: 0 1 200;
-  order: 3;
+  flex: 1 1 500;
+  order: 1;
   flex-direction: column;
 }
 
 .minicol1 {
   float: left;
-  flex: 0;
+  flex: 1;
   order: 1;
 }
 
 .minicol2 {
   float: right;
-  flex: 0;
+  flex: 1;
   order: 2;
 }
 
 .search {
   float: left;
   order: 1;
-  flex: 0;
+  flex: 1;
   position: relative;
   top: 50%;
   width: 500;
@@ -211,6 +210,35 @@ h6 {
   padding-bottom: 15;
   padding-top: 10;
   width: 500;
+}
+
+.forms {
+/*  display: flex;
+  flex-flow: row;*/
+  width: 500;
+  margin-left: 33%;
+/*  align-items: center;
+  align-content: space-between;
+  justify-content: center;*/
+}
+
+.loginForm {
+  float: left;
+  margin-right: 20;
+}
+
+.signupForm {
+  float: right;
+  margin-left: 20;
+}
+
+.loginButton {
+  float: right;
+}
+
+.verticalLine {
+  border-left: thick solid #ff0000;
+  border-radius: 10;
 }
 
 .user {

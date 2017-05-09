@@ -43,7 +43,6 @@ class Search extends React.Component {
           </div> : null}
         </form>
         </div>
-      
       </div>
     )
   }
