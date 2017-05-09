@@ -40,6 +40,7 @@ app.post('/fetchLyricsByTrackId', (req, res) => {
 
 app.post('/process', (req, res) => {
   let input = req.body;
+  let watsonData = {}
   let spotifyURI = '';
   return mmHelpers.getLyricsByTrackId(input.track_id)
   .then(data => {
@@ -50,7 +51,7 @@ app.post('/process', (req, res) => {
     return watsonHelpers.queryWatsonToneHelper(input.lyrics)
   })
   .then(moods1 => {
-     let watsonData = {  
+    watsonData = {  
       track_id: input.track_id,
       anger: moods1.anger,
       disgust: moods1.disgust,
@@ -72,8 +73,7 @@ app.post('/process', (req, res) => {
     return spotifyHelpers.getSongByTitleAndArtist(input.track_name, input.artist_name)
   })  
   .then((spotifyData) => {
-    spotifyURI = spotifyData.uri
-    res.json([input.lyrics, watsonData, spotifyURI]);
+    res.json([input.lyrics, watsonData, spotifyData]);
   })  
 
   // .then(data => {
@@ -85,9 +85,9 @@ app.post('/process', (req, res) => {
   //   var songEntry = new db.Song(input);
   //   return songEntry.save()
   // })
-  .catch(() => {
-    console.log('hello from catch')
-    res.send('error');
+  .catch((error) => {
+    console.log(error)
+    res.send('hi');
   });
 })
 
