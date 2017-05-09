@@ -1,7 +1,9 @@
 .container {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
+  width: 100%;
+  background-color: white;
 }
 
 .col1 {
@@ -30,12 +32,14 @@
 
 .minicol1 {
   float: left;
+  flex: 0 2 auto;
   width: 400;
   height: 500;
 }
 
 .minicol2 {
   float: right;
+  flex: 0 2 auto;
   width: 400;
   height: 500;
 }
@@ -43,20 +47,50 @@
 .item1 {
   order: 2;
   flex: 0 1 auto;
-  border-style: solid;
-  border-width: 1;
 }
 
 .item2 {
   order: 1;
   flex: 0 2 auto;
-  border-style: solid;
-  border-width: 1;
+}
+
+#header {
+  height:78;
+  background:#4285f4;
+  border:1 solid #CCC;
+  width:100%;
+  margin:0 auto;
+}
+
+#mascot {
+  position: absolute;
+  top: 16;
+  left: 150;
+}
+
+h3 {
+  font-family: tahoma;
+  text-align: left;
+  font-weight: 200;
+  vertical-align: bottom;
+  color: white;
+  font-size: 32;
+  margin: 10;
+  position: absolute;
+  top: 16;
+  left: 20;
+}
+
+h4 {
+  text-align: center;
+  font-family: tahoma;
+  font-weight: 200;
 }
 
 h5 {
   font-family: tahoma;
   text-align: center;
   font-size: 32;
+  font-weight: 200;
   margin: 10;
 }
