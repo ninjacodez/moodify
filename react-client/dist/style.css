@@ -4,13 +4,15 @@
   justify-content: space-between;
   width: 100%;
   background-color: white;
+  position: absolute;
+  padding: 0;
 }
 
 .col1 {
   float: left;
   display: flex;
   flex-direction: column;
-  width: 300;
+  width: 30%;
   height: 400;
 }
 
@@ -18,7 +20,7 @@
   float: middle;
   display: flex;
   flex-direction: column;
-  width: 800;
+  width: 60%;
   height: 1000;
 }
 
@@ -26,7 +28,7 @@
   float: right;
   display: flex;
   flex-direction: column;
-  width: 300;
+  width: 30%;
   height: 400;
 }
 
@@ -55,40 +57,47 @@
 }
 
 #header {
-  height:78;
-  background:#4285f4;
-  border:1 solid #CCC;
+  height:90;
+  background: #444444;
   width:100%;
+  position: relative;
   margin:0 auto;
+  padding: 0;
 }
 
 #mascot {
   position: absolute;
-  top: 16;
-  left: 150;
+  top: 14;
+  left: 240;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
 }
 
 h3 {
-  font-family: tahoma;
+  font-family: 'Montserrat', sans-serif;
   text-align: left;
-  font-weight: 200;
+  font-weight: 300;
   vertical-align: bottom;
   color: white;
-  font-size: 32;
+  font-size: 42;
   margin: 10;
-  position: absolute;
-  top: 16;
-  left: 20;
+  position: relative;
+  top: 18;
+  left: 10;
 }
 
 h4 {
   text-align: center;
-  font-family: tahoma;
+  font-family: 'Open Sans', sans-serif;
   font-weight: 200;
+  font-size: 28;
+  margin: 10;
 }
 
 h5 {
-  font-family: tahoma;
+  font-family: 'Open Sans', sans-serif;
   text-align: center;
   font-size: 32;
   font-weight: 200;
