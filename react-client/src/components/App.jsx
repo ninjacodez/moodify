@@ -19,16 +19,22 @@ class App extends React.Component {
       searchResults: [],
       searchResultsLoading: false,
       spotifyLoading: false,
-      lyricsLoading: false
+      lyricsLoading: false,
+      showPlayer: false,
+      showLyrics: false,
+      showMood: false,
+      showResults: false
     };
     this.search = this.search.bind(this);
     this.process = this.process.bind(this);
+    this.showResults = this.showResults.bind(this);
   }
 
   search(title, artist) {
     this.setState({
-      searchResults: [],
-      searchResultsLoading: true
+      showResults: true,
+      searchResultsLoading: true,
+      showPlayer: false
     });
 
     let options = { title: title, artist: artist };
@@ -49,8 +55,10 @@ class App extends React.Component {
 
   process(trackObj) {
     this.setState({
+      showPlayer: true,
       spotifyLoading: true,
-      lyricsLoading: true
+      lyricsLoading: true,
+      showResults: false
     });
 
     let input = {};
@@ -71,10 +79,17 @@ class App extends React.Component {
         watson: data[2],
         spotifyURI: data[3],
         spotifyLoading: false,
-        lyricsLoading: false
+        lyricsLoading: false,
+        showMood: true,
       });
     })
     .fail(error => { throw error; })
+  }
+
+  showResults () {
+    this.setState({
+      showResults: !this.state.showResults
+    });
   }
 
   render () {
@@ -83,18 +98,23 @@ class App extends React.Component {
       <Header />
       <div className="container">
       <div className="col1">
-      <Search search={this.search} />
+      <Search search={this.search}
+      prev={this.showResults} />
+      {this.state.showResults ?
       <SearchResults
         results={this.state.searchResults}
         process={this.process}
         searchResultsLoading={this.state.searchResultsLoading} />
+        : null}
+      {this.state.showPlayer ?
+      <Player spotifyURI={this.state.spotifyURI} loading={this.state.spotifyLoading}/>
+        : null }
+      <Lyrics lyrics={this.state.currentLyrics} loading={this.state.lyricsLoading}/>
       </div>
       <div className="col2">
+      {this.state.showMood ?
       <Mood watson={this.state.watson} songNameAndArtist={this.state.currentSongNameAndArtist} />
-      </div>
-      <div className="col3">
-      <Player spotifyURI={this.state.spotifyURI} loading={this.state.spotifyLoading}/>
-      <Lyrics lyrics={this.state.currentLyrics} loading={this.state.lyricsLoading}/>
+        : null }
       </div>
     </div></div>)
   }
