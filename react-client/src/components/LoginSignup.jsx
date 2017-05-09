@@ -74,7 +74,6 @@ class LoginSignup extends React.Component {
     )
   }
 }
-          // <div> <Link to={`/haro`} > Front of App </Link></div> 
 
 export default LoginSignup;
 
