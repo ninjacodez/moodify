@@ -16,7 +16,6 @@ class SearchResults extends React.Component {
   render() {
     return (
       <div className="item2">
-        <h4>Search Results:</h4>
         {this.props.results.map((trackObj, i) => (
           <div key={i} value={i} onClick={this.handleClick} >{trackObj.track.track_name} by {trackObj.track.artist_name}</div>
         ))}
