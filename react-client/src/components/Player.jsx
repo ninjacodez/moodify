@@ -11,13 +11,14 @@ class Player extends React.Component {
     if (this.props.loading) {
       return (
         <div className="loading">
-          <img alt="loading" src="https://media.giphy.com/media/sSgvbe1m3n93G/giphy.gif"/>
+          <img alt="loading" src="./img/triangle.gif"/>
         </div>
       );
     } else {
       return (
         <div className="player" >
-          <iframe src= {"https://open.spotify.com/embed?uri=" + this.props.spotifyURI} />
+          <iframe src={"https://open.spotify.com/embed?uri=" + this.props.spotifyURI}
+          frameBorder="0" width="600" height="auto"/>
         </div>
       );
     }

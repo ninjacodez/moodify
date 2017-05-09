@@ -11,7 +11,8 @@ class Lyrics extends React.Component {
 
   render() {
       return (
-        <div className="player" >
+        <div className="lyrics" >
+          <h6>{this.props.songNameAndArtist[0] + ' - ' + this.props.songNameAndArtist[1]}</h6>
           <pre>{this.props.lyrics}</pre>
         </div>
       );
