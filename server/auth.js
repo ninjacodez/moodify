@@ -1,7 +1,6 @@
 const db = require('../database');
 const Promise = require('bluebird');
 
-
 const userExists = (username, password) => {
   return new Promise((resolve, reject) => {
     db.User
@@ -28,7 +27,7 @@ const verifyUser = (req, res, next) => {
     } else {
       next();
     }
-  }) 
+  })
 };
 
 const usernameExists = (username) => {
