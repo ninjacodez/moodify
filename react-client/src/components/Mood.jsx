@@ -108,7 +108,7 @@ componentWillReceiveProps(props) {
       emotionData: {
         labels: ["Joy", "Fear", "Disgust", "Anger", "Sadness"],
         datasets: [{
-            label: 'Kanye West - Famous',
+            label: props.songNameAndArtist[0] + ' - ' + props.songNameAndArtist[1],
             data: [
               props.watson.joy, 
               props.watson.fear, 
@@ -136,14 +136,14 @@ componentWillReceiveProps(props) {
       emotionOptions: {
         title: {
           display: false,
-          text: 'Kanye West - Famous',
+          text: props.songNameAndArtist[0] + ' - ' + props.songNameAndArtist[1],
           fontSize: 24
         },
       },
       languageData: {
         labels: ["Analytical", "Confident", "Tentative"],
         datasets: [{
-            label: 'Kanye West - Famous',
+            label: props.songNameAndArtist[0] + ' - ' + props.songNameAndArtist[1],
             data: [props.watson.analytical, props.watson.confident, props.watson.tentative],
             backgroundColor: [
                 'rgba(255, 99, 132, 1)',
@@ -161,14 +161,14 @@ componentWillReceiveProps(props) {
       languageOptions: {
         title: {
           display: false,
-          text: 'Kanye West - Famous',
+          text: props.songNameAndArtist[0] + ' - ' + props.songNameAndArtist[1],
           fontSize: 24
         }
       },
       socialData: {
         labels: ["Openness", "Conscientiousness", "Extraversion", "Agreeableness", "Emotional Range"],
         datasets: [{
-            label: 'Kanye West - Famous',
+            label: props.songNameAndArtist[0] + ' - ' + props.songNameAndArtist[1],
             data: [
               props.watson.openness, 
               props.watson.conscientiousness, 
@@ -196,7 +196,7 @@ componentWillReceiveProps(props) {
       socialOptions: {
         title: {
           display: false,
-          text: 'Kanye West - Famous',
+          text: props.songNameAndArtist[0] + ' - ' + props.songNameAndArtist[1],
           fontSize: 24
         }
       }
