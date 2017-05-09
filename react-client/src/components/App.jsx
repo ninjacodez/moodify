@@ -12,6 +12,8 @@ class App extends React.Component {
     super(props);
     this.state = {
       currentLyrics: '',
+      watson: {},
+      spotifyURI: '',
       searchResults: []
     };
     this.search = this.search.bind(this);
@@ -44,11 +46,11 @@ class App extends React.Component {
 
     $.post('/process', input)
     .done(data => {
-      let parsedData = JSON.parse(data);
+      console.log(data);
       this.setState({
-        currentLyrics: parsedData[0],
-        watson: parsedData[1],
-        spotifyURI: parsedData[2]
+        currentLyrics: data[0],
+        watson: data[1],
+        spotifyURI: data[2]
 
         // moood: data.mood
       });

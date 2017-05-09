@@ -1,16 +1,15 @@
 const Promise = require('bluebird');
 const request = Promise.promisifyAll(require('request'));
 
-const rootURL = 'https://api.spotify.com/v1/';
 
 const getSongByTitleAndArtist = (title, artist) => {
-  return request(rootUrl + 'search?q=track:' + title + '%20artist:' + artist+ '&type=track')
+  const rootURL = 'https://api.spotify.com/v1/';
+  return request.getAsync(rootURL + 'search?q=track:' + title + '%20artist:' + artist+ '&type=track')
   .then(data => {
-    console.log(data);
-    let parsedData = JSON.parse(data);
-    return parsedDatadata.tracks.items[0].artists.uri;
+    let parsedData = JSON.parse(data.body);
+    return parsedData.tracks.items[0].uri;
   })
-  .catch(err => { throw err; });
+  .catch(err => { console.log(err); });
 }
 
 // const Client_ID = '17af2e7d17c94de6b602b7ae29b1a7c0';
