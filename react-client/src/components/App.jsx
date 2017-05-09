@@ -12,6 +12,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      currentSongNameAndArtist: [],
       currentLyrics: '',
       watson: {},
       spotifyURI: '',
@@ -60,9 +61,10 @@ class App extends React.Component {
     .done(data => {
       console.log(data);
       this.setState({
-        currentLyrics: data[0],
-        watson: data[1],
-        spotifyURI: data[2],
+        currentSongNameAndArtist: data[0],
+        currentLyrics: data[1],
+        watson: data[2],
+        spotifyURI: data[3],
         spotifyLoading: false,
         lyricsLoading: false
       });
