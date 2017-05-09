@@ -37,8 +37,8 @@ class LoginSignup extends React.Component {
           userError: data.errorMessage
         });
       }
-    });
-  };
+    };
+  }
 
   signup(username, password) {
     let signupInfo = { username: username, password: password };
@@ -54,7 +54,7 @@ class LoginSignup extends React.Component {
           signError: data.errorMessage
         });
       }
-    });
+    }
   };
 
   handleLogin(e) {
