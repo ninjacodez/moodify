@@ -6,6 +6,7 @@ import Mood from './Mood.jsx';
 import PlayList from './PlayList.jsx';
 import Search from './Search.jsx';
 import SearchResults from './SearchResults.jsx';
+import Header from './Header.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -56,7 +57,10 @@ class App extends React.Component {
   }
 
   render () {
-    return (<div className="container">
+    return (
+      <div>
+      <Header />
+      <div className="container">
       <div className="col1">
       <Search search={this.search} />
       <SearchResults results={this.state.searchResults} process={this.process} />
@@ -68,7 +72,7 @@ class App extends React.Component {
       <Lyrics lyrics={this.state.currentLyrics} />
       <PlayList />
       </div>
-    </div>)
+    </div></div>)
   }
 }
 
