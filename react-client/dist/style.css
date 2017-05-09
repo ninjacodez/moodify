@@ -1,78 +1,120 @@
+html {
+  min-width: 100%;
+  min-height: 100%;
+}
+
+* {
+   margin: 0px;
+   padding: 0px;
+}
+
 .container {
   display: flex;
   flex-direction: row;
+  flex-flow: row wrap;
   justify-content: space-between;
-  width: 100%;
+  width: 80%;
   background-color: white;
   position: absolute;
-  padding: 0;
+  padding-left: 40;
+  padding-right: 40;
+}
+
+.searchbar {
+  display: flex;
+  order: 1;
+  flex: 0 0 auto;
+  height: 80;
+  width: 100%;
+  margin: 10;
+}
+
+.submitbutton {
+  padding: 10;
+}
+
+.prevbutton {
+  padding: 10;
 }
 
 .col1 {
-  float: left;
   display: flex;
+  flex: 1 1 200;
+  order: 1;
   flex-direction: column;
-  width: 30%;
-  height: 400;
 }
 
 .col2 {
-  float: middle;
   display: flex;
+  flex: 1 1 600;
+  order: 2;
   flex-direction: column;
-  width: 60%;
-  height: 1000;
 }
 
 .col3 {
-  float: right;
   display: flex;
+  flex: 0 1 200;
+  order: 3;
   flex-direction: column;
-  width: 30%;
-  height: 400;
 }
 
 .minicol1 {
   float: left;
-  flex: 0 2 auto;
-  width: 400;
-  height: 500;
+  flex: 0;
+  order: 1;
 }
 
 .minicol2 {
   float: right;
-  flex: 0 2 auto;
-  width: 400;
-  height: 500;
-}
-
-.item1 {
+  flex: 0;
   order: 2;
-  flex: 0 1 auto;
 }
 
-.item2 {
+.search {
   order: 1;
-  flex: 0 2 auto;
+  flex: 0;
+}
+
+.searchPrev {
+  order: 2;
+  flex: 0;
+  text-align: center;
+}
+
+.maingraph {
+  order: 2;
+  flex: 0;
+}
+
+.player {
+  order: 3;
+  flex: 0;
 }
 
 #header {
   height:90;
-  background: #444444;
+  background: #35465c;
   width:100%;
   position: relative;
-  margin:0 auto;
+  margin: 0;
   padding: 0;
+  top: -10;
 }
 
 #mascot {
   position: absolute;
   top: 14;
-  left: 240;
+  left: 0;
 }
 
 body {
   font-family: 'Open Sans', sans-serif;
+  overflow-x: hidden;
+}
+
+pre {
+  font-family: 'Open Sans', sans-serif;
+  word-wrap: normal;
 }
 
 h3 {
@@ -84,19 +126,30 @@ h3 {
   font-size: 42;
   margin: 10;
   position: relative;
-  top: 16;
-  left: 150;
+  top: 34;
+  left: 30;
 }
 
 h4 {
+  text-align: left;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 200;
+  font-size: 20;
+  margin: 0;
+}
+
+h5 {
   text-align: center;
   font-family: 'Open Sans', sans-serif;
   font-weight: 200;
+  font-style: black;
   font-size: 28;
   margin: 10;
 }
 
-h5 {
+.searchText {
   font-family: 'Open Sans', sans-serif;
   font-weight: 200;
+  font-size: 16;
+  margin: 10;
 }
