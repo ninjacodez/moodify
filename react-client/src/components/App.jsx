@@ -34,7 +34,7 @@ class App extends React.Component {
     this.setState({
       showResults: true,
       searchResultsLoading: true,
-      showPlayer: false
+      showPlayer: false,
     });
 
     let options = { title: title, artist: artist };
@@ -44,10 +44,10 @@ class App extends React.Component {
       this.setState({
         searchResults: data.track_list, //track_list is an array of objs
         searchResultsLoading: false,
-        currentSongNameAndArtist: ['Mel', "Melvo's Jams"],
-        currentLyrics: '',
-        watson: {},
-        spotifyURI: ''
+        currentSongNameAndArtist: ['', ''],
+        // currentLyrics: '',
+        // watson: {},
+        // spotifyURI: ''
 
       });
     });
@@ -58,7 +58,9 @@ class App extends React.Component {
       showPlayer: true,
       spotifyLoading: true,
       lyricsLoading: true,
-      showResults: false
+      showResults: false,
+      showLyrics: false,
+      showMood: false
     });
 
     let input = {};
@@ -80,6 +82,7 @@ class App extends React.Component {
         spotifyURI: data[3],
         spotifyLoading: false,
         lyricsLoading: false,
+        showLyrics: true,
         showMood: true,
       });
     })
@@ -107,11 +110,14 @@ class App extends React.Component {
         searchResultsLoading={this.state.searchResultsLoading} />
         : null}
       {this.state.showPlayer ?
-      <Player spotifyURI={this.state.spotifyURI} loading={this.state.spotifyLoading}/>
+      <Lyrics lyrics={this.state.currentLyrics} loading={this.state.lyricsLoading}
+      songNameAndArtist={this.state.currentSongNameAndArtist} />
         : null }
-      <Lyrics lyrics={this.state.currentLyrics} loading={this.state.lyricsLoading}/>
       </div>
       <div className="col2">
+      {this.state.showPlayer ?
+      <Player spotifyURI={this.state.spotifyURI} loading={this.state.spotifyLoading}/>
+        : null }
       {this.state.showMood ?
       <Mood watson={this.state.watson} songNameAndArtist={this.state.currentSongNameAndArtist} />
         : null }
