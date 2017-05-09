@@ -55,6 +55,26 @@ const createUser = (req, res, next) => {
     } else {
       res.send({errorMessage: 'username already exists'});
     }
+
+const verifyUser = (req, res, next) => {
+  let username = req.body.username;
+  let password = req.body.password;
+  if (!userExists(username, password)) {
+    res.redirect('/login');
+  } else {
+    next();
+  }
+}
+
+const userExists = (username, password) => {
+  db.User
+  .find({
+    username: username,
+    password: password
+  })
+  .exec((err, user) => {
+    if (!err && user) { return true; }
+    else { return false; }
   });
 };
 
