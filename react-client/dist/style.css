@@ -84,8 +84,8 @@ h3 {
   font-size: 42;
   margin: 10;
   position: relative;
-  top: 18;
-  left: 10;
+  top: 16;
+  left: 150;
 }
 
 h4 {
@@ -98,8 +98,5 @@ h4 {
 
 h5 {
   font-family: 'Open Sans', sans-serif;
-  text-align: center;
-  font-size: 32;
   font-weight: 200;
-  margin: 10;
 }
