@@ -48,7 +48,6 @@ class App extends React.Component {
         // currentLyrics: '',
         // watson: {},
         // spotifyURI: ''
-
       });
     });
   }
