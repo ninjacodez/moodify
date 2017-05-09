@@ -40,6 +40,7 @@ app.post('/fetchLyricsByTrackId', (req, res) => {
 
 app.post('/process', (req, res) => {
   let input = req.body;
+  let songNameAndArtist = [input.artist_name, input.track_name]
   let watsonData = {}
   let spotifyURI = '';
   return mmHelpers.getLyricsByTrackId(input.track_id)
@@ -73,7 +74,7 @@ app.post('/process', (req, res) => {
     return spotifyHelpers.getSongByTitleAndArtist(input.track_name, input.artist_name)
   })  
   .then((spotifyData) => {
-    res.json([input.lyrics, watsonData, spotifyData]);
+    res.json([songNameAndArtist, input.lyrics, watsonData, spotifyData]);
   })  
 
   // .then(data => {
