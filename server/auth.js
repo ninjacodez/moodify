@@ -1,15 +1,39 @@
-const createSession = (req, res, next) => {
-};
+const db = require('../database');
 
-const verifySession = (req, res, next) => {
-  // TODO: modify the false below into an actual test (if the user is logged in)
-  if (false) {
+const verifyUser = (req, res, next) => {
+  let username = req.body.username;
+  let password = req.body.password;
+  if (!userExists(username, password)) {
     res.redirect('/login');
-  } else { next(); }
+  } else {
+    next();
+  }
+}
+
+const userExists = (username, password) => {
+  db.User
+  .find({
+    username: username,
+    password: password
+  })
+  .exec((err, user) => {
+    if (!err && user) { return true; }
+    else { return false; }
+  });
 };
 
-const isLoggedIn = (/* */) => {
-};
+module.exports.verifyUser = verifyUser;
 
-module.exports.createSession = createSession;
-module.exports.verifySession = verifySession;
+// const createSession = (req, res, next) => {
+// };
+//
+// const verifySession = (req, res, next) => {
+//   if (false) {
+//     res.redirect('/login');
+//   } else { next(); }
+// };
+//
+// const isLoggedIn = (/* */) => {
+// };
+
+// module.exports.createSession = createSession;
