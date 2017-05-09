@@ -21,7 +21,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/../react-client/dist'));
 
 // routes
-app.get('/', auth.verifySession, (req, res) => {});
+app.post('/signup', auth.createUser, (req, res) => {
+  res.send({statusCode: 200});
+});
+
+app.post('/login', auth.verifyUser, (req, res) => {
+  res.send({statusCode: 200});
+});
 
 app.post('/search', (req, res) => {
   return mmHelpers.searchByTitleAndArtist(req.body.title, req.body.artist)
@@ -52,7 +58,7 @@ app.post('/process', (req, res) => {
     return watsonHelpers.queryWatsonToneHelper(input.lyrics)
   })
   .then(moods1 => {
-    watsonData = {  
+    watsonData = {
       track_id: input.track_id,
       anger: moods1.anger,
       disgust: moods1.disgust,
@@ -72,10 +78,10 @@ app.post('/process', (req, res) => {
     newEntry.save() //need return?
 
     return spotifyHelpers.getSongByTitleAndArtist(input.track_name, input.artist_name)
-  })  
+  })
   .then((spotifyData) => {
     res.json([songNameAndArtist, input.lyrics, watsonData, spotifyData]);
-  })  
+  })
 
   // .then(data => {
   //   //watson call 2?
