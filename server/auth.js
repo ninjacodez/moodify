@@ -2,6 +2,7 @@ const db = require('../database');
 const Promise = require('bluebird');
 const hash = require('./hash.js');
 
+
 const userExists = (username, password) => {
   return new Promise((resolve, reject) => {
     let hashedPassword = hash.createHash(password);
