@@ -31,7 +31,6 @@ class Search extends React.Component {
   render() {
     return (
       <div>
-      <h4>Search</h4>
       <div className="search">
         <form onSubmit={this.handleSubmit}>
           <input type="text" name="title" value={this.state.title} placeholder="title" onChange={this.handleTitleChange} />
@@ -41,6 +40,13 @@ class Search extends React.Component {
           <img className="searchPrev" onClick={this.prevResults} src="./img/ic_expand_more_48px.svg" width="18" height="18"/>
         : null}
         </form>
+        </div>
+      <div className="searchPrev">
+        {this.state.showPrev ?
+        <form onSubmit={this.prevResults} className="prevbutton">
+          <input type="submit" value="Search Results" className="prevbutton"/>
+        </form>
+        : null}
       </div>
       </div>
     )

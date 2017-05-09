@@ -117,18 +117,18 @@ componentWillReceiveProps(props) {
               props.watson.sadness
               ],
             backgroundColor: [
-                'rgba(206, 17, 38, 1)',
-                'rgba(242, 175, 0, 1)',
-                'rgba(122, 184, 0, 1)',
+                'rgba(252, 61, 57, 1)',
+                'rgba(254, 203, 46, 1)',
+                'rgba(83, 215, 105, 1)',
                 'rgba(20, 126, 251, 1)',
-                'rgba(110, 37, 133, 1)'
+                'rgba(193, 53, 132, 1)',
             ],
             borderColor: [
-                'rgba(206, 17, 38, 1)',
-                'rgba(242, 175, 0, 1)',
-                'rgba(122, 184, 0, 1)',
+                'rgba(252, 61, 57, 1)',
+                'rgba(254, 203, 46, 1)',
+                'rgba(83, 215, 105, 1)',
                 'rgba(20, 126, 251, 1)',
-                'rgba(110, 37, 133, 1)'
+                'rgba(193, 53, 132, 1)',
             ],
             borderWidth: 3
         }]
@@ -146,14 +146,14 @@ componentWillReceiveProps(props) {
             label: props.songNameAndArtist[0] + ' - ' + props.songNameAndArtist[1],
             data: [props.watson.analytical, props.watson.confident, props.watson.tentative],
             backgroundColor: [
-                'rgba(206, 17, 38, 1)',
-                'rgba(242, 175, 0, 1)',
-                'rgba(122, 184, 0, 1)'
+                'rgba(252, 61, 57, 1)',
+                'rgba(254, 203, 46, 1)',
+                'rgba(83, 215, 105, 1)',
             ],
             borderColor: [
-                'rgba(206, 17, 38, 1)',
-                'rgba(242, 175, 0, 1)',
-                'rgba(122, 184, 0, 1)'
+                'rgba(252, 61, 57, 1)',
+                'rgba(254, 203, 46, 1)',
+                'rgba(83, 215, 105, 1)',
             ],
             borderWidth: 3
         }]
@@ -177,18 +177,18 @@ componentWillReceiveProps(props) {
               props.watson.emotionalrange
               ],
             backgroundColor: [
-                'rgba(206, 17, 38, 1)',
-                'rgba(242, 175, 0, 1)',
-                'rgba(122, 184, 0, 1)',
-                'rgba(0, 155, 187, 1)',
-                'rgba(110, 37, 133, 1)'
+                'rgba(252, 61, 57, 1)',
+                'rgba(254, 203, 46, 1)',
+                'rgba(83, 215, 105, 1)',
+                'rgba(20, 126, 251, 1)',
+                'rgba(193, 53, 132, 1)',
             ],
             borderColor: [
-                'rgba(206, 17, 38, 1)',
-                'rgba(242, 175, 0, 1)',
-                'rgba(122, 184, 0, 1)',
-                'rgba(0, 155, 187, 1)',
-                'rgba(110, 37, 133, 1)'
+                'rgba(252, 61, 57, 1)',
+                'rgba(254, 203, 46, 1)',
+                'rgba(83, 215, 105, 1)',
+                'rgba(20, 126, 251, 1)',
+                'rgba(193, 53, 132, 1)',
             ],
             borderWidth: 3
         }]

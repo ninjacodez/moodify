@@ -36,7 +36,7 @@ class App extends React.Component {
     this.setState({
       showResults: true,
       searchResultsLoading: true,
-      showPlayer: false,
+      showPlayer: false
     });
 
     let options = { title: title, artist: artist };
@@ -116,6 +116,7 @@ class App extends React.Component {
         : null }
       </div>
       <div className="col2">
+      <User />
       {this.state.showPlayer ?
       <Player spotifyURI={this.state.spotifyURI} loading={this.state.spotifyLoading}/>
         : null }
