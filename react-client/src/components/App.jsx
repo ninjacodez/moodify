@@ -45,10 +45,9 @@ class App extends React.Component {
         searchResults: data.track_list, //track_list is an array of objs
         searchResultsLoading: false,
         currentSongNameAndArtist: ['', ''],
-        // currentLyrics: '',
-        // watson: {},
-        // spotifyURI: ''
-
+        currentLyrics: '',
+        watson: {},
+        spotifyURI: ''
       });
     });
   }
