@@ -67,7 +67,7 @@ class App extends React.Component {
       <SearchResults results={this.state.searchResults} process={this.process} />
       </div>
       <div className="col2">
-      <Mood />
+      <Mood watson={this.state.watson}/>
       </div>
       <div className="col3">
       <Lyrics lyrics={this.state.currentLyrics} />
