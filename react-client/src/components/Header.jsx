@@ -8,7 +8,7 @@ class Header extends React.Component {
       redirect: false
     };
     this.redirect = this.redirect.bind(this);
-    this.state.url = window.location.href
+    this.state.url = window.location.href;
   }
 
   redirect() {
