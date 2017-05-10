@@ -46,12 +46,16 @@ app.post('/fetchLyricsByTrackId', (req, res) => {
 
 app.post('/process', (req, res) => {
   let input = req.body;
-  let songNameAndArtist = [input.artist_name, input.track_name]
-  let watsonData = {}
+  let songNameAndArtist = [input.artist_name, input.track_name];
+  let watsonData = {};
   let spotifyURI = '';
   return mmHelpers.getLyricsByTrackId(input.track_id)
   .then(data => {
-    input.lyrics = data.lyrics.lyrics_body;
+    const lyrics = data.lyrics.lyrics_body;
+
+    // filters copyright
+    input.lyrics = lyrics.slice(0, (lyrics.indexOf('*******')));
+
     var songEntry = new db.Song(input);
     songEntry.save()
     //watson call 1?
