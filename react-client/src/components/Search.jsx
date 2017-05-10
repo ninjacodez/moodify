@@ -43,13 +43,7 @@ class Search extends React.Component {
           </div> : null}
         </form>
         </div>
-      <div className="searchPrev">
-        {this.state.showPrev ?
-        <form onSubmit={this.prevResults} className="prevbutton">
-          <input type="submit" value="Search Results" className="prevbutton"/>
-        </form>
-        : null}
-      </div>
+      
       </div>
     )
   }
