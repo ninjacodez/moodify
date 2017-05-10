@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import $ from "jquery";
 import { Redirect, Link } from 'react-router-dom';
 
-class Login extends React.Component {
+class LoginSignup extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
