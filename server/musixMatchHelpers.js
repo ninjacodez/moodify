@@ -1,7 +1,8 @@
 const qp = require('query-parse');
 const request = require('request');
+const config = require('../config/index.js');
 
-const MM_API_KEY = 'f7e6858d59f3073eda9f69ddb6f8dec4';
+const MM_API_KEY = config.MM_API_KEY;
 const rootUrl = 'https://api.musixmatch.com/ws/1.1/';
 
 const finalQueryString = (method, params) => {
