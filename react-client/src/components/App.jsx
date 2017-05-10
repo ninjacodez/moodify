@@ -30,11 +30,13 @@ class App extends React.Component {
       showMood: false,
       showResults: false,
       showPrev: false,
+      upDown: true,
       url: window.location.href
     };
     this.search = this.search.bind(this);
     this.process = this.process.bind(this);
     this.showResults = this.showResults.bind(this);
+    this.upDown = this.upDown.bind(this);
   }
 
   search(title, artist) {
@@ -42,6 +44,7 @@ class App extends React.Component {
       showResults: true,
       searchResultsLoading: true,
       showPrev: true,
+      upDown: false
     });
 
     let options = { title: title, artist: artist };
@@ -66,7 +69,8 @@ class App extends React.Component {
       lyricsLoading: true,
       showResults: false,
       showLyrics: false,
-      showMood: false
+      showMood: false,
+      upDown: true
     });
 
     let input = {};
@@ -99,40 +103,48 @@ class App extends React.Component {
   showResults () {
     this.setState({
       showResults: !this.state.showResults
-      // showPrev: !this.state.showPrev
+    });
+  }
+
+  upDown() {
+    this.setState({
+      upDown: !this.state.upDown
     });
   }
 
   render () {
     return (
       <div>
-      <Header url={this.state.url}/>
-      <div className="container">
-      <div className="col1">
-      <Search search={this.search}
-      prev={this.showResults}
-      showPrev={this.state.showPrev} />
-      {this.state.showResults ?
-      <SearchResults
-        results={this.state.searchResults}
-        process={this.process}
-        searchResultsLoading={this.state.searchResultsLoading} />
-        : null}
-      {this.state.showPlayer ?
-      <Lyrics lyrics={this.state.currentLyrics} loading={this.state.lyricsLoading}
-      songNameAndArtist={this.state.currentSongNameAndArtist} />
-        : null }
+        <Header url={this.state.url}/>
+        <div className="container">
+        <div className="col1">
+          <Search search={this.search}
+          prev={this.showResults} 
+          showPrev={this.state.showPrev} 
+          upDown={this.state.upDown} 
+          runUpDown={this.upDown} />
+          {this.state.showResults ?
+            <SearchResults
+            results={this.state.searchResults}
+            process={this.process}
+            searchResultsLoading={this.state.searchResultsLoading} />
+          : null}
+          {this.state.showPlayer ?
+            <Lyrics lyrics={this.state.currentLyrics} loading={this.state.lyricsLoading}
+            songNameAndArtist={this.state.currentSongNameAndArtist} />
+          : null }
+          </div>
+          <div className="col2">
+          <User />
+          {this.state.showPlayer ?
+            <Player spotifyURI={this.state.spotifyURI} loading={this.state.spotifyLoading}/>
+          : null }
+          {this.state.showMood ?
+            <Mood watson={this.state.watson} songNameAndArtist={this.state.currentSongNameAndArtist} />
+          : null }
+        </div>
       </div>
-      <div className="col2">
-      <User />
-      {this.state.showPlayer ?
-      <Player spotifyURI={this.state.spotifyURI} loading={this.state.spotifyLoading}/>
-        : null }
-      {this.state.showMood ?
-      <Mood watson={this.state.watson} songNameAndArtist={this.state.currentSongNameAndArtist} />
-        : null }
-      </div>
-    </div></div>)
+    </div>)
   }
 }
 

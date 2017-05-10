@@ -21,7 +21,6 @@ html {
 .col1 {
   display: flex;
   flex: 1 2 auto;
-  /*height: 400;*/
   order: 1;
   flex-direction: column;
 }
@@ -79,10 +78,12 @@ html {
   font-weight: 200;
   font-size: 16;
   margin-left: 10;
+  cursor: pointer;
 }
 
 .prevbutton {
   padding: 0;
+  cursor: pointer;
 }
 
 .searchHeadline {
@@ -99,18 +100,28 @@ html {
 .resultsBar {
   float: right;
   margin-bottom: 10;
+  cursor: pointer;
 }
 
-.searchPrev {
+.resultsBar:hover {
+  background: #dadada;
+  border-radius: 5px;
+}
+
+.searchPrevDown {
   float: right;
-  margin-left: 10;
+  margin-left: 0;
   order: 1;
   flex: 0;
+  margin-top: 4;
 }
 
-.searchPrev:hover {
-  background: #8e8e93;
-  border-radius: 5px;
+.searchPrevUp {
+  float: right;
+  margin-left: 0;
+  order: 1;
+  flex: 0;
+  margin-top: 4;
 }
 
 .maingraph {
@@ -139,6 +150,7 @@ html {
   margin: 0;
   padding: 0;
   top: -20;
+  cursor: pointer;
 }
 
 #subheader {
@@ -153,8 +165,8 @@ html {
 
 #mascot {
   position: absolute;
-  top: 18;
-  left: 2;
+  top: 10;
+  left: 0;
 }
 
 body {
@@ -178,11 +190,11 @@ h3 {
   font-style: bold;
   vertical-align: bottom;
   color: white;
-  font-size: 42;
+  font-size: 48;
   margin: 10;
   position: relative;
-  top: 34;
-  left: 30;
+  top: 30;
+  left: 80;
   letter-spacing: 1;
 }
 
@@ -264,6 +276,7 @@ h6 {
 
 .loginButton {
   float: right;
+  cursor: pointer;
 }
 
 .verticalLine {
@@ -278,10 +291,27 @@ h6 {
   font-size: 16;
   text-align: right;
   margin-bottom: 25;
+  cursor: pointer;
+}
+
+.user:hover {
+  background: #dadada;
+  border-radius: 5px;
 }
 
 .resultsBox {
   margin-bottom: 10;
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -o-transition: 0.5s;
+  transition: 0.5s;
+  opacity: 1;
+  visibility: visible; 
+}
+
+.resultsBox:hidden {
+  opacity: 0;
+  visibility: hidden; 
 }
 
 .searchText {
@@ -291,18 +321,14 @@ h6 {
   font-style: italic;
   margin-bottom: 0;
   width: 500;
-  -webkit-transition: 0.5s;
-  -moz-transition: 0.5s;
-  -o-transition: 0.5s;
-  transition: 0.5s;
-  opacity: 1;
-  visibility: visible;
   text-transform: capitalize;
+  cursor: pointer;
 }
 
-.searchText.hide {
-  opacity: 0;
-  visibility: hidden; 
+.searchText:hover {
+  background: #dadada;
+  border-radius: 5px;
+  transition: 2px;
 }
 
 .searchResultEntry {
