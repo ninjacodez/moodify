@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import $ from "jquery";
 import Lyrics from './Lyrics.jsx';
 import Mood from './Mood.jsx';
 import Player from './Player.jsx';
