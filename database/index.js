@@ -1,8 +1,10 @@
 const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
 // mongoose.connect('mongodb://localhost/test');
-mongoose.connect('mongodb://heroku_6xrjjbsq:8g9mlf83h7sg407v23ikm97rso@ds133281.mlab.com:33281/heroku_6xrjjbsq');
+const config = require('../config/index.js');
+const DATABASE_URL = config.DATABASE_URL;
 
+mongoose.connect(DATABASE_URL);
 const db = mongoose.connection;
 
 db.on('error', () => {

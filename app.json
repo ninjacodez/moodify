@@ -3,6 +3,14 @@
   "scripts": {
   },
   "env": {
+    "MM_API_KEY": {"required": true},
+    "MONGODB_URI": {"required": true},
+    "NODE_ENV": {"required": true},
+    "WATSON_NLU_PASSWORD": {"required": true},
+    "WATSON_NLU_USERNAME": {"required": true},
+    "WATSON_TONE_PASSWORD": {"required": true},
+    "WATSON_TONE_USERNAME": {"required": true},
+    "NPM_CONFIG_PRODUCTION": {"required": true}
   },
   "formation": {
   },
