@@ -50,3 +50,8 @@ class Search extends React.Component {
 }
 
 export default Search;
+<<<<<<< HEAD
+=======
+
+//      <img id="searchMag" onClick={this.prevResults} src="./img/ic_youtube_searched_for_48px.svg" width="48" height="48"/>
+>>>>>>> More CSS cleaning, added user component
