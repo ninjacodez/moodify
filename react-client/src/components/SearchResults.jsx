@@ -1,5 +1,4 @@
 import React from 'react';
-import SearchResultsEntry from './SearchResultsEntry.jsx';
 
 class SearchResults extends React.Component {
   constructor(props) {

@@ -31,7 +31,6 @@ class Search extends React.Component {
   render() {
     return (
       <div>
-      <h4>Search</h4>
       <div className="search">
         <form onSubmit={this.handleSubmit} className="search">
           <input type="text" name="title" value={this.state.title} placeholder="title" onChange={this.handleTitleChange} className="textbox"/>
@@ -51,3 +50,8 @@ class Search extends React.Component {
 }
 
 export default Search;
+<<<<<<< HEAD
+=======
+
+//      <img id="searchMag" onClick={this.prevResults} src="./img/ic_youtube_searched_for_48px.svg" width="48" height="48"/>
+>>>>>>> More CSS cleaning, added user component
