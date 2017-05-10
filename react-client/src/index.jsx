@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import LoginSignup from './components/LoginSignup.jsx';
 import App from './components/App.jsx';
 import Router from './components/Router.jsx';
 import LoginSignup from './components/LoginSignup.jsx';
