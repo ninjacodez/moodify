@@ -5,10 +5,9 @@ import Lyrics from './Lyrics.jsx';
 import Mood from './Mood.jsx';
 import Player from './Player.jsx';
 import Search from './Search.jsx';
+import Header from './Header.jsx';
 import SearchResults from './SearchResults.jsx';
 import User from './User.jsx';
-import Subheader from './Subheader.jsx';
-import Header from './Header.jsx';
 import LoginSignup from './LoginSignup.jsx';
 import { Switch, Route, Link } from 'react-router-dom';
 
