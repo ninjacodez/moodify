@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import $ from "jquery";
 import LoginSignup from './LoginSignup.jsx';
 import App from './App.jsx';
 import { Switch, Route, Link } from 'react-router-dom';
@@ -14,14 +13,14 @@ class Router extends React.Component {
 
   render () {
     return (
-      <div>   
+      <div>
        <Switch>
           <Route exact path='/' >
             <App />
           </Route>
           <Route path='/loginSignup'>
             <LoginSignup />
-          </Route>   
+          </Route>
         </Switch>
       </div>)
   }
