@@ -62,3 +62,4 @@ var User = mongoose.model('User', userSchema);
 
 module.exports.Song = Song;
 module.exports.Watson = Watson;
+module.exports.User = User;
