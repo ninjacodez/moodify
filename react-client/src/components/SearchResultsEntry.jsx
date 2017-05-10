@@ -1,17 +1,10 @@
 import React from 'react';
-import SearchResultsEntry from './SearchResultsEntry.jsx';
 
-class SearchResults extends React.Component {
+class SearchResultsEntry extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
     };
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleClick(e) {
-    let index = e.target.getAttribute('value');
-    this.props.process(this.props.results[index].track);
   }
 
   render() {
@@ -33,4 +26,4 @@ class SearchResults extends React.Component {
   }
 }
 
-export default SearchResults;
+export default SearchResultsEntry;
