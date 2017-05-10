@@ -1,14 +1,28 @@
 import React from 'react';
+import { Redirect, Link } from 'react-router-dom';
 
 class Header extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      redirect: false
+    };
+    this.redirect = this.redirect.bind(this);
+  }
+
+  redirect() {
+    this.setState({
+      redirect: true
+    });
   }
 
   render () {
-    return (<div id="header">
-      <h3>moodify</h3>
+    if (this.state.redirect) {
+      return <Redirect push to="/" />;
+    }
+    return (
+      <div id="header">
+      <h3 onClick={this.redirect}>moodify</h3>
       <img id="mascot" src="./img/mood.png" width="40" height="63"/>
       </div>)
   }

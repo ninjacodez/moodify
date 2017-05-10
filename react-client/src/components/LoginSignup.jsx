@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Header from './Header.jsx';
 import $ from "jquery";
 import { Redirect, Link } from 'react-router-dom';
 
@@ -11,7 +12,9 @@ class LoginSignup extends React.Component {
       passwordL: '',
       usernameS: '',
       passwordS: '',
-      redirect: false
+      redirect: false,
+      userError: '',
+      signError: ''
     };
   }
 
@@ -29,6 +32,9 @@ class LoginSignup extends React.Component {
         console.log('great success!')
       } else if (data.errorMessage) {
         console.log(data.errorMessage);
+        this.setState({
+          userError: data.errorMessage
+        });
       }
     });
   };
@@ -42,6 +48,9 @@ class LoginSignup extends React.Component {
         console.log('Welcome!')
       } else if (data.errorMessage) {
         console.log(data.errorMessage);
+        this.setState({
+          signError: data.errorMessage
+        });
       }
     });
   };
@@ -63,14 +72,35 @@ class LoginSignup extends React.Component {
     }
     return (
       <div>
-        <h4> Login/Signup </h4>  
+      <Header />
+      <div className="forms">
+        <div className="loginForm">
+        Have an account?
+        <br />
           <input type="text" name="usernameL" value={this.state.usernameL} placeholder="username" onChange={this.usernameChangeL.bind(this)} />
-          <input type="text" name="passwordL" value={this.state.passwordL} placeholder="password" onChange={this.passwordChangeL.bind(this)} />
-          <button onClick={this.handleLogin.bind(this)}> login! </button> 
+          <br />
+          <input type="password" name="passwordL" value={this.state.passwordL} placeholder="password" onChange={this.passwordChangeL.bind(this)} />
+          <br />
+          <button onClick={this.handleLogin.bind(this)} className="loginButton"> Login </button> 
+          <br />
+          {this.state.userError.length > 0 ?
+          <pre>{this.state.userError}</pre>
+          : null}
+        </div>
+        <div className="signupForm">
+        Need to sign up?
+        <br />
           <input type="text" name="usernameS" value={this.state.usernameS} placeholder="username" onChange={this.usernameChangeS.bind(this)} />
-          <input type="text" name="passwordS" value={this.state.passwordS} placeholder="password" onChange={this.passwordChangeS.bind(this)} />
-          <button onClick={this.handleSignup.bind(this)}> signup! </button> 
-      </div>
+          <br />
+          <input type="password" name="passwordS" value={this.state.passwordS} placeholder="password" onChange={this.passwordChangeS.bind(this)} />
+          <br />
+          <button onClick={this.handleSignup.bind(this)} className="loginButton"> Signup </button> 
+          <br />
+          {this.state.signError.length > 0 ?
+          <pre>{this.state.signError}</pre>
+          : null}
+        </div>
+      </div></div>
     )
   }
 }

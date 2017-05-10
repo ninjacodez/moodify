@@ -37,7 +37,7 @@ class App extends React.Component {
     this.setState({
       showResults: true,
       searchResultsLoading: true,
-      showPlayer: false,
+      // showPlayer: false,
     });
 
     let options = { title: title, artist: artist };
@@ -47,7 +47,7 @@ class App extends React.Component {
       this.setState({
         searchResults: data.track_list, //track_list is an array of objs
         searchResultsLoading: false,
-        currentSongNameAndArtist: ['', ''],
+        // currentSongNameAndArtist: ['', ''],
         // currentLyrics: '',
         // watson: {},
         // spotifyURI: ''
