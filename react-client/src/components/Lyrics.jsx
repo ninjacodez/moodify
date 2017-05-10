@@ -4,8 +4,8 @@ class Lyrics extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: '',
-      artist: ''
+      title: ' ',
+      artist: ' '
     };
   }
 
