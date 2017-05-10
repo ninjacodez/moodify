@@ -84,7 +84,7 @@ class App extends React.Component {
         spotifyLoading: false,
         lyricsLoading: false,
         showLyrics: true,
-        showMood: true,
+        showMood: true
       });
     })
     .fail(error => { throw error; })
@@ -94,6 +94,7 @@ class App extends React.Component {
     this.setState({
       showResults: !this.state.showResults
     });
+  }
 
   render () {
     return (
