@@ -94,6 +94,7 @@ class App extends React.Component {
     this.setState({
       showResults: !this.state.showResults
     });
+  }
 
   render () {
     return (
