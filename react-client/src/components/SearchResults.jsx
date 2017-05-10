@@ -17,14 +17,14 @@ class SearchResults extends React.Component {
     if (this.props.searchResultsLoading) {
       return (
         <div className="loading">
-          <img alt="loading" src="./img/triangle.gif"/>
+          <img alt="loading" src="./img/triangle.svg"/>
         </div>
       );
     } else {
       return (
         <div className="searchText">
           {this.props.results.map((trackObj, i) => (
-            <div key={i} value={i} onClick={this.handleClick} >{trackObj.track.track_name} by {trackObj.track.artist_name}</div>
+            <div key={i} value={i} onClick={this.handleClick} >{i+1}. {trackObj.track.track_name} by {trackObj.track.artist_name}</div>
           ))}
         </div>
       );

@@ -5,8 +5,9 @@ import Lyrics from './Lyrics.jsx';
 import Mood from './Mood.jsx';
 import Player from './Player.jsx';
 import Search from './Search.jsx';
-import SearchResults from './SearchResults.jsx';
 import Header from './Header.jsx';
+import SearchResults from './SearchResults.jsx';
+import User from './User.jsx';
 import LoginSignup from './LoginSignup.jsx';
 import { Switch, Route, Link } from 'react-router-dom';
 
@@ -116,6 +117,7 @@ class App extends React.Component {
         : null }
       </div>
       <div className="col2">
+      <User />
       {this.state.showPlayer ?
       <Player spotifyURI={this.state.spotifyURI} loading={this.state.spotifyLoading}/>
         : null }
