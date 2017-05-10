@@ -2,17 +2,15 @@ const Promise = require('bluebird');
 const request = Promise.promisifyAll(require('request'));
 const watson = Promise.promisifyAll(require('watson-developer-cloud'));
 const watsonNLU = Promise.promisifyAll(require('watson-developer-cloud/natural-language-understanding/v1.js'));
+const config = require('../config/index.js');
 
-// Ryan's Watson Auth
-const watsonToneAuth = {
-  username: '6a5b4d63-c69c-425e-8061-f7e745932a15',
-  password: 'ls2Moy0fpyNI'
-};
+const WATSON_TONE_API_KEY = config.WATSON_TONE_API_KEY;
+const WATSON_NLU_API_KEY = config.WATSON_NLU_API_KEY;
 
 const tone_analyzer = watson.tone_analyzer({
   url: 'https://gateway.watsonplatform.net/tone-analyzer/api',
-  username: watsonToneAuth.username,
-  password: watsonToneAuth.password,
+  username: WATSON_TONE_API_KEY.username,
+  password: WATSON_TONE_API_KEY.password,
   version: 'v3',
   version_date: '2016-05-19'
 });
@@ -55,14 +53,9 @@ const queryWatsonToneHelper = (songString) => {
   });
 };
 
-const watsonLangAuth = {
-  username: 'a52780e4-c824-4d6e-9241-8b36242b0c65',
-  password: '4rP5m4ERv8wZ'
-};
-
 const nlu = new watsonNLU({
-  username: watsonLangAuth.username,
-  password: watsonLangAuth.password,
+  username: WATSON_NLU_API_KEY.username,
+  password: WATSON_NLU_API_KEY.password,
   version_date: '2017-02-27'
 });
 
