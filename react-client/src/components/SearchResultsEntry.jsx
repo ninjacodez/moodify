@@ -5,24 +5,19 @@ class SearchResultsEntry extends React.Component {
     super(props);
     this.state = {
     };
+    this.click = this.click.bind(this);
+  }
+
+  click(e) {
+    console.log(e.target.value);
+    this.props.onClick(e);
   }
 
   render() {
-    if (this.props.searchResultsLoading) {
-      return (
-        <div className="loading">
-          <img alt="loading" src="./img/triangle.svg"/>
-        </div>
-      );
-    } else {
-      return (
-        <div className="searchText">
-          {this.props.results.map((trackObj, i) => (
-            <div key={i} value={i} onClick={this.handleClick} >{trackObj.track.track_name} by {trackObj.track.artist_name}</div>
-          ))}
-        </div>
-      );
-    }
+    return (
+      <div className="searchResultEntry" onClick={this.click}>
+    {this.props.track.track.track_name} by {this.props.track.track.artist_name}
+    </div>)
   }
 }
 

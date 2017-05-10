@@ -32,13 +32,15 @@ class Search extends React.Component {
     return (
       <div>
       <div className="search">
-        <form onSubmit={this.handleSubmit}>
-          <input type="text" name="title" value={this.state.title} placeholder="title" onChange={this.handleTitleChange} />
-          <input type="text" name="artist" value={this.state.artist} placeholder="artist" onChange={this.handleArtistChange} />
+        <form onSubmit={this.handleSubmit} className="search">
+          <input type="text" name="title" value={this.state.title} placeholder="title" onChange={this.handleTitleChange} className="textbox"/>
+          <input type="text" name="artist" value={this.state.artist} placeholder="artist" onChange={this.handleArtistChange} className="textbox"/>
           <input type="submit" value="Search" className="submitbutton"/>
           {this.state.showPrev ?
+          <div className="resultsBar">
+          <div className="searchHeadline">Search results...</div>
           <img className="searchPrev" onClick={this.prevResults} src="./img/ic_expand_more_48px.svg" width="18" height="18"/>
-        : null}
+          </div> : null}
         </form>
         </div>
       <div className="searchPrev">
@@ -55,4 +57,4 @@ class Search extends React.Component {
 
 export default Search;
 
-//<input type="submit" value="Search Results" className="prevbutton"/>
+//      <img id="searchMag" onClick={this.prevResults} src="./img/ic_youtube_searched_for_48px.svg" width="48" height="48"/>

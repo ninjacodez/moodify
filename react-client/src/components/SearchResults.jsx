@@ -1,5 +1,4 @@
 import React from 'react';
-import SearchResultsEntry from './SearchResultsEntry.jsx';
 
 class SearchResults extends React.Component {
   constructor(props) {
@@ -25,7 +24,7 @@ class SearchResults extends React.Component {
       return (
         <div className="search">
           {this.props.results.map((trackObj, i) => (
-            <div key={i} value={i} onClick={this.handleClick} >{trackObj.track.track_name} by {trackObj.track.artist_name}</div>
+            <div key={i} value={i} onClick={this.handleClick} >{i+1}. {trackObj.track.track_name} by {trackObj.track.artist_name}</div>
           ))}
         </div>
       );
