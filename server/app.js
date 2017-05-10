@@ -20,32 +20,29 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 app.use(cookieParser());
-app.use(session({secret: "ssshhh"}));
+app.use(session({secret: "ssshhh", resave: false, saveUninitialized: true}));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/../react-client/dist'));
 
 // routes
-app.get('/', function(req, res){
-  res.cookie('name', 'Melvo', {expire: 360000 + Date.now()}).send('cookie set')
-  console.log(document.cookie);
-   // if(req.session.page_views){
-   //    req.session.page_views++;
-   //    console.log("You visited this page " + req.session.page_views + " times");
-   //    res.send('ok')
-   // }else{
-   //    req.session.page_views = 1;
-   //    console.log("Welcome to this page for the first time!");
-   //    res.send('1')
-   // }
-});
+var sess;
 
 app.post('/signup', auth.createUser, (req, res) => {
+  sess = req.session;
+  sess.username = req.body.username;
   res.send({statusCode: 200});
 });
 
 app.post('/login', auth.verifyUser, (req, res) => {
+  sess = req.session;
+  sess.username = req.body.username;
   res.send({statusCode: 200});
 });
+
+app.get('/logout', (req, res) => {
+  req.session.destroy()
+  res.send('logged out!')
+})
 
 app.post('/search', (req, res) => {
   return mmHelpers.searchByTitleAndArtist(req.body.title, req.body.artist)
