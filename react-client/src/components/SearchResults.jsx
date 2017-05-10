@@ -22,10 +22,12 @@ class SearchResults extends React.Component {
       );
     } else {
       return (
-        <div className="searchText">
-          {this.props.results.map((trackObj, i) => (
-            <div key={i} value={i} onClick={this.handleClick} >{i+1}. {trackObj.track.track_name} by {trackObj.track.artist_name}</div>
-          ))}
+        <div className="resultsBox">
+          <div className="searchText">
+            {this.props.results.map((trackObj, i) => (
+              <div key={i} value={i} onClick={this.handleClick} >{i+1}. {trackObj.track.track_name} by {trackObj.track.artist_name}</div>
+            ))}
+          </div>
         </div>
       );
     }

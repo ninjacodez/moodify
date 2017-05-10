@@ -21,7 +21,7 @@ class User extends React.Component {
     }
     return (
       <div className="user" onClick={this.redirect.bind(this)}>
-        Login/Signup!
+        Login/Signup
       </div>)
   }
 }

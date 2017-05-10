@@ -11,7 +11,7 @@ class Player extends React.Component {
     if (this.props.loading) {
       return (
         <div className="loading">
-          <img alt="loading" src="./img/triangle.svg"/>
+          
         </div>
       );
     } else {

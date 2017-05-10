@@ -11,7 +11,7 @@
     "prod": "NODE_ENV=production node server.js",
     "postinstall": "webpack -p",
     "react-dev": "webpack -d --watch",
-    "server-dev": "nodemon --inspect server/index.js"
+    "server-dev": "nodemon server/index.js"
   },
   "dependencies": {
     "babel-cli": "^6.7.5",

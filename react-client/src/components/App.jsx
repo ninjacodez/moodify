@@ -26,7 +26,9 @@ class App extends React.Component {
       showPlayer: false,
       showLyrics: false,
       showMood: false,
-      showResults: false
+      showResults: false,
+      showPrev: false,
+      url: window.location.href
     };
     this.search = this.search.bind(this);
     this.process = this.process.bind(this);
@@ -37,7 +39,7 @@ class App extends React.Component {
     this.setState({
       showResults: true,
       searchResultsLoading: true,
-      // showPlayer: false,
+      showPrev: true,
     });
 
     let options = { title: title, artist: artist };
@@ -94,17 +96,19 @@ class App extends React.Component {
   showResults () {
     this.setState({
       showResults: !this.state.showResults
+      // showPrev: !this.state.showPrev
     });
   }
 
   render () {
     return (
       <div>
-      <Header />
+      <Header url={this.state.url}/>
       <div className="container">
       <div className="col1">
       <Search search={this.search}
-      prev={this.showResults} />
+      prev={this.showResults} 
+      showPrev={this.state.showPrev} />
       {this.state.showResults ?
       <SearchResults
         results={this.state.searchResults}
