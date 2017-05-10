@@ -242,6 +242,35 @@ h6 {
   border-radius: 10;
 }
 
+.forms {
+/*  display: flex;
+  flex-flow: row;*/
+  width: 500;
+  margin-left: 33%;
+/*  align-items: center;
+  align-content: space-between;
+  justify-content: center;*/
+}
+
+.loginForm {
+  float: left;
+  margin-right: 20;
+}
+
+.signupForm {
+  float: right;
+  margin-left: 20;
+}
+
+.loginButton {
+  float: right;
+}
+
+.verticalLine {
+  border-left: thick solid #ff0000;
+  border-radius: 10;
+}
+
 .user {
   float: right;
   font-family: 'Open Sans', sans-serif;
