@@ -38,7 +38,7 @@ class Search extends React.Component {
           <input type="text" name="artist" value={this.state.artist} placeholder="artist" onChange={this.handleArtistChange} />
           <input type="submit" value="Search" className="submitbutton"/>
           {this.state.showPrev ?
-          <img className="searchPrev" onClick={this.prevResults} src="./img/ic_menu_48px.svg" width="18" height="18"/>
+          <img className="searchPrev" onClick={this.prevResults} src="./img/ic_expand_more_48px.svg" width="18" height="18"/>
         : null}
         </form>
       </div>
