@@ -66,7 +66,8 @@ const searchByTitleAndArtist = (title, artist) => {
     q_track: title,
     q_artist: artist,
     page_size: 10,
-    page: 1
+    page: 1,
+    s_track_rating: 'desc'
   };
   return promiseHelper(method, params);
 };
