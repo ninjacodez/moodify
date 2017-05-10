@@ -117,34 +117,34 @@ class App extends React.Component {
       <div>
         <Header url={this.state.url}/>
         <div className="container">
-          <div className="col1">
-            <Search search={this.search}
-            prev={this.showResults} 
-            showPrev={this.state.showPrev} 
-            upDown={this.state.upDown} 
-            runUpDown={this.upDown} />
-            {this.state.showResults ?
-              <SearchResults
-              results={this.state.searchResults}
-              process={this.process}
-              searchResultsLoading={this.state.searchResultsLoading} />
-            : null}
-            {this.state.showPlayer ?
-              <Lyrics lyrics={this.state.currentLyrics} loading={this.state.lyricsLoading}
-              songNameAndArtist={this.state.currentSongNameAndArtist} />
-            : null }
-            </div>
-            <div className="col2">
-            <User />
-            {this.state.showPlayer ?
-              <Player spotifyURI={this.state.spotifyURI} loading={this.state.spotifyLoading}/>
-            : null }
-            {this.state.showMood ?
-              <Mood watson={this.state.watson} songNameAndArtist={this.state.currentSongNameAndArtist} />
-            : null }
+        <div className="col1">
+          <Search search={this.search}
+          prev={this.showResults} 
+          showPrev={this.state.showPrev} 
+          upDown={this.state.upDown} 
+          runUpDown={this.upDown} />
+          {this.state.showResults ?
+            <SearchResults
+            results={this.state.searchResults}
+            process={this.process}
+            searchResultsLoading={this.state.searchResultsLoading} />
+          : null}
+          {this.state.showPlayer ?
+            <Lyrics lyrics={this.state.currentLyrics} loading={this.state.lyricsLoading}
+            songNameAndArtist={this.state.currentSongNameAndArtist} />
+          : null }
           </div>
+          <div className="col2">
+          <User />
+          {this.state.showPlayer ?
+            <Player spotifyURI={this.state.spotifyURI} loading={this.state.spotifyLoading}/>
+          : null }
+          {this.state.showMood ?
+            <Mood watson={this.state.watson} songNameAndArtist={this.state.currentSongNameAndArtist} />
+          : null }
         </div>
-      </div>)
+      </div>
+    </div>)
   }
 }
 
