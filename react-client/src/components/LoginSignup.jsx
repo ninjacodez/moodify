@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Header from './Header.jsx';
-import $ from "jquery";
 import { Redirect, Link } from 'react-router-dom';
+import axios from 'axios';
 
 class LoginSignup extends React.Component {
   constructor(props) {
@@ -26,16 +26,13 @@ class LoginSignup extends React.Component {
   login(username, password) {
     let loginInfo = { username: username, password: password };
     console.log(loginInfo);
-    $.post('/login', loginInfo)
-    .done((data) => {
-      if (!data.errorMessage) {
+    axios.post('/login', loginInfo)
+    .then((res) => {
+      if (!res.data.errorMessage) {
         this.setState ({redirect: true})
         console.log('great success!')
-      } else if (data.errorMessage) {
-        console.log(data.errorMessage);
-        this.setState({
-          userError: data.errorMessage
-        });
+      } else if (res.data.errorMessage) {
+        console.log(res.data.errorMessage);
       }
     });
   };
@@ -43,16 +40,13 @@ class LoginSignup extends React.Component {
   signup(username, password) {
     let signupInfo = { username: username, password: password };
     console.log(signupInfo);
-    $.post('/signup', signupInfo)
-    .done((data) => {
-      if (!data.errorMessage) {
+    axios.post('/signup', signupInfo)
+    .then((res) => {
+      if (!res.data.errorMessage) {
         this.setState ({redirect: true})
         console.log('Welcome!')
-      } else if (data.errorMessage) {
-        console.log(data.errorMessage);
-        this.setState({
-          signError: data.errorMessage
-        });
+      } else if (res.data.errorMessage) {
+        console.log(res.data.errorMessage);
       }
     });
   };
@@ -83,7 +77,7 @@ class LoginSignup extends React.Component {
           <br />
           <input type="password" name="passwordL" value={this.state.passwordL} placeholder="password" onChange={this.passwordChangeL.bind(this)} />
           <br />
-          <button onClick={this.handleLogin.bind(this)} className="loginButton"> Login </button> 
+          <button onClick={this.handleLogin.bind(this)} className="loginButton"> Login </button>
           <br />
           {this.state.userError.length > 0 ?
           <pre>{this.state.userError}</pre>
@@ -96,7 +90,7 @@ class LoginSignup extends React.Component {
           <br />
           <input type="password" name="passwordS" value={this.state.passwordS} placeholder="password" onChange={this.passwordChangeS.bind(this)} />
           <br />
-          <button onClick={this.handleSignup.bind(this)} className="loginButton"> Signup </button> 
+          <button onClick={this.handleSignup.bind(this)} className="loginButton"> Signup </button>
           <br />
           {this.state.signError.length > 0 ?
           <pre>{this.state.signError}</pre>
