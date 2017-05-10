@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
-// mongoose.connect('mongodb://localhost/test');
-mongoose.connect('mongodb://heroku_6xrjjbsq:8g9mlf83h7sg407v23ikm97rso@ds133281.mlab.com:33281/heroku_6xrjjbsq');
+mongoose.connect('mongodb://localhost/test');
+// mongoose.connect('mongodb://heroku_6xrjjbsq:8g9mlf83h7sg407v23ikm97rso@ds133281.mlab.com:33281/heroku_6xrjjbsq');
 
 const db = mongoose.connection;
 
