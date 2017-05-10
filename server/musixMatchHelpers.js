@@ -73,7 +73,17 @@ const searchByTitleAndArtist = (title, artist) => {
   return promiseHelper(method, params);
 };
 
-
+var filterSong = function(str) {
+    var filteredStr ='';
+    for (var i = 0; i < str.length; i++) {
+        if (str[i] === '*') {
+            break;
+        } else {
+            filteredStr += str[i];
+        }
+    }
+    return filteredStr;
+}
 
 module.exports.getLyricsByTrackId = getLyricsByTrackId;
 module.exports.getLyricsByTitleAndArtist = getLyricsByTitleAndArtist;
