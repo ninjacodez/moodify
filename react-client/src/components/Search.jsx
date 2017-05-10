@@ -38,10 +38,11 @@ class Search extends React.Component {
           <input type="text" name="artist" value={this.state.artist} placeholder="artist" onChange={this.handleArtistChange} className="textbox"/>
           <input type="submit" value="Search" className="submitbutton"/>
           {this.state.showPrev ?
-          <div className="resultsBar">
-          <div className="searchHeadline">Search results...</div>
-          <img className="searchPrev" onClick={this.prevResults} src="./img/ic_expand_more_48px.svg" width="18" height="18"/>
-          </div> : null}
+            <div className="resultsBar">
+            <div className="searchHeadline">Search results...</div>
+            <img className="searchPrev" onClick={this.prevResults} src="./img/ic_expand_more_48px.svg" width="18" height="18"/>
+            </div>
+            : null}
         </form>
         </div>
       </div>
