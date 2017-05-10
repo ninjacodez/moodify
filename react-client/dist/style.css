@@ -54,10 +54,11 @@ html {
 }
 
 .search {
-  float: left;
   order: 1;
   flex: 0;
-  vertical-align: middle;
+  position: relative;
+  top: 50%;
+  width: 500;
 }
 
 .searchbar {
@@ -70,17 +71,37 @@ html {
 }
 
 .submitbutton {
-  margin-left: 10;
+  margin-left: 0;
+  height: 80;
+  width: 80;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 200;
+  font-size: 16;
 }
 
 .prevbutton {
   padding: 0;
 }
 
-.searchPrev {
-  float: right;
-  margin-left: 10;
+.searchHeadline {
+  float: left;
+  text-align: left;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 200;
+  font-size: 16;
+  margin: 0;
   order: 1;
+  flex: 0;
+}
+
+.resultsBar {
+  float: right;
+  margin-bottom: 10;
+}
+
+.searchPrev {
+  margin-left: 10;
+  order: 2;
   flex: 0;
 }
 
@@ -110,6 +131,16 @@ html {
 #header {
   height:90;
   background: #5fc9f8;
+  width:100%;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  top: -20;
+}
+
+#subheader {
+  height:40;
+  background: #dce1e1;
   width:100%;
   position: relative;
   margin: 0;
@@ -170,14 +201,35 @@ h6 {
   font-size: 28;
   padding-bottom: 15;
   padding-top: 10;
+  width: 500;
+}
+
+.user {
+  float: right;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 200;
+  font-size: 16;
+  text-align: right;
+  margin-bottom: 20;
 }
 
 .searchText {
   font-family: 'Open Sans', sans-serif;
   font-weight: 200;
   font-size: 16;
+  font-style: italic;
   margin: 0;
-  width: 400;
+  width: 500;
+}
+
+.searchResultEntry {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 200;
+  font-size: 16;
+}
+
+.textbox {
+  height: 20;
 }
 
 .loading {

@@ -7,6 +7,8 @@ import Player from './Player.jsx';
 import Search from './Search.jsx';
 import SearchResults from './SearchResults.jsx';
 import Header from './Header.jsx';
+import User from './User.jsx';
+import Subheader from './Subheader.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -115,6 +117,7 @@ class App extends React.Component {
         : null }
       </div>
       <div className="col2">
+      <User />
       {this.state.showPlayer ?
       <Player spotifyURI={this.state.spotifyURI} loading={this.state.spotifyLoading}/>
         : null }
