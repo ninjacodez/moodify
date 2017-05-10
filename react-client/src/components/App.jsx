@@ -1,6 +1,9 @@
+// dependencies
 import React from 'react';
 import ReactDOM from 'react-dom';
-import $ from "jquery";
+import axios from 'axios';
+import { Switch, Route, Link } from 'react-router-dom';
+// sub components
 import Lyrics from './Lyrics.jsx';
 import Mood from './Mood.jsx';
 import Player from './Player.jsx';
@@ -9,7 +12,6 @@ import Header from './Header.jsx';
 import SearchResults from './SearchResults.jsx';
 import User from './User.jsx';
 import LoginSignup from './LoginSignup.jsx';
-import { Switch, Route, Link } from 'react-router-dom';
 
 class App extends React.Component {
   constructor(props) {
@@ -43,11 +45,11 @@ class App extends React.Component {
     });
 
     let options = { title: title, artist: artist };
-    $.post('/search', options)
-    .done((data) => {
-      if (!data) { console.log('error'); };
+    axios.post('/search', options)
+    .then((res) => {
+      if (!res.data) { console.log('error'); };
       this.setState({
-        searchResults: data.track_list, //track_list is an array of objs
+        searchResults: res.data.track_list, //track_list is an array of objs
         searchResultsLoading: false,
         // currentSongNameAndArtist: ['', ''],
         // currentLyrics: '',
@@ -76,8 +78,9 @@ class App extends React.Component {
     input.album_coverart_500x500 = trackObj.album_coverart_500x500;
     input.album_coverart_800x800 = trackObj.album_coverart_800x800;
 
-    $.post('/process', input)
-    .done(data => {
+    axios.post('/process', input)
+    .then(res => {
+      let data = res.data;
       console.log(data);
       this.setState({
         currentSongNameAndArtist: data[0],
@@ -90,7 +93,7 @@ class App extends React.Component {
         showMood: true
       });
     })
-    .fail(error => { throw error; })
+    .catch(error => { throw error; })
   }
 
   showResults () {
@@ -107,7 +110,7 @@ class App extends React.Component {
       <div className="container">
       <div className="col1">
       <Search search={this.search}
-      prev={this.showResults} 
+      prev={this.showResults}
       showPrev={this.state.showPrev} />
       {this.state.showResults ?
       <SearchResults
