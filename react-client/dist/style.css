@@ -316,6 +316,7 @@ h6 {
   transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
   margin: 2px;
 }
+
 .loginButton {
   float: right;
   font-family: 'Open Sans', sans-serif;
@@ -401,8 +402,18 @@ h6 {
 }
 
 .resultsBox {
-  margin-bottom: 0;
-  margin-top: 2;
+  margin-bottom: 10;
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -o-transition: 0.5s;
+  transition: 0.5s;
+  opacity: 1;
+  visibility: visible; 
+}
+
+.resultsBox:hidden {
+  opacity: 0;
+  visibility: hidden; 
 }
 
 .searchText {
@@ -454,7 +465,6 @@ h6 {
   -o-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
   transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
   margin: 2px;
-
 }
 
 .loading {

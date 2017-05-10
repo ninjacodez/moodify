@@ -25,7 +25,6 @@ class Header extends React.Component {
       <div id="header" onClick={this.redirect}>
       <h3>moodify</h3>
       <img id="logo" src="./img/moodify.png" width="80" height="80"/>
-      <img id="mascot" src="./img/cow.png" width="10" height="16"/>
       </div>)
   }
 }
