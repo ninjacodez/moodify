@@ -10,6 +10,13 @@ class Lyrics extends React.Component {
   }
 
   render() {
+    if (this.props.loading) {
+      return (
+        <div className="loading">
+          <img alt="loading" src="./img/triangle.svg"/>
+        </div>
+      );
+    } else {
       return (
         <div className="lyrics" >
           <h6>{this.props.songNameAndArtist[0] + ' - ' + this.props.songNameAndArtist[1]}</h6>
@@ -17,6 +24,7 @@ class Lyrics extends React.Component {
         </div>
       );
     }
+  }
 }
 
 export default Lyrics;
