@@ -17,10 +17,10 @@ class Router extends React.Component {
       <div>   
        <Switch>
           <Route exact path='/' >
-            <LoginSignup />
-          </Route>
-          <Route path='/homepage'>
             <App />
+          </Route>
+          <Route path='/loginSignup'>
+            <LoginSignup />
           </Route>   
         </Switch>
       </div>)

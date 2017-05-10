@@ -61,7 +61,7 @@ class LoginSignup extends React.Component {
 
   render () {
     if (this.state.redirect) {
-      return <Redirect push to="/homepage" />;
+      return <Redirect push to="/" />;
     }
     return (
       <div>
