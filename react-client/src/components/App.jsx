@@ -110,7 +110,7 @@ class App extends React.Component {
       <div className="container">
       <div className="col1">
       <Search search={this.search}
-      prev={this.showResults} 
+      prev={this.showResults}
       showPrev={this.state.showPrev} />
       {this.state.showResults ?
       <SearchResults
