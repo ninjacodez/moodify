@@ -19,7 +19,7 @@ class Router extends React.Component {
           <Route exact path='/' >
             <LoginSignup />
           </Route>
-          <Route path='/haro'>
+          <Route path='/homepage'>
             <App />
           </Route>   
         </Switch>
