@@ -8,8 +8,8 @@ class Header extends React.Component {
 
   render () {
     return (<div id="header">
-      <h3>mơ.ơdify</h3>
-      <img id="mascot" src="./img/mood.png" />
+      <h3>moodify</h3>
+      <img id="mascot" src="./img/mood.png" width="40" height="63"/>
       </div>)
   }
 }
