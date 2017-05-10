@@ -17,6 +17,7 @@ const app = express();
 
 app.use(cors());
 app.use(bodyParser.json());
+const jsonParser = bodyParser.json()
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/../react-client/dist'));
 
@@ -82,7 +83,6 @@ app.post('/process', (req, res) => {
   .then((spotifyData) => {
     res.json([songNameAndArtist, input.lyrics, watsonData, spotifyData]);
   })
-
   // .then(data => {
   //   //watson call 2?
   //   watsonHelpers.queryWatsonNLUHelper(input.lyrics)

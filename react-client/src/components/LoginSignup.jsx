@@ -22,6 +22,7 @@ class LoginSignup extends React.Component {
 
   login(username, password) {
     let loginInfo = { username: username, password: password };
+    console.log(loginInfo);
     $.post('/login', loginInfo)
     .done((data) => {
       if (!data.errorMessage) {
@@ -35,6 +36,7 @@ class LoginSignup extends React.Component {
 
   signup(username, password) {
     let signupInfo = { username: username, password: password };
+    console.log(signupInfo);
     $.post('/signup', signupInfo)
     .done((data) => {
       if (!data.errorMessage) {
@@ -59,7 +61,7 @@ class LoginSignup extends React.Component {
 
   render () {
     if (this.state.redirect) {
-      return <Redirect push to="/homepage" />;
+      return <Redirect push to="/" />;
     }
     return (
       <div>
@@ -74,7 +76,5 @@ class LoginSignup extends React.Component {
     )
   }
 }
-          // <div> <Link to={`/haro`} > Front of App </Link></div> 
 
 export default LoginSignup;
-
