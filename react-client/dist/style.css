@@ -4,8 +4,8 @@ html {
 }
 
 * {
-   margin: 0px;
-   padding: 0px;
+  margin: 0px;
+  padding: 0px;
 }
 
 .container {
@@ -114,13 +114,13 @@ html {
   position: relative;
   margin: 0;
   padding: 0;
-  top: -10;
+  top: -20;
 }
 
 #mascot {
   position: absolute;
-  top: 14;
-  left: 0;
+  top: 18;
+  left: 2;
 }
 
 body {
@@ -130,7 +130,7 @@ body {
 
 pre {
   font-family: 'Open Sans', sans-serif;
-  word-wrap: normal;
+  word-wrap: break-word;
 }
 
 h3 {
@@ -177,6 +177,7 @@ h6 {
   font-weight: 200;
   font-size: 16;
   margin: 0;
+  width: 400;
 }
 
 .loading {
