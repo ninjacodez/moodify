@@ -1,12 +1,15 @@
 const db = require('../database');
 const Promise = require('bluebird');
+const hash = require('./hash.js');
 
 const userExists = (username, password) => {
   return new Promise((resolve, reject) => {
+    let hashedPassword = hash.createHash(password);
+    console.log('hashed: ', hashedPassword);
     db.User
     .find({
       username: username,
-      password: password
+      password: hashedPassword
     })
     .exec((err, user) => {
       if (!err && user.length !== 0) { resolve(true); }
@@ -16,12 +19,10 @@ const userExists = (username, password) => {
 };
 
 const verifyUser = (req, res, next) => {
-  console.log(req.body)
   let username = req.body.username;
   let password = req.body.password;
   return userExists(username, password)
   .then((item) => {
-    console.log('item', item)
     if (!item) {
       res.send({errorMessage: 'user not found'});
     } else {
@@ -47,7 +48,12 @@ const createUser = (req, res, next) => {
   return usernameExists(req.body.username)
   .then((item) => {
     if (!item) {
-      let newUser = new db.User(req.body);
+      let username = req.body.username;
+      let hashedPassword = hash.createHash(req.body.password);
+      let newUser = new db.User({
+        username: username,
+        password: hashedPassword
+      });
       newUser.save(() => {
         console.log('saved: ', req.body.username);
         next();
@@ -55,7 +61,7 @@ const createUser = (req, res, next) => {
     } else {
       res.send({errorMessage: 'username already exists'});
     }
-  });
+  })
 };
 
 module.exports.verifyUser = verifyUser;
