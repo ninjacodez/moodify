@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from "axios";
 import { Redirect, Link } from 'react-router-dom';
 
 class User extends React.Component {
@@ -15,14 +16,27 @@ class User extends React.Component {
     })
   }
 
+  logout () {
+    axios.get('/logout')
+    .then(res => {
+      console.log(res.data)
+    })
+  }
+
   render() {
      if (this.state.redirect) {
       return <Redirect push to="/loginSignup" />;
     }
     return (
-      <div className="pushDown">
-        <button onClick={this.redirect.bind(this)} className="loginButton"> Login/Signup </button>
-      </div>)
+      <div>
+        <div className="user" onClick={this.redirect.bind(this)}>
+          Login/Signup!
+        </div>
+        <div onClick={this.logout.bind(this)}>
+          Logout!
+        </div>  
+      </div>
+    )
   }
 }
 
