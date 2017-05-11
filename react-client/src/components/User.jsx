@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from "axios";
+import PastSearches from './PastSearches.jsx';
 import { Redirect, Link } from 'react-router-dom';
 
 class User extends React.Component {
@@ -34,7 +35,8 @@ class User extends React.Component {
         </div>
         <div onClick={this.logout.bind(this)}>
           Logout!
-        </div>  
+        </div>
+        <PastSearches />  
       </div>
     )
   }
