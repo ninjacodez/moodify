@@ -129,4 +129,37 @@ app.post('/process', (req, res) => {
   });
 })
 
+app.get('/pastSearches', (req, res) => {
+  console.log(req.session.username)
+  const username = req.session.username;
+  return new Promise ((resolve, reject) => {
+    db.User.where({ username: username }).findOne((err, user) => {
+    if (err) { reject(err); }
+      const songs = user.songs;
+      resolve(songs);
+    })
+  })
+  .then(songs => {
+    return new Promise ((resolve, reject) => {
+      songArray = []
+      songs.forEach((songId, index) => {
+        // return new Promise ((resolve, reject) => {
+        db.Song.where({ track_id: songId }).findOne((err, songData) => {
+          if (err) { reject(err); }
+          // console.log(songData)
+          songArray.push({
+            track_name: songData.track_name,
+            artist_name: songData.artist_name 
+          });
+          if (index === songs.length - 1) { resolve(songArray); }
+        }); 
+      });
+    })
+  })
+  .then((songArray) => {
+    console.log('songArray', songArray)
+    res.send(songArray);
+  });
+});
+
 module.exports = app;
