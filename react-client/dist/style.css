@@ -20,14 +20,14 @@ html {
 
 .col1 {
   display: flex;
-  flex: 1 2 auto;
+  flex: 1 1 auto;
   order: 1;
   flex-direction: column;
 }
 
 .col2 {
   display: flex;
-  flex: 1 1 500;
+  flex: 1 1 auto;
   order: 2;
   flex-direction: column;
 }
@@ -41,13 +41,13 @@ html {
 
 .minicol1 {
   float: left;
-  flex: 1;
+  flex: 1 1 auto;
   order: 1;
 }
 
 .minicol2 {
   float: right;
-  flex: 1;
+  flex: 1 1 auto;
   order: 2;
 }
 
