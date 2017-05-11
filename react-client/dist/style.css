@@ -41,13 +41,21 @@ html {
 
 .minicol1 {
   float: left;
+<<<<<<< HEAD
   flex: 1 1 100%;
+=======
+  flex: 1 1 auto;
+>>>>>>> Fixed graphs to expand to screen size
   order: 1;
 }
 
 .minicol2 {
   float: right;
+<<<<<<< HEAD
   flex: 1 1 100%;
+=======
+  flex: 1 1 auto;
+>>>>>>> Fixed graphs to expand to screen size
   order: 2;
 }
 
