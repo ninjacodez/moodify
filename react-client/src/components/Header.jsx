@@ -30,3 +30,5 @@ class Header extends React.Component {
 }
 
 export default Header;
+
+      // <img id="logo" src="./img/moodify.png" width="80" height="80"/>
