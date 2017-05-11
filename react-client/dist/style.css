@@ -227,13 +227,8 @@ h6 {
 }
 
 .forms {
-/*  display: flex;
-  flex-flow: row;*/
   width: 500;
   margin-left: 33%;
-/*  align-items: center;
-  align-content: space-between;
-  justify-content: center;*/
 }
 
 .loginForm {
@@ -256,13 +251,8 @@ h6 {
 }
 
 .forms {
-/*  display: flex;
-  flex-flow: row;*/
   width: 500;
   margin-left: 33%;
-/*  align-items: center;
-  align-content: space-between;
-  justify-content: center;*/
 }
 
 .loginForm {
