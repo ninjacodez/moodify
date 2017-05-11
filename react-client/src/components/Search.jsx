@@ -37,6 +37,8 @@ class Search extends React.Component {
           <input type="text" name="title" value={this.state.title} placeholder="title" onChange={this.handleTitleChange} className="textbox"/>
           <input type="text" name="artist" value={this.state.artist} placeholder="artist" onChange={this.handleArtistChange} className="textbox"/>
           <input type="submit" value="Search" className="submitbutton"/>
+          </form>
+          <form>
           {this.props.showPrev ?
             <div className="resultsBar" onClick={this.prevResults} >
             <div className="searchHeadline">Search results...</div>
