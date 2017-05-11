@@ -20,8 +20,8 @@ class User extends React.Component {
       return <Redirect push to="/loginSignup" />;
     }
     return (
-      <div className="user" onClick={this.redirect.bind(this)}>
-        Login/Signup
+      <div className="pushDown">
+        <button onClick={this.redirect.bind(this)} className="loginButton"> Login/Signup </button>
       </div>)
   }
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import Player from './Player.jsx';
 
 class Lyrics extends React.Component {
   constructor(props) {
@@ -20,6 +21,9 @@ class Lyrics extends React.Component {
       return (
         <div className="lyrics" >
           <h6>{this.props.songNameAndArtist[0] + ' - ' + this.props.songNameAndArtist[1]}</h6>
+          {this.props.showPlayer ?
+            <Player spotifyURI={this.props.spotifyURI} loading={this.props.loading}/>
+          : null }
           <pre>{this.props.lyrics}</pre>
         </div>
       );
