@@ -41,13 +41,13 @@ html {
 
 .minicol1 {
   float: left;
-  flex: 1 1 auto;
+  flex: 1 1 100%;
   order: 1;
 }
 
 .minicol2 {
   float: right;
-  flex: 1 1 auto;
+  flex: 1 1 100%;
   order: 2;
 }
 
@@ -130,10 +130,11 @@ html {
 }
 
 .player {
-  order: 2;
+  order: 1;
   flex: 0 0 auto;
   height: 80;
-  text-align: center;
+  text-align: left;
+  margin-bottom: 15;
 }
 
 .lyrics {
@@ -219,7 +220,7 @@ h6 {
   font-family: 'Open Sans', sans-serif;
   font-style: medium;
   font-size: 28;
-  padding-bottom: 15;
+  padding-bottom: 10;
   padding-top: 10;
   width: 600;
   text-transform: capitalize;
@@ -290,7 +291,7 @@ h6 {
   font-weight: 200;
   font-size: 16;
   text-align: right;
-  margin-bottom: 25;
+  margin-bottom: 0;
   cursor: pointer;
 }
 
@@ -300,18 +301,8 @@ h6 {
 }
 
 .resultsBox {
-  margin-bottom: 10;
-  -webkit-transition: 0.5s;
-  -moz-transition: 0.5s;
-  -o-transition: 0.5s;
-  transition: 0.5s;
-  opacity: 1;
-  visibility: visible; 
-}
-
-.resultsBox:hidden {
-  opacity: 0;
-  visibility: hidden; 
+  margin-bottom: 0;
+  margin-top: 5;
 }
 
 .searchText {
