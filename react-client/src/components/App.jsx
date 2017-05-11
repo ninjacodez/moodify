@@ -131,15 +131,13 @@ class App extends React.Component {
             searchResultsLoading={this.state.searchResultsLoading} />
           : null}
           {this.state.showPlayer ?
-            <Lyrics lyrics={this.state.currentLyrics} loading={this.state.lyricsLoading}
+            <Lyrics showPlayer={this.state.showPlayer} spotifyURI={this.state.spotifyURI} loading={this.state.spotifyLoading}
+            lyrics={this.state.currentLyrics} loading={this.state.lyricsLoading}
             songNameAndArtist={this.state.currentSongNameAndArtist} />
           : null }
           </div>
           <div className="col2">
           <User />
-          {this.state.showPlayer ?
-            <Player spotifyURI={this.state.spotifyURI} loading={this.state.spotifyLoading}/>
-          : null }
           {this.state.showMood ?
             <Mood watson={this.state.watson} songNameAndArtist={this.state.currentSongNameAndArtist} />
           : null }

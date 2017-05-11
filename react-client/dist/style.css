@@ -402,18 +402,8 @@ h6 {
 }
 
 .resultsBox {
-  margin-bottom: 10;
-  -webkit-transition: 0.5s;
-  -moz-transition: 0.5s;
-  -o-transition: 0.5s;
-  transition: 0.5s;
-  opacity: 1;
-  visibility: visible; 
-}
-
-.resultsBox:hidden {
-  opacity: 0;
-  visibility: hidden; 
+  margin-bottom: 0;
+  margin-top: 5;
 }
 
 .searchText {
