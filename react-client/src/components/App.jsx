@@ -113,7 +113,7 @@ class App extends React.Component {
   }
 
   render () {
-    return (return (
+    return (
       <div>
         <Header url={this.state.url}/>
         <div className="container">
