@@ -205,7 +205,7 @@ componentWillReceiveProps(props) {
   render() {
     return (
       <div className="maingraph">
-      <h5>Emotion</h5>
+      <h2>Emotion</h2>
       <Bar data={this.state.emotionData} options={this.state.emotionOptions} width={500}/>
       <div className="maingraph">
       <h5>Social</h5>
