@@ -5,7 +5,7 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 // const path = require('path');
 const cors = require('cors');
-// const Promise = require('bluebird');
+const Promise = require('bluebird');
 
 // other module exports
 const auth = require('./auth.js');
@@ -60,6 +60,11 @@ app.post('/fetchLyricsByTrackId', (req, res) => {
 });
 
 app.post('/process', (req, res) => {
+  if (req.session.username) {
+    console.log('in session!')
+  } else {
+    console.log('not in session!')
+  }
   let input = req.body;
   const songNameAndArtist = [input.artist_name, input.track_name];
   let watsonData = {};
@@ -101,6 +106,9 @@ app.post('/process', (req, res) => {
     })
   })
   .then(() => {
+    if (req.session.username) {
+      db.User.where({username: req.session.username}).update({ $push: {songs: input.track_id}})
+    }
     return spotifyHelpers.getSongByTitleAndArtist(input.track_name, input.artist_name)
   })
   .then(spotifyData => {
