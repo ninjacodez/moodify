@@ -61,6 +61,16 @@ html {
   vertical-align: middle;
 }
 
+.searchUser {
+  float: right;
+  order: 1;
+  flex: 1;
+  position: relative;
+  top: 50%;
+  width: 500;
+  vertical-align: middle;
+}
+
 .searchbar {
   display: flex;
   order: 1;

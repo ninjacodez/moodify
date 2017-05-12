@@ -25,7 +25,6 @@ class LoginSignup extends React.Component {
 
   login(username, password) {
     let loginInfo = { username: username, password: password };
-    console.log(loginInfo);
     axios.post('/login', loginInfo)
     .then((res) => {
       if (!res.data.errorMessage) {
@@ -39,7 +38,6 @@ class LoginSignup extends React.Component {
 
   signup(username, password) {
     let signupInfo = { username: username, password: password };
-    console.log(signupInfo);
     axios.post('/signup', signupInfo)
     .then((res) => {
       if (!res.data.errorMessage) {

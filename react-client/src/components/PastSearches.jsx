@@ -1,32 +1,34 @@
 import React from 'react';
 import axios from 'axios';
+import PastSearchResults from './PastSearchResults.jsx';
 
 class PastSearches extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      songArray: []
+      showPrev: false
     };
-    this.handleClick = this.handleClick.bind(this);
+    this.prevResults = this.prevResults.bind(this);
   }
 
-  handleClick(e) {
-    axios.get('/pastSearches')
-    .then(res => {
-      this.setState({ songArray: res.data });
-    })
-    .catch(err => { console.log(err)})
+  prevResults(e) {
+    e.preventDefault();
+    this.props.prev();
+    this.props.runUpDown();
+    this.setState({showPrev: true});
   }
 
   render() {
     return (
-      <div>
-        <button onClick={this.handleClick}>Past Searches</button>
-        {this.state.songArray.map((song, i) => {
-          return (
-            <div key={i}> {song.track_name} by {song.artist_name} </div>
-          );
-        })}
+      <div className="searchUser">
+        <form>
+          <div className="resultsBar" onClick={this.prevResults} >
+          <div className="searchHeadline">Previous searches...</div>
+          {this.props.upDown ?
+          <img className="searchPrevUp" src="./img/ic_down.svg" width="18" height="18"/>
+          : <img className="searchPrevDown" src="./img/ic_up.svg" width="18" height="18"/>}
+          </div>
+        </form>
       </div>
     );
   }
