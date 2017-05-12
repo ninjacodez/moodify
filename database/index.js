@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const beautifyUnique = require('mongoose-beautiful-unique-validation');
 mongoose.Promise = require('bluebird');
 // mongoose.connect('mongodb://localhost/test');
 const config = require('../config/index.js');
@@ -15,7 +16,7 @@ db.once('open', () => {
   console.log('mongoose connection success! b(^.~)z');
 });
 
-var SongSchema = mongoose.Schema({
+let songSchema = mongoose.Schema({
 	track_id: {type: Number, unique: true},
 	track_name: String,
 	artist_name: String,
@@ -24,11 +25,11 @@ var SongSchema = mongoose.Schema({
 	album_coverart_500x500: String,
 	album_coverart_800x800: String,
 	lyrics: String
-
 });
-var Song = mongoose.model('Song', SongSchema);
+songSchema.plugin(beautifyUnique);
+const Song = mongoose.model('Song', songSchema);
 
-var watsonSchema = mongoose.Schema({
+let watsonSchema = mongoose.Schema({
 
   track_id: { type: Number, unique: true },
 
@@ -52,16 +53,16 @@ var watsonSchema = mongoose.Schema({
   emotionalrange: Number
 
 });
+watsonSchema.plugin(beautifyUnique);
+const Watson = mongoose.model('Watson', watsonSchema);
 
-var Watson = mongoose.model('Watson', watsonSchema);
-
-var userSchema = mongoose.Schema({
+let userSchema = mongoose.Schema({
   username: {type: String, unique: true},
   password: String,
   songs: [Number]
 });
-
-var User = mongoose.model('User', userSchema);
+userSchema.plugin(beautifyUnique);
+const User = mongoose.model('User', userSchema);
 
 module.exports.Song = Song;
 module.exports.Watson = Watson;

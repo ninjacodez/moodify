@@ -1,7 +1,6 @@
 const Promise = require('bluebird');
 const request = Promise.promisifyAll(require('request'));
 
-
 const getSongByTitleAndArtist = (title, artist) => {
   const rootURL = 'https://api.spotify.com/v1/';
   return request.getAsync(rootURL + 'search?q=track:' + title + '%20artist:' + artist+ '&type=track')
