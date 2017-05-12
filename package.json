@@ -11,7 +11,8 @@
     "prod": "NODE_ENV=production node server.js",
     "postinstall": "webpack -p",
     "react-dev": "webpack -d --watch",
-    "server-dev": "nodemon --inspect server/index.js"
+    "server-dev": "nodemon --inspect server/index.js",
+    "test": "node ./node_modules/mocha/bin/mocha"
   },
   "dependencies": {
     "axios": "^0.16.1",
@@ -52,7 +53,9 @@
     "webpack-dev-server": "^2.4.5"
   },
   "devDependencies": {
+    "chai": "^3.5.0",
     "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor",
+    "mocha": "^3.3.0",
     "react": "^15.5.4",
     "react-dom": "^15.5.4"
   },
