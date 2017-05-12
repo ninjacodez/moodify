@@ -21,7 +21,7 @@ class PastSearches extends React.Component {
   render() {
     return (
       <div>
-        <button onclick={this.handleClick}>Past Searches</button>
+        <button onClick={this.handleClick}>Past Searches</button>
         {this.state.songArray.map((song, i) => {
           return (
             <div key={i}> {song.track_name} by {song.artist_name} </div>

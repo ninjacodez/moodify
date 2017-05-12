@@ -5,7 +5,6 @@ const hash = require('./hash.js');
 const userExists = (username, password) => {
   return new Promise((resolve, reject) => {
     let hashedPassword = hash.createHash(password);
-    console.log('hashed: ', hashedPassword);
     db.User
     .find({
       username: username,

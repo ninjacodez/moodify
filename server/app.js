@@ -1,9 +1,11 @@
 // dependencies
 const express = require('express');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
 const bodyParser = require('body-parser');
 // const path = require('path');
 const cors = require('cors');
-// const Promise = require('bluebird');
+const Promise = require('bluebird');
 
 // other module exports
 const auth = require('./auth.js');
@@ -17,17 +19,38 @@ const app = express();
 
 app.use(cors());
 app.use(bodyParser.json());
+app.use(cookieParser());
+app.use(session({secret: "ssshhh", resave: false, saveUninitialized: true}));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/../react-client/dist'));
 
 // routes
+var sess;
+
 app.post('/signup', auth.createUser, (req, res) => {
+  sess = req.session;
+  sess.username = req.body.username;
   res.send({statusCode: 200});
 });
 
 app.post('/login', auth.verifyUser, (req, res) => {
+  sess = req.session;
+  sess.username = req.body.username;
   res.send({statusCode: 200});
 });
+
+app.get('/check', (req, res) => {
+  if (req.session.username) {
+    res.send({statusCode: 200});
+  } else {
+    res.send({statusCode: 404});
+  }
+})
+
+app.get('/logout', (req, res) => {
+  req.session.destroy()
+  res.send('logged out!')
+})
 
 app.post('/search', (req, res) => {
   return mmHelpers.searchByTitleAndArtist(req.body.title, req.body.artist)
@@ -45,6 +68,11 @@ app.post('/fetchLyricsByTrackId', (req, res) => {
 });
 
 app.post('/process', (req, res) => {
+  if (req.session.username) {
+    console.log('in session!')
+  } else {
+    console.log('not in session!')
+  }
   let input = req.body;
   const songNameAndArtist = [input.artist_name, input.track_name];
   let watsonData = {};
@@ -86,6 +114,9 @@ app.post('/process', (req, res) => {
     })
   })
   .then(() => {
+    if (req.session.username) {
+      db.User.where({username: req.session.username}).update({ $push: {songs: input.track_id}})
+    }
     return spotifyHelpers.getSongByTitleAndArtist(input.track_name, input.artist_name)
   })
   .then(spotifyData => {
@@ -105,5 +136,38 @@ app.post('/process', (req, res) => {
     res.send(error);
   });
 })
+
+app.get('/pastSearches', (req, res) => {
+  console.log(req.session.username)
+  const username = req.session.username;
+  return new Promise ((resolve, reject) => {
+    db.User.where({ username: username }).findOne((err, user) => {
+    if (err) { reject(err); }
+      const songs = user.songs;
+      resolve(songs);
+    })
+  })
+  .then(songs => {
+    return new Promise ((resolve, reject) => {
+      songArray = []
+      songs.forEach((songId, index) => {
+        // return new Promise ((resolve, reject) => {
+        db.Song.where({ track_id: songId }).findOne((err, songData) => {
+          if (err) { reject(err); }
+          // console.log(songData)
+          songArray.push({
+            track_name: songData.track_name,
+            artist_name: songData.artist_name 
+          });
+          if (index === songs.length - 1) { resolve(songArray); }
+        }); 
+      });
+    })
+  })
+  .then((songArray) => {
+    console.log('songArray', songArray)
+    res.send(songArray);
+  });
+});
 
 module.exports = app;
