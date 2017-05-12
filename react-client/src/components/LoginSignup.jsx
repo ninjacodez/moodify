@@ -29,9 +29,9 @@ class LoginSignup extends React.Component {
     .then((res) => {
       if (!res.data.errorMessage) {
         this.setState ({redirect: true})
-        console.log('great success!')
+        console.log('Login successful!')
       } else if (res.data.errorMessage) {
-        console.log(res.data.errorMessage);
+        this.setState({userError: res.data.errorMessage});
       }
     });
   };
@@ -44,7 +44,7 @@ class LoginSignup extends React.Component {
         this.setState ({redirect: true})
         console.log('Welcome!')
       } else if (res.data.errorMessage) {
-        console.log(res.data.errorMessage);
+        this.setState({signError: res.data.errorMessage});
       }
     });
   };
@@ -78,7 +78,7 @@ class LoginSignup extends React.Component {
           <button onClick={this.handleLogin.bind(this)} className="loginButton"> Login </button>
           <br />
           {this.state.userError.length > 0 ?
-          <pre>{this.state.userError}</pre>
+          <div className="errorMessage">{this.state.userError}</div>
           : null}
         </div>
         <div className="signupForm">
@@ -91,7 +91,7 @@ class LoginSignup extends React.Component {
           <button onClick={this.handleSignup.bind(this)} className="loginButton"> Signup </button>
           <br />
           {this.state.signError.length > 0 ?
-          <pre>{this.state.signError}</pre>
+          <div className="errorMessage">{this.state.signError}</div>
           : null}
         </div>
       </div></div>
