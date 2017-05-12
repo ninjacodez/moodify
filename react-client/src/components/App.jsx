@@ -31,7 +31,8 @@ class App extends React.Component {
       showResults: false,
       showPrev: false,
       upDown: true,
-      url: window.location.href
+      url: window.location.href,
+      loggedIn: false
     };
     this.search = this.search.bind(this);
     this.process = this.process.bind(this);

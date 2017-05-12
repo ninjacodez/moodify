@@ -1,4 +1,5 @@
 import React from 'react';
+import renderif from 'render-if';
 import axios from "axios";
 import PastSearches from './PastSearches.jsx';
 import { Redirect, Link } from 'react-router-dom';
@@ -7,7 +8,8 @@ class User extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      redirect: false
+      redirect: false,
+      loggedIn: false
     };
   }
 
@@ -21,6 +23,16 @@ class User extends React.Component {
     axios.get('/logout')
     .then(res => {
       console.log(res.data)
+      this.setState({loggedIn: false})
+    })
+  }
+
+   componentDidMount () {
+    axios.get('/check')
+    .then(res => {
+      if (res.data.statusCode === 200) {
+        this.setState({loggedIn: true})
+      }
     })
   }
 
@@ -36,7 +48,9 @@ class User extends React.Component {
         <div onClick={this.logout.bind(this)}>
           Logout!
         </div>
-        <PastSearches />  
+        {renderif (this.state.loggedIn) (
+          <PastSearches />  
+        )}
       </div>
     )
   }

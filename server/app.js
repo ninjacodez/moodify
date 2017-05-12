@@ -39,6 +39,14 @@ app.post('/login', auth.verifyUser, (req, res) => {
   res.send({statusCode: 200});
 });
 
+app.get('/check', (req, res) => {
+  if (req.session.username) {
+    res.send({statusCode: 200});
+  } else {
+    res.send({statusCode: 404});
+  }
+})
+
 app.get('/logout', (req, res) => {
   req.session.destroy()
   res.send('logged out!')
