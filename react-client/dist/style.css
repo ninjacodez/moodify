@@ -61,6 +61,16 @@ html {
   vertical-align: middle;
 }
 
+.searchUser {
+  float: right;
+  order: 1;
+  flex: 1;
+  position: relative;
+  top: 50%;
+  width: 500;
+  vertical-align: middle;
+}
+
 .searchbar {
   display: flex;
   order: 1;
@@ -124,6 +134,17 @@ html {
   flex: 0;
 }
 
+.searchHeadlineUser {
+  float: left;
+  text-align: left;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 200;
+  font-size: 16;
+  margin: 0;
+  order: 1;
+  flex: 0;
+}
+
 .resultsBar {
   float: left;
   margin-left: 5;
@@ -176,7 +197,7 @@ html {
 }
 
 #header {
-  height:90;
+  height:100;
   background: #5fc9f8;
   width:100%;
   position: relative;
@@ -198,14 +219,14 @@ html {
 
 #logo {
   position: absolute;
-  top: 10;
-  left: 0;
+  top: 30;
+  left: 90;
 }
 
 #mascot {
   position: absolute;
-  top: 11;
-  left: 5;
+  top: 22;
+  left: 13;
 }
 
 body {
@@ -316,6 +337,7 @@ h6 {
   transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
   margin: 2px;
 }
+
 .loginButton {
   float: right;
   font-family: 'Open Sans', sans-serif;
@@ -454,7 +476,6 @@ h6 {
   -o-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
   transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
   margin: 2px;
-
 }
 
 .loading {
