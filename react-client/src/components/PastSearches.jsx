@@ -25,8 +25,8 @@ class PastSearches extends React.Component {
           <div className="resultsBar" onClick={this.prevResults} >
           <div className="searchHeadlineUser">Previous searches...</div>
           {this.props.upDown ?
-          <img className="searchPrevUp" src="./img/ic_down.svg" width="18" height="18"/>
-          : <img className="searchPrevDown" src="./img/ic_up.svg" width="18" height="18"/>}
+          <img className="searchPrevUp" src="./img/ic_up.svg" width="18" height="18"/>
+          : <img className="searchPrevDown" src="./img/ic_down.svg" width="18" height="18"/>}
           </div>
         </form>
       </div>
