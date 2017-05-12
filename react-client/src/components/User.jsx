@@ -42,9 +42,11 @@ class User extends React.Component {
     }
     return (
       <div>
-        <div className="user" onClick={this.redirect.bind(this)}>
-          Login/Signup!
-        </div>
+        {renderif (!this.state.loggedIn) (
+          <div className="user" onClick={this.redirect.bind(this)}>
+            Login/Signup!
+          </div>
+        )}
         <div onClick={this.logout.bind(this)}>
           Logout!
         </div>
