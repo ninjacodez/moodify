@@ -23,8 +23,8 @@ class Header extends React.Component {
     }
     return (
       <div id="header" onClick={this.redirect}>
-      <h3>moodify</h3>
-      <img id="logo" src="./img/moodify.png" width="80" height="80"/>
+      <h3 id="logo">moodify</h3>
+      <img id="mascot" src="./img/cow.png" width="75" height="75"/>
       </div>)
   }
 }

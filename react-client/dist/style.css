@@ -176,7 +176,7 @@ html {
 }
 
 #header {
-  height:90;
+  height:100;
   background: #5fc9f8;
   width:100%;
   position: relative;
@@ -198,14 +198,14 @@ html {
 
 #logo {
   position: absolute;
-  top: 10;
-  left: 0;
+  top: 30;
+  left: 90;
 }
 
 #mascot {
   position: absolute;
-  top: 12;
-  left: 5;
+  top: 22;
+  left: 13;
 }
 
 body {
