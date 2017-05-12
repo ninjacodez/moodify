@@ -25,7 +25,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/../react-client/dist'));
 
 // routes
-var sess;
+let sess = {};
 
 app.post('/signup', auth.createUser, (req, res) => {
   sess = req.session;
@@ -85,7 +85,7 @@ app.post('/process', (req, res) => {
 
     const songEntry = new db.Song(input);
     return songEntry.save(err => {
-      if (err) console.log ("SAVE SONG ERROR", err);
+      if (err) { console.log("SAVE SONG ERROR"); }
     })
   })
   .then(() => {
@@ -110,7 +110,7 @@ app.post('/process', (req, res) => {
     };
     const newEntry = new db.Watson(watsonData);
     return newEntry.save(err => {
-      if (err) console.log('SAVE WATSON ERROR: ', err);
+      if (err) { console.log('SAVE WATSON ERROR'); }
     })
   })
   .then(() => {
@@ -122,15 +122,6 @@ app.post('/process', (req, res) => {
   .then(spotifyData => {
     res.json([songNameAndArtist, input.lyrics, watsonData, spotifyData]);
   })
-  // .then(data => {
-  //   //watson call 2?
-  //   watsonHelpers.queryWatsonNLUHelper(input.lyrics)
-  // })
-  // .then(() => {
-  //   //write everything to db
-  //   var songEntry = new db.Song(input);
-  //   return songEntry.save()
-  // })
   .catch((error) => {
     console.log('/PROCESS ERROR: ', error);
     res.send(error);
@@ -151,16 +142,14 @@ app.get('/pastSearches', (req, res) => {
     return new Promise ((resolve, reject) => {
       songArray = []
       songs.forEach((songId, index) => {
-        // return new Promise ((resolve, reject) => {
         db.Song.where({ track_id: songId }).findOne((err, songData) => {
           if (err) { reject(err); }
-          // console.log(songData)
           songArray.push({
             track_name: songData.track_name,
-            artist_name: songData.artist_name 
+            artist_name: songData.artist_name
           });
           if (index === songs.length - 1) { resolve(songArray); }
-        }); 
+        });
       });
     })
   })

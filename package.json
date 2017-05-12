@@ -33,6 +33,7 @@
     "fs": "0.0.1-security",
     "mongodb": "^2.2.26",
     "mongoose": "^4.9.7",
+    "mongoose-beautiful-unique-validation": "^5.1.1",
     "nodemon": "^1.11.0",
     "path": "^0.12.7",
     "path-to-regexp": "^1.7.0",

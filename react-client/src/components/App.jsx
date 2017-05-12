@@ -21,7 +21,7 @@ class App extends React.Component {
       currentSongNameAndArtist: [],
       currentLyrics: '',
       watson: {},
-      spotifyURI: '',
+      spotifyURI: null,
       searchResults: [],
       searchResultsUser: [],
       searchResultsLoading: false,
@@ -93,7 +93,6 @@ class App extends React.Component {
     axios.post('/process', input)
     .then(res => {
       let data = res.data;
-      console.log(data);
       this.setState({
         currentSongNameAndArtist: data[0],
         currentLyrics: data[1],
@@ -140,9 +139,9 @@ class App extends React.Component {
         <div className="container">
         <div className="col1">
           <Search search={this.search}
-          prev={this.showResults} 
-          showPrev={this.state.showPrev} 
-          upDown={this.state.upDown} 
+          prev={this.showResults}
+          showPrev={this.state.showPrev}
+          upDown={this.state.upDown}
           runUpDown={this.upDown} />
           {this.state.showResults ?
             <SearchResults
