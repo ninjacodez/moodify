@@ -14,7 +14,7 @@ class PastSearchResults extends React.Component {
   }
 
   render() {
-    if (this.props.searchResultsLoading) {
+    if (this.props.loading) {
       return (
         <div className="loading">
           <img alt="loading" src="./img/triangle.svg"/>
