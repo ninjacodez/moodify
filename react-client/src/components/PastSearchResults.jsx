@@ -22,10 +22,10 @@ class PastSearchResults extends React.Component {
       );
     } else {
       return (
-        <div className="resultsBox">
-            {this.props.results.map((trackObj, i) => (
-              <div className="searchText" key={i} value={i} onClick={this.handleClick} >{i+1}. {trackObj.track_name} by {trackObj.artist_name}</div>
-            ))}
+        <div className="resultsBoxUser">
+          {this.props.results.map((trackObj, i) => (
+            <div className="searchText" key={i} value={i} onClick={this.handleClick} >{i+1}. {trackObj.track_name} - {trackObj.artist_name}</div>
+          ))}
         </div> 
       );
     }

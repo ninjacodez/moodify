@@ -45,9 +45,7 @@ class User extends React.Component {
   pastSearch() {
     axios.get('/pastSearches')
     .then(res => {
-      console.log(res.data);
       this.setState({ searchResultsUser: res.data });
-      console.log('Past user searches: ', this.state.searchResultsUser);
     })
     .catch(err => { console.log(err)})
   }
@@ -57,7 +55,8 @@ class User extends React.Component {
       return <Redirect push to="/loginSignup" />;
     }
     return (
-      <div>
+      <div className="allUser">
+      <div className="user">
         {renderif (!this.state.loggedIn) (
           <div className="loginButton" onClick={this.redirect}>
             Login/Signup!
@@ -74,13 +73,17 @@ class User extends React.Component {
           upDown={this.props.upDown}
           runUpDown={this.props.runUpDown} />
         )}
+      </div>
+      <div>
+      <br />
         {renderif (this.props.showPrev) (
-        <PastSearchResults 
+          <PastSearchResults 
           results={this.state.searchResultsUser}
           process={this.props.process}
           searchResultsLoading={this.props.searchResultsLoading} />
         )}  
       </div>
+    </div>
     )
   }
 }

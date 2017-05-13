@@ -41,7 +41,7 @@ class Search extends React.Component {
           <form>
           {this.props.showPrev ?
             <div className="resultsBar" onClick={this.prevResults} >
-            <div className="searchHeadline">Search results...</div>
+            <div className="searchHeadline">Search Results</div>
             {this.props.upDown ?
             <img className="searchPrevUp" src="./img/ic_down.svg" width="18" height="18"/>
             : <img className="searchPrevDown" src="./img/ic_up.svg" width="18" height="18"/>}

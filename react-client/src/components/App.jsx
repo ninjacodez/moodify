@@ -36,7 +36,8 @@ class App extends React.Component {
       upDown: true,
       url: window.location.href,
       loggedIn: false,
-      upDownUser: false
+      upDownUser: false,
+      searchResultsLoadingUser: false
     };
     this.search = this.search.bind(this);
     this.process = this.process.bind(this);
@@ -76,6 +77,8 @@ class App extends React.Component {
       spotifyLoading: true,
       lyricsLoading: true,
       showResults: false,
+      showResultsUser: false,
+      upDownUser: false,
       showLyrics: false,
       showMood: false,
       upDown: true
@@ -117,7 +120,6 @@ class App extends React.Component {
     this.setState({
       showResultsUser: !this.state.showResultsUser
     });
-    console.log(this.state.showResultsUser);
   }
 
   upDown() {
@@ -162,7 +164,7 @@ class App extends React.Component {
           upDown={this.state.upDownUser} 
           runUpDown={this.upDownUser}
           process={this.process}
-          searchResultsLoading={this.state.searchResultsLoading} />
+          searchResultsLoading={this.state.searchResultsLoadingUser} />
           {this.state.showMood ?
             <Mood watson={this.state.watson} songNameAndArtist={this.state.currentSongNameAndArtist} />
           : null }

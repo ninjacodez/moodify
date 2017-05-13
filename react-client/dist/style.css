@@ -63,11 +63,10 @@ html {
 
 .searchUser {
   float: right;
-  order: 1;
+  order: 2;
   flex: 1;
   position: relative;
   top: 50%;
-  width: 500;
   vertical-align: middle;
 }
 
@@ -157,6 +156,18 @@ html {
   border-radius: 5px;
 }
 
+.resultsBarUser {
+  float: right;
+  margin-left: 5;
+  margin-top: 5;
+  cursor: pointer;
+}
+
+.resultsBarUser:hover {
+  background: #dadada;
+  border-radius: 5px;
+}
+
 .pushDown {
   margin-bottom: 28;
 }
@@ -180,6 +191,7 @@ html {
 .maingraph {
   order: 2;
   flex: 0;
+  margin-top: 28;
 }
 
 .player {
@@ -324,7 +336,7 @@ h6 {
   border: 1px solid #b7b7b7;
   -webkit-border-radius: 3px;
   border-radius: 3px;
-  color: rgba(0,142,198,1);
+  color: black;
   -o-text-overflow: clip;
   text-overflow: clip;
   background: rgba(252,252,252,1);
@@ -408,23 +420,23 @@ h6 {
 }
 
 .user {
-  float: right;
   font-family: 'Open Sans', sans-serif;
   font-weight: 200;
   font-size: 16;
   text-align: right;
-  margin-bottom: 0;
+  margin-bottom: 10;
   cursor: pointer;
-}
-
-.user:hover {
-  background: #dadada;
-  border-radius: 5px;
 }
 
 .resultsBox {
   margin-bottom: 0;
   margin-top: 2;
+}
+
+.resultsBoxUser {
+  margin-bottom: 0;
+  margin-top: 0;
+  text-align: right;
 }
 
 .searchText {
@@ -436,6 +448,10 @@ h6 {
   width: 500;
   text-transform: capitalize;
   cursor: pointer;
+}
+
+.allUser {
+  margin-bottom: 0;
 }
 
 .searchText:hover {
@@ -480,4 +496,13 @@ h6 {
 
 .loading {
   align-content: middle;
+}
+
+.errorMessage {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 200;
+  font-size: 16;
+  color: red;
+  margin-top: 10%;
+  text-align: center;
 }
