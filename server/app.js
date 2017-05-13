@@ -108,7 +108,7 @@ app.post('/process', (req, res) => {
     if (req.session.username) {
       return db.User.where({username: req.session.username}).update({ $push: {songs: input.track_id}})
     }
-  })  
+  })
   .then(() => {
     return spotifyHelpers.getSongByTitleAndArtist(input.track_name, input.artist_name)
   })
@@ -119,7 +119,7 @@ app.post('/process', (req, res) => {
     return songEntry.save(err => {
       if (err) { console.log("SAVE SONG ERROR"); }
     })
-  })  
+  })
   .then(() => {
     res.json([songNameAndArtist, input.lyrics, watsonData, input.spotify_uri]);
   })
