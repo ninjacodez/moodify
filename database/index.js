@@ -24,7 +24,8 @@ let songSchema = mongoose.Schema({
 	album_coverart_350x350: String,
 	album_coverart_500x500: String,
 	album_coverart_800x800: String,
-	lyrics: String
+	lyrics: String,
+  spotify_uri: String
 });
 songSchema.plugin(beautifyUnique);
 const Song = mongoose.model('Song', songSchema);
