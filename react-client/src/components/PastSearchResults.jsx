@@ -10,7 +10,7 @@ class PastSearchResults extends React.Component {
 
   handleClick(e) {
     let index = e.target.getAttribute('value');
-    this.props.process(this.props.results[index].track);
+    this.props.loadPastSearchResults(this.props.results[index].track_id);
   }
 
   render() {
@@ -22,11 +22,13 @@ class PastSearchResults extends React.Component {
       );
     } else {
       return (
-        <div className="resultsBoxUser">
+        <div className="resultsBox">
           {this.props.results.map((trackObj, i) => (
-            <div className="searchText" key={i} value={i} onClick={this.handleClick} >{i+1}. {trackObj.track_name} - {trackObj.artist_name}</div>
+            <div className="searchText" key={i} value={i} onClick={this.handleClick} >
+              {i+1}. {trackObj.track_name} by {trackObj.artist_name}
+            </div>
           ))}
-        </div> 
+        </div>
       );
     }
   }

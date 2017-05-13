@@ -11,7 +11,7 @@ class User extends React.Component {
     this.state = {
       redirect: false,
       loggedIn: false,
-      searchResultsUser: []
+      pastSearchResults: []
     };
     this.logout = this.logout.bind(this);
     this.redirect = this.redirect.bind(this);
@@ -32,12 +32,12 @@ class User extends React.Component {
     })
   }
 
-   componentDidMount () {
+  componentDidMount () {
     axios.get('/check')
     .then(res => {
       if (res.data.statusCode === 200) {
         this.setState({loggedIn: true})
-        this.pastSearch();
+        // this.pastSearch();
       }
     })
   }
@@ -45,7 +45,7 @@ class User extends React.Component {
   pastSearch() {
     axios.get('/pastSearches')
     .then(res => {
-      this.setState({ searchResultsUser: res.data });
+      this.setState({ pastSearchResults: res.data });
     })
     .catch(err => { console.log(err)})
   }
@@ -68,20 +68,21 @@ class User extends React.Component {
         </div>
         )}
         {renderif (this.state.loggedIn) (
-          <PastSearches search={this.props.search}
+        <PastSearches search={this.props.search}
           prev={this.props.prev}
           upDown={this.props.upDown}
-          runUpDown={this.props.runUpDown} />
+          runUpDown={this.props.runUpDown}
+          pastSearch={this.pastSearch}/>
         )}
       </div>
       <div>
       <br />
         {renderif (this.props.showPrev) (
-          <PastSearchResults 
-          results={this.state.searchResultsUser}
-          process={this.props.process}
-          searchResultsLoading={this.props.searchResultsLoading} />
-        )}  
+        <PastSearchResults
+          results={this.state.pastSearchResults}
+          searchResultsLoading={this.props.searchResultsLoading}
+          loadPastSearchResults={this.props.loadPastSearchResults} />
+        )}
       </div>
     </div>
     )
