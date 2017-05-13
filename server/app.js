@@ -68,11 +68,6 @@ app.post('/fetchLyricsByTrackId', (req, res) => {
 });
 
 app.post('/process', (req, res) => {
-  if (req.session.username) {
-    console.log('in session!')
-  } else {
-    console.log('not in session!')
-  }
   let input = req.body;
   const songNameAndArtist = [input.artist_name, input.track_name];
   let watsonData = {};
@@ -82,11 +77,7 @@ app.post('/process', (req, res) => {
     const lyrics = data.lyrics.lyrics_body;
 
     input.lyrics = lyrics.slice(0, (lyrics.indexOf('*******')));
-
-    const songEntry = new db.Song(input);
-    return songEntry.save(err => {
-      if (err) { console.log("SAVE SONG ERROR"); }
-    })
+    return;
   })
   .then(() => {
     return watsonHelpers.queryWatsonToneHelper(input.lyrics)
@@ -115,12 +106,22 @@ app.post('/process', (req, res) => {
   })
   .then(() => {
     if (req.session.username) {
-      db.User.where({username: req.session.username}).update({ $push: {songs: input.track_id}})
+      return db.User.where({username: req.session.username}).update({ $push: {songs: input.track_id}})
     }
+  })  
+  .then(() => {
     return spotifyHelpers.getSongByTitleAndArtist(input.track_name, input.artist_name)
   })
-  .then(spotifyData => {
-    res.json([songNameAndArtist, input.lyrics, watsonData, spotifyData]);
+  .then((spotifyData) => {
+    input.spotify_uri = spotifyData
+
+    const songEntry = new db.Song(input);
+    return songEntry.save(err => {
+      if (err) { console.log("SAVE SONG ERROR"); }
+    })
+  })  
+  .then(() => {
+    res.json([songNameAndArtist, input.lyrics, watsonData, input.spotify_uri]);
   })
   .catch((error) => {
     console.log('/PROCESS ERROR: ', error);
@@ -129,7 +130,6 @@ app.post('/process', (req, res) => {
 })
 
 app.get('/pastSearches', (req, res) => {
-  console.log(req.session.username)
   const username = req.session.username;
   return new Promise ((resolve, reject) => {
     db.User.where({ username: username }).findOne((err, user) => {
