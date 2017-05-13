@@ -186,7 +186,7 @@ class App extends React.Component {
           upDown={this.state.upDownUser}
           runUpDown={this.upDownUser}
           process={this.process}
-          searchResultsLoading={this.state.searchResultsLoading}
+          searchResultsLoading={this.state.searchResultsLoadingUser}
           loadPastSearchResults={this.loadPastSearchResults} />
           {this.state.showMood ?
             <Mood watson={this.state.watson} songNameAndArtist={this.state.currentSongNameAndArtist} />
