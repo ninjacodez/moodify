@@ -145,6 +145,7 @@ app.get('/pastSearches', (req, res) => {
         db.Song.where({ track_id: songId }).findOne((err, songData) => {
           if (err) { reject(err); }
           songArray.push({
+            track_id: songId,
             track_name: songData.track_name,
             artist_name: songData.artist_name
           });
@@ -154,9 +155,29 @@ app.get('/pastSearches', (req, res) => {
     })
   })
   .then((songArray) => {
-    console.log('songArray', songArray)
     res.send(songArray);
   });
+});
+
+app.post('/loadPastSearchResults', (req, res) => {
+  return new Promise((resolve, reject) => {
+    db.Song
+    .find({ track_id: req.body.track_id })
+    .exec((err, data) => {
+      resolve(data[0]);
+    })
+  })
+  .then((songData) => {
+    let output = [];
+    output.push(songData);
+    db.Watson
+    .find({ track_id: req.body.track_id })
+    .exec((err, watsonData) => {
+      output.push(watsonData[0]);
+      res.send(output);
+    })
+  })
+  .catch(err => { res.send(err); })
 });
 
 module.exports = app;

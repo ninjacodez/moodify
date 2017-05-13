@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import PastSearchResults from './PastSearchResults.jsx';
 
 class PastSearches extends React.Component {
@@ -12,10 +11,10 @@ class PastSearches extends React.Component {
   }
 
   prevResults(e) {
-    e.preventDefault();
     this.props.prev();
     this.props.runUpDown();
     this.setState({showPrev: true});
+    this.props.pastSearch();
   }
 
   render() {

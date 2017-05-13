@@ -44,8 +44,8 @@ class App extends React.Component {
     this.showResults = this.showResults.bind(this);
     this.upDown = this.upDown.bind(this);
     this.upDownUser = this.upDownUser.bind(this);
-    // this.pastSearch = this.pastSearch.bind(this);
     this.showResultsUser = this.showResultsUser.bind(this);
+    this.loadPastSearchResults = this.loadPastSearchResults.bind(this);
   }
 
   search(title, artist) {
@@ -134,8 +134,27 @@ class App extends React.Component {
     });
   }
 
+  loadPastSearchResults(trackId) {
+    axios.post('/loadPastSearchResults', { track_id: trackId })
+    .then(res => {
+      let songData = res.data[0];
+      let watsonData = res.data[1];
+      console.log(watsonData);
+      this.setState({
+        currentLyrics: songData.lyrics,
+        currentSongNameAndArtist: [songData.track_name, songData.artist_name],
+        watson: watsonData,
+        spotifyURI: songData.spotify_uri,
+        showMood: true,
+        showPlayer: true,
+        showLyrics: true
+      });
+    })
+    .catch(err => console.log(err));
+  }
+
   render () {
-  return (
+    return (
       <div>
         <Header url={this.state.url}/>
         <div className="container">
@@ -152,19 +171,23 @@ class App extends React.Component {
             searchResultsLoading={this.state.searchResultsLoading} />
           : null}
           {this.state.showPlayer ?
-            <Lyrics showPlayer={this.state.showPlayer} spotifyURI={this.state.spotifyURI} loading={this.state.spotifyLoading}
-            lyrics={this.state.currentLyrics} loading={this.state.lyricsLoading}
-            songNameAndArtist={this.state.currentSongNameAndArtist} />
+            <Lyrics showPlayer={this.state.showPlayer}
+              spotifyURI={this.state.spotifyURI}
+              loading={this.state.spotifyLoading}
+              lyrics={this.state.currentLyrics}
+              loading={this.state.lyricsLoading}
+              songNameAndArtist={this.state.currentSongNameAndArtist} />
           : null }
           </div>
           <div className="col2">
-          <User 
-          showPrev={this.state.showResultsUser} 
-          prev={this.showResultsUser} 
-          upDown={this.state.upDownUser} 
+          <User
+          showPrev={this.state.showResultsUser}
+          prev={this.showResultsUser}
+          upDown={this.state.upDownUser}
           runUpDown={this.upDownUser}
           process={this.process}
-          searchResultsLoading={this.state.searchResultsLoadingUser} />
+          searchResultsLoading={this.state.searchResultsLoading}
+          loadPastSearchResults={this.loadPastSearchResults} />
           {this.state.showMood ?
             <Mood watson={this.state.watson} songNameAndArtist={this.state.currentSongNameAndArtist} />
           : null }
