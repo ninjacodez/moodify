@@ -54,7 +54,6 @@ const createUser = (req, res, next) => {
         password: hashedPassword
       });
       newUser.save(() => {
-        console.log('saved: ', req.body.username);
         next();
       });
     } else {
