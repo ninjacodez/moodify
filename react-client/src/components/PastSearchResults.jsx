@@ -20,6 +20,10 @@ class PastSearchResults extends React.Component {
           <img alt="loading" src="./img/triangle.svg"/>
         </div>
       );
+    } else if (this.props.results.errorMessage) {
+      return (
+        <div className="errorMessage">{this.props.results.errorMessage}</div>
+      );
     } else {
       return (
         <div className="resultsBox">

@@ -136,12 +136,13 @@ app.get('/pastSearches', (req, res) => {
   const username = req.session.username;
   return new Promise ((resolve, reject) => {
     db.User.where({ username: username }).findOne((err, user) => {
-    if (err) { reject(err); }
+      if (err) { reject(err); }
       const songs = user.songs;
       resolve(songs);
     })
   })
   .then(songs => {
+    if (songs.length === 0) { res.send({errorMessage: 'No Past Searches'}); }
     return new Promise ((resolve, reject) => {
       songArray = []
       songs.forEach((songId, index) => {
@@ -159,7 +160,10 @@ app.get('/pastSearches', (req, res) => {
   })
   .then((songArray) => {
     res.send(songArray);
-  });
+  })
+  .catch(err => {
+    res.send({errorMessage: 'No Past Searches'});
+  })
 });
 
 app.post('/loadPastSearchResults', (req, res) => {

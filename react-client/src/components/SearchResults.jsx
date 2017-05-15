@@ -22,7 +22,7 @@ class SearchResults extends React.Component {
       );
     } else if (this.props.results.errorMessage) {
       return (
-        <div>{this.props.results.errorMessage}</div>
+        <div className="errorMessage">{this.props.results.errorMessage}</div>
       );
     } else {
       return (
