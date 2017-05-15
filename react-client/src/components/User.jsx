@@ -38,7 +38,6 @@ class User extends React.Component {
     .then(res => {
       if (res.data.statusCode === 200) {
         this.setState({loggedIn: true})
-        this.props.showPrev();
       }
     })
   }

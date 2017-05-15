@@ -61,12 +61,8 @@ class App extends React.Component {
     .then((res) => {
       if (!res.data) { console.log('error'); };
       this.setState({
-        searchResults: res.data.track_list, //track_list is an array of objs
-        searchResultsLoading: false,
-        // currentSongNameAndArtist: ['', ''],
-        // currentLyrics: '',
-        // watson: {},
-        // spotifyURI: ''
+        searchResults: res.data,
+        searchResultsLoading: false
       });
     });
   }
