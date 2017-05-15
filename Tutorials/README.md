@@ -2,7 +2,7 @@
 
 Moodify - Analyze mood/social/language of lyrics 
 
-![moodify](https://giphy.com/gifs/3ohze1S1h44Q9F45HO/html5)
+![moodify](https://media.giphy.com/media/3ohze1S1h44Q9F45HO/giphy.gif)
 
 Musixmatch https://developer.musixmatch.com/ <br />
 Spotify https://developer.spotify.com/web-api/ <br />
