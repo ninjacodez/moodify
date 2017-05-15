@@ -14,8 +14,8 @@ html {
   justify-content: space-between;
   background-color: white;
   position: relative;
-  padding-left: 100;
-  padding-right: 100;
+  padding-left: 5%;
+  padding-right: 5%;
 }
 
 .col1 {
@@ -23,19 +23,13 @@ html {
   flex: 1 1 auto;
   order: 1;
   flex-direction: column;
+  margin-right: 10%;
 }
 
 .col2 {
   display: flex;
   flex: 1 1 auto;
   order: 2;
-  flex-direction: column;
-}
-
-.col3 {
-  display: flex;
-  flex: 1 1 500;
-  order: 1;
   flex-direction: column;
 }
 
@@ -57,7 +51,7 @@ html {
   flex: 1;
   position: relative;
   top: 50%;
-  width: 500;
+  width: 100%;
   vertical-align: middle;
 }
 
@@ -189,14 +183,14 @@ html {
 }
 
 .maingraph {
-  order: 2;
-  flex: 0;
+  order: 1;
+  flex: 1 1 auto;
   margin-top: 28;
 }
 
 .player {
   order: 1;
-  flex: 0 0 auto;
+  flex: 1 1 auto;
   height: 80;
   text-align: left;
   margin-bottom: 15;
@@ -248,7 +242,7 @@ body {
 
 pre {
   font-family: 'Open Sans', sans-serif;
-  width: 500;
+  width: 475;
   white-space: pre-wrap;       /* css-3 */
   white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
   white-space: -pre-wrap;      /* Opera 4-6 */
@@ -263,7 +257,6 @@ h2 {
   font-size: 30;
   padding-bottom: 10;
   padding-top: 10;
-  width: 600;
   text-transform: capitalize;
 }
 
@@ -304,7 +297,7 @@ h6 {
   font-size: 30;
   padding-bottom: 10;
   padding-top: 10;
-  width: 600;
+  width: 100%;
   text-transform: capitalize;
 }
 
@@ -445,7 +438,7 @@ h6 {
   font-size: 16;
   font-style: italic;
   margin-bottom: 0;
-  width: 500;
+  /*width: 40%;*/
   text-transform: capitalize;
   cursor: pointer;
 }

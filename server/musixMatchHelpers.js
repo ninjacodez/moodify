@@ -22,7 +22,7 @@ const promiseHelper = (method, params) => {
       }
     });
   });
-}
+};
 
 const getTrackInfo = (trackId) => {
   const method = 'track.get?';
@@ -74,13 +74,13 @@ const searchByTitleAndArtist = (title, artist) => {
 };
 
 const filterSong = (str) => {
-  let filteredStr ='';
+  let filteredStr = '';
   for (let i = 0; i < str.length; i++) {
     if (str[i] === '*') { break; }
     else { filteredStr += str[i]; }
   }
   return filteredStr;
-}
+};
 
 module.exports.getLyricsByTrackId = getLyricsByTrackId;
 module.exports.getLyricsByTitleAndArtist = getLyricsByTitleAndArtist;

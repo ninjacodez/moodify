@@ -3,13 +3,13 @@ const request = Promise.promisifyAll(require('request'));
 
 const getSongByTitleAndArtist = (title, artist) => {
   const rootURL = 'https://api.spotify.com/v1/';
-  return request.getAsync(rootURL + 'search?q=track:' + title + '%20artist:' + artist+ '&type=track')
+  return request.getAsync(rootURL + 'search?q=track:' + title + '%20artist:' + artist + '&type=track')
   .then(data => {
     let parsedData = JSON.parse(data.body);
     return parsedData.tracks.items[0].uri;
   })
   .catch(err => { console.log(err); });
-}
+};
 
 // const Client_ID = '17af2e7d17c94de6b602b7ae29b1a7c0';
 // const Client_Secret = 'e87dca1ab2094afd84f33f19fa73bef6';

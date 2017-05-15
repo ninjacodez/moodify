@@ -11,8 +11,9 @@ const userExists = (username, password) => {
       password: hashedPassword
     })
     .exec((err, user) => {
-      if (!err && user.length !== 0) { resolve(true); }
-      else { resolve(false); }
+      if (!err && user.length !== 0) {
+        resolve(true);
+      } else { resolve(false); }
     });
   });
 };
@@ -27,7 +28,7 @@ const verifyUser = (req, res, next) => {
     } else {
       next();
     }
-  })
+  });
 };
 
 const usernameExists = (username) => {
@@ -37,8 +38,9 @@ const usernameExists = (username) => {
       username: username,
     })
     .exec((err, user) => {
-      if (!err && user.length !== 0) { resolve(true); }
-      else { resolve(false); }
+      if (!err && user.length !== 0) {
+        resolve(true);
+      } else { resolve(false); }
     });
   });
 };
@@ -59,7 +61,7 @@ const createUser = (req, res, next) => {
     } else {
       res.send({errorMessage: 'username already exists'});
     }
-  })
+  });
 };
 
 module.exports.verifyUser = verifyUser;

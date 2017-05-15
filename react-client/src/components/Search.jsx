@@ -50,7 +50,7 @@ class Search extends React.Component {
         </form>
         </div>
       </div>
-    )
+    );
   }
 }
 
