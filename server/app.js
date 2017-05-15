@@ -86,7 +86,7 @@ app.post('/process', (req, res) => {
     return watsonHelpers.queryWatsonToneHelper(input.lyrics);
   })
   .then(data => {
-    watsonData = {
+    let watsonData = {
       track_id: input.track_id,
       anger: data.anger,
       disgust: data.disgust,
@@ -103,25 +103,27 @@ app.post('/process', (req, res) => {
       emotionalrange: data.emotionalrange
     };
     const newEntry = new db.Watson(watsonData);
-    return newEntry.save(err => {
+    newEntry.save(err => {
       if (err) { console.log('SAVE WATSON ERROR'); }
     });
+    return;
   })
   .then(() => {
     if (req.session.username) {
-      return db.User.where({username: req.session.username}).update({ $push: {songs: input.track_id}})
+      return db.User.where({username: req.session.username}).update({ $push: {songs: input.track_id}});
     }
   })
   .then(() => {
-    return spotifyHelpers.getSongByTitleAndArtist(input.track_name, input.artist_name)
+    return spotifyHelpers.getSongByTitleAndArtist(input.track_name, input.artist_name);
   })
   .then((spotifyData) => {
     input.spotify_uri = spotifyData;
 
     const songEntry = new db.Song(input);
-    return songEntry.save(err => {
+    songEntry.save(err => {
       if (err) { console.log('SAVE SONG ERROR'); }
     });
+    return;
   })
   .then(() => {
     res.json([songNameAndArtist, input.lyrics, watsonData, input.spotify_uri]);
