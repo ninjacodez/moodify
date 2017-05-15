@@ -2,7 +2,7 @@
 
 Moodify - Analyzes mood of song lyrics, create a user account to save search history
 
-![moodify](http://i.imgur.com/vUGS4fy.gif)
+![moodify](https://giant.gfycat.com/GorgeousBlushingGalapagosdove.gif)
 
 Musixmatch https://developer.musixmatch.com/ <br />
 Spotify https://developer.spotify.com/web-api/ <br />
