@@ -9,4 +9,5 @@ Spotify https://developer.spotify.com/web-api/ <br />
 IBM Watson Tone Analyzer https://www.ibm.com/watson/developercloud/tone-analyzer.html
 
 
-Technology Stack : MongoDB, ExpressJS, React, NodeJS
+Technology Stack: MongoDB, ExpressJS, React, NodeJS
+Team: Tony Cassara, Ryan Chow, Mel Hsieh, Yvonne Zhang
