@@ -38,11 +38,7 @@ class User extends React.Component {
     .then(res => {
       if (res.data.statusCode === 200) {
         this.setState({loggedIn: true})
-<<<<<<< HEAD
         this.props.showPrev();
-=======
-        // this.pastSearch();
->>>>>>> impletemnt onClick functionality: now fetching past song data from database and display on screen
       }
     })
   }
@@ -53,11 +49,7 @@ class User extends React.Component {
     })
     axios.get('/pastSearches')
     .then(res => {
-<<<<<<< HEAD
       this.setState({ pastSearchResults: res.data, loading: false });
-=======
-      this.setState({ pastSearchResults: res.data });
->>>>>>> impletemnt onClick functionality: now fetching past song data from database and display on screen
     })
     .catch(err => { console.log(err)})
   }
@@ -92,11 +84,7 @@ class User extends React.Component {
         {renderif (this.props.showPrev) (
         <PastSearchResults
           results={this.state.pastSearchResults}
-<<<<<<< HEAD
           loading={this.state.loading}
-=======
-          searchResultsLoading={this.props.searchResultsLoading}
->>>>>>> impletemnt onClick functionality: now fetching past song data from database and display on screen
           loadPastSearchResults={this.props.loadPastSearchResults} />
         )}
       </div>
