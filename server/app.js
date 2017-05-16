@@ -4,11 +4,11 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 
-////////////////////////////////////*ADDED FOR SPOTIFY LOGIN*******************************
+/*////////////////////////////////////*ADDED FOR SPOTIFY LOGIN*******************************
 //added for passport login by FF 
 const passport = require('passport');
-const SpotifyStrategy = require('../../lib/passport-spotify/index').Strategy;
-////////////////////////////////////*ADDED FOR SPOTIFY LOGIN*******************************
+const SpotifyStrategy = require('../node_modules/passport-spotify/lib/passport-spotify/index').Strategy;
+////////////////////////////////////*ADDED FOR SPOTIFY LOGIN********************************/
 
 // const path = require('path');
 const cors = require('cors');
@@ -21,7 +21,7 @@ const spotifyHelpers = require('./spotifyHelpers.js');
 const watsonHelpers = require('./watsonHelpers.js');
 const db = require('../database');
 
-////////////////////////////////////*ADDED FOR SPOTIFY LOGIN*******************************
+/*////////////////////////////////////*ADDED FOR SPOTIFY LOGIN*******************************
 //added for passport SPotify
 passport.serializeUser(function(user, done) {
   done(null, user);
@@ -48,7 +48,7 @@ passport.use(new SpotifyStrategy({
   }));
 
 
-////////////////////////////////////*ADDED FOR SPOTIFY LOGIN*******************************
+////////////////////////////////////*ADDED FOR SPOTIFY LOGIN*******************************/
 
 // initialize and set up app
 const app = express();
@@ -59,11 +59,11 @@ app.use(cookieParser());
 app.use(session({secret: "ssshhh", resave: false, saveUninitialized: true}));
 app.use(bodyParser.urlencoded({ extended: true }));
 
-////////////////////////////////////*ADDED FOR SPOTIFY LOGIN*******************************
+/*///////////////////////////////////*ADDED FOR SPOTIFY LOGIN*******************************
 //added for passport SPotify
 app.use(passport.initialize());
 app.use(passport.session());
-////////////////////////////////////*ADDED FOR SPOTIFY LOGIN*******************************
+////////////////////////////////////*ADDED FOR SPOTIFY LOGIN*******************************/
 
 app.use(express.static(__dirname + '/../react-client/dist'));
 
@@ -90,7 +90,7 @@ app.get('/check', (req, res) => {
   }
 })
 
-////////////////////////////////////*ADDED FOR SPOTIFY LOGIN*******************************
+/*////////////////////////////////////*ADDED FOR SPOTIFY LOGIN*******************************
 // GET /auth/spotify
 //   Use passport.authenticate() as route middleware to authenticate the
 //   request. The first step in spotify authentication will involve redirecting
@@ -113,8 +113,7 @@ app.get('/callback',
   function(req, res) {
     res.redirect('/');
   });
-////////////////////////////////////*ADDED FOR SPOTIFY LOGIN*******************************
-
+////////////////////////////////////*ADDED FOR SPOTIFY LOGIN********************************/
 
 
 app.get('/logout', (req, res) => {

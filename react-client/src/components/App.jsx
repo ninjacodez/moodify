@@ -18,6 +18,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      initialSongList: [],
       currentSongNameAndArtist: [],
       currentLyrics: '',
       watson: {},
@@ -46,6 +47,18 @@ class App extends React.Component {
     this.upDownUser = this.upDownUser.bind(this);
     this.showResultsUser = this.showResultsUser.bind(this);
     this.loadPastSearchResults = this.loadPastSearchResults.bind(this);
+  }
+
+
+  initialload(){
+    axios.get('/initialSearch').then((res) => {
+      if (!res.data){
+        console.log('Error on initial load of song data');
+      }
+      this.setState({
+        initialSongList: res.data
+      });
+    })
   }
 
   search(title, artist) {
