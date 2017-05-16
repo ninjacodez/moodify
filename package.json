@@ -12,7 +12,7 @@
     "client-dev": "webpack -d --watch",
     "server-dev": "nodemon --inspect server/index.js",
     "server-debug-brk": "nodemon --inspect --debug-brk server/index.js",
-    "test": "eslint . && mocha test"
+    "test": "mocha test"
   },
   "dependencies": {
     "axios": "^0.16.1",
