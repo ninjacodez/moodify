@@ -1,0 +1,82 @@
+{
+  "name": "ninjacodez",
+  "description": "Spotify with lyrics",
+  "author": "",
+  "license": "ISC",
+  "engines": {
+    "node": ">=6.4.0"
+  },
+  "scripts": {
+    "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
+    "prod": "NODE_ENV=production node server.js",
+    "postinstall": "webpack -p",
+    "react-dev": "webpack -d --watch",
+    "server-dev": "nodemon --inspect server/index.js",
+    "test": "node ./node_modules/mocha/bin/mocha"
+  },
+  "dependencies": {
+    "axios": "^0.16.1",
+    "babel-cli": "^6.7.5",
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-preset-env": "^1.4.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-register": "^6.7.2",
+    "bluebird": "^3.5.0",
+    "body-parser": "^1.17.1",
+    "chart.js": "^2.5.0",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.3",
+    "css-loader": "^0.28.1",
+    "express": "^4.15.2",
+    "express-session": "^1.15.2",
+    "fs": "0.0.1-security",
+    "mongodb": "^2.2.26",
+    "mongoose": "^4.9.7",
+    "mongoose-beautiful-unique-validation": "^5.1.1",
+    "nodemon": "^1.11.0",
+    "passport": "^0.3.2",
+<<<<<<< HEAD
+    "passport-spotify": "^0.3.1",
+=======
+>>>>>>> (feat) Created a button that send a request to spotify auth route
+    "path": "^0.12.7",
+    "path-to-regexp": "^1.7.0",
+    "query-parse": "^1.0.0",
+    "react": "^15.5.4",
+    "react-chartjs-2": "^2.0.5",
+    "react-dom": "^15.5.4",
+    "react-hot-loader": "^3.0.0-beta.6",
+    "react-router-dom": "^4.1.1",
+    "render-if": "^0.1.1",
+    "request": "^2.81.0",
+    "request-promise": "^4.2.0",
+    "style-loader": "^0.17.0",
+    "watson-developer-cloud": "^2.31.1",
+    "webpack": "^2.4.1",
+    "webpack-dev-server": "^2.4.5"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor",
+    "mocha": "^3.3.0",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4"
+  },
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
+  },
+  "version": "1.0.0",
+  "main": ".eslintrc.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ninjacodez/ninjacodez.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ninjacodez/ninjacodez/issues"
+  },
+  "homepage": "https://github.com/ninjacodez/ninjacodez#readme"
+}

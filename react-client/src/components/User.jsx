@@ -29,6 +29,14 @@ class User extends React.Component {
     });
   }
 
+  loginSpotify() {
+    console.log('Spotify login request here...');
+    axios.get('/auth/spotify')
+      .then(res => {
+        console.log(res.data);
+      })
+  }
+
   componentDidMount() {
     axios.get('/check').then(res => {
       if (res.data.statusCode === 200) {
@@ -54,8 +62,13 @@ class User extends React.Component {
       <div className="allUser">
         <div className="user">
           {renderif(!this.state.loggedIn)(
-            <div className="loginButton" onClick={this.redirect}>
-              Login/Signup!
+            <div>
+              <div className="loginButton" onClick={this.redirect}>
+                Login/Signup!
+              </div>
+              <div className="loginButton" onClick={this.loginSpotify}>
+              Spotify
+              </div>
             </div>
           )}
           {renderif(this.state.loggedIn)(
