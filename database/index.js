@@ -1,15 +1,15 @@
 const mongoose = require('mongoose');
 const beautifyUnique = require('mongoose-beautiful-unique-validation');
 mongoose.Promise = require('bluebird');
-// mongoose.connect('mongodb://localhost/test');
+mongoose.connect('mongodb://localhost/test');
 const config = require('../config/index.js');
 const DATABASE_URL = config.DATABASE_URL;
 
 mongoose.connect(DATABASE_URL);
 const db = mongoose.connection;
 
-db.on('error', () => {
-  console.log('mongoose connection fail ._____.');
+db.on('error', (err) => {
+  console.log('mongoose connection fail ._____.', err.message);
 });
 
 db.once('open', () => {
