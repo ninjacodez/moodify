@@ -48,7 +48,7 @@ const queryWatsonToneHelper = (songString) => {
     };
   })
   .catch(err => {
-    console.log('queryWatsonToneHelper error: ', err);
+    console.log("queryWatsonToneHelper error: ", err);
     return err;
   });
 };
@@ -75,7 +75,7 @@ const queryWatsonNLUHelper = (songString) => {
         limit: 2
       }
     }
-  };
+  }
   return nlu.analyzeAsync(parameters)
   .then (data => {
     return data;
