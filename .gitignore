@@ -29,4 +29,7 @@ node_modules/
 bower_components/
 
 # Config files
-config/config.dev.js
+.env
+
+# Database
+mongo/

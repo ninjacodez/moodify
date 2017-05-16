@@ -1,18 +1,18 @@
 {
-  "name": "ninjacodez",
-  "description": "Spotify with lyrics",
-  "author": "",
+  "name": "Moodify",
+  "description": "Music moodification application",
+  "author": "The Justice League",
   "license": "ISC",
   "engines": {
     "node": ">=6.4.0"
   },
   "scripts": {
-    "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
-    "prod": "NODE_ENV=production node server.js",
+    "start": "nodemon server/index.js",
     "postinstall": "webpack -p",
-    "react-dev": "webpack -d --watch",
+    "client-dev": "webpack -d --watch",
     "server-dev": "nodemon --inspect server/index.js",
-    "test": "node ./node_modules/mocha/bin/mocha"
+    "server-debug-brk": "nodemon --inspect --debug-brk server/index.js",
+    "test": "eslint . && mocha test"
   },
   "dependencies": {
     "axios": "^0.16.1",
@@ -44,6 +44,7 @@
     "react-dom": "^15.5.4",
     "react-hot-loader": "^3.0.0-beta.6",
     "react-router-dom": "^4.1.1",
+    "read-config": "^2.0.0",
     "render-if": "^0.1.1",
     "request": "^2.81.0",
     "request-promise": "^4.2.0",
