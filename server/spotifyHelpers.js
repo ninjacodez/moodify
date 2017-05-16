@@ -11,8 +11,8 @@ const getSongByTitleAndArtist = (title, artist) => {
   .catch(err => { console.log(err); });
 };
 
-// const Client_ID = '17af2e7d17c94de6b602b7ae29b1a7c0';
-// const Client_Secret = 'e87dca1ab2094afd84f33f19fa73bef6';
+const Client_ID = '17af2e7d17c94de6b602b7ae29b1a7c0';
+const Client_Secret = 'e87dca1ab2094afd84f33f19fa73bef6';
 
 //use/refactor with query-parser??
 //can adjust API call with field filters, currently all functions search via name
