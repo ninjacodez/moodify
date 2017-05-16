@@ -11,10 +11,10 @@ class Mood extends React.Component {
         datasets: [{
             label: props.songNameAndArtist[0] + ' - ' + props.songNameAndArtist[1],
             data: [
-              props.watson.anger, 
-              props.watson.joy, 
-              props.watson.disgust, 
-              props.watson.fear, 
+              props.watson.anger,
+              props.watson.joy,
+              props.watson.disgust,
+              props.watson.fear,
               props.watson.sadness
               ],
             backgroundColor: [
@@ -71,10 +71,10 @@ class Mood extends React.Component {
         datasets: [{
             label: props.songNameAndArtist[0] + ' - ' + props.songNameAndArtist[1],
             data: [
-              props.watson.openness, 
-              props.watson.conscientiousness, 
-              props.watson.extraversion, 
-              props.watson.agreeableness, 
+              props.watson.openness,
+              props.watson.conscientiousness,
+              props.watson.extraversion,
+              props.watson.agreeableness,
               props.watson.emotionalrange
               ],
             backgroundColor: [
@@ -110,10 +110,10 @@ componentWillReceiveProps(props) {
         datasets: [{
             label: props.songNameAndArtist[0] + ' - ' + props.songNameAndArtist[1],
             data: [
-              props.watson.anger, 
-              props.watson.joy, 
-              props.watson.disgust, 
-              props.watson.fear, 
+              props.watson.anger,
+              props.watson.joy,
+              props.watson.disgust,
+              props.watson.fear,
               props.watson.sadness
               ],
             backgroundColor: [
@@ -170,10 +170,10 @@ componentWillReceiveProps(props) {
         datasets: [{
             label: props.songNameAndArtist[0] + ' - ' + props.songNameAndArtist[1],
             data: [
-              props.watson.openness, 
-              props.watson.conscientiousness, 
-              props.watson.extraversion, 
-              props.watson.agreeableness, 
+              props.watson.openness,
+              props.watson.conscientiousness,
+              props.watson.extraversion,
+              props.watson.agreeableness,
               props.watson.emotionalrange
               ],
             backgroundColor: [

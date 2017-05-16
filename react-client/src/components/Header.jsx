@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect, Link } from 'react-router-dom';
+import {Redirect, Link} from 'react-router-dom';
 
 class Header extends React.Component {
   constructor(props) {
@@ -12,23 +12,20 @@ class Header extends React.Component {
   }
 
   redirect() {
-    this.setState({
-      redirect: true
-    });
+    this.setState({redirect: true});
   }
 
-  render () {
+  render() {
     if (this.state.redirect && this.state.url !== this.props.url) {
-      return <Redirect push to="/" />;
+      return <Redirect push to="/"/>;
     }
     return (
       <div id="header" onClick={this.redirect}>
-      <h3 id="logo">moodify</h3>
-      <img id="mascot" src="./img/cow.png" width="75" height="75"/>
-      </div>)
+        <h3 id="logo">moodify</h3>
+        <img id="mascot" src="./img/cow.png" width="75" height="75"/>
+      </div>
+    );
   }
 }
 
 export default Header;
-
-      // <img id="logo" src="./img/moodify.png" width="80" height="80"/>

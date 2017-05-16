@@ -103,7 +103,7 @@ app.post('/process', (req, res) => {
       emotionalrange: data.emotionalrange
     };
     const newEntry = new db.Watson(watsonData);
-    return newEntry.save(err => {
+    newEntry.save(err => {
       if (err) { console.log('SAVE WATSON ERROR'); }
     })
   })
@@ -119,7 +119,7 @@ app.post('/process', (req, res) => {
     input.spotify_uri = spotifyData
 
     const songEntry = new db.Song(input);
-    return songEntry.save(err => {
+    songEntry.save(err => {
       if (err) { console.log("SAVE SONG ERROR"); }
     })
   })
