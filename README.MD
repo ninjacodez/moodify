@@ -1,4 +1,4 @@
-# ninjacodez
+# Moodify
 
 Moodify - Analyzes mood of song lyrics, create a user account to save search history
 
