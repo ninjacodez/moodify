@@ -26,8 +26,17 @@ const config = require('../config/index.js');
 
 const SPOTIFY_CLIENT_SECRET_API_KEY = config.SPOTIFY_CLIENT_SECRET_API_KEY;
 const SPOTIFY_CLIENT_API_KEY = config.SPOTIFY_CLIENT_API_KEY;
-var spotifyApi = new SpotifyWebApi({clientID: SPOTIFY_CLIENT_API_KEY, clientSecret:SPOTIFY_CLIENT_SECRET_API_KEY});
+var spotifyApi = new SpotifyWebApi({clientId: SPOTIFY_CLIENT_API_KEY, clientSecret:SPOTIFY_CLIENT_SECRET_API_KEY});
+spotifyApi.clientCredentialsGrant()
+  .then(function(data) {
+    console.log('The access token expires in ' + data.body['expires_in']);
+    console.log('The access token is ' + data.body['access_token']);
 
+    // Save the access token so that it's used in future calls
+    spotifyApi.setAccessToken(data.body['access_token']);
+  }, function(err) {
+    console.log('Something went wrong when retrieving an access token', err.message);
+  });
 
 /*////////////////////////////////////*ADDED FOR SPOTIFY LOGIN*******************************
 //added for passport SPotify
@@ -130,17 +139,14 @@ app.get('/logout', (req, res) => {
 })
 
 app.get('/initialsearch', (req,res) => {
-  spotifyApi.getArtist('2hazSY4Ef3aB9ATXW7F5w3')
+spotifyApi.getNewReleases({ limit : 20, offset: 0, country: 'US' })
   .then(function(data) {
-    console.log('Artist', data.body);
-    res.send(data.body);
-  }).catch(err => {
-    console.error("FAILURE IN SPOTIFY CALL");
+    console.log(data.body);
+      res.send(data.body.albums.items);
+    }, function(err) {
+       console.log("Something went wrong!", err);
+    });
   });
-})
-
-
-
 
 
 
