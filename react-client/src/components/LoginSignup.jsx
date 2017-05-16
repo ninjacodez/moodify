@@ -28,26 +28,26 @@ class LoginSignup extends React.Component {
     axios.post('/login', loginInfo)
     .then((res) => {
       if (!res.data.errorMessage) {
-        this.setState ({redirect: true})
-        console.log('Login successful!')
+        this.setState ({redirect: true});
+        console.log('Login successful!');
       } else if (res.data.errorMessage) {
         this.setState({userError: res.data.errorMessage});
       }
     });
-  };
+  }
 
   signup(username, password) {
     let signupInfo = { username: username, password: password };
     axios.post('/signup', signupInfo)
     .then((res) => {
       if (!res.data.errorMessage) {
-        this.setState ({redirect: true})
-        console.log('Welcome!')
+        this.setState ({redirect: true});
+        console.log('Welcome!');
       } else if (res.data.errorMessage) {
         this.setState({signError: res.data.errorMessage});
       }
     });
-  };
+  }
 
   handleLogin(e) {
     e.preventDefault();
@@ -95,7 +95,7 @@ class LoginSignup extends React.Component {
           : null}
         </div>
       </div></div>
-    )
+    );
   }
 }
 

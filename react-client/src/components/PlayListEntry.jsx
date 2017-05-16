@@ -13,7 +13,7 @@ class PlayListEntry extends React.Component {
       <div>
       <h4>PlayListEntry Component</h4>
       </div>
-    )
+    );
   }
 }
 

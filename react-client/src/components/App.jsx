@@ -2,7 +2,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import { Switch, Route, Link } from 'react-router-dom';
+import {Switch, Route, Link} from 'react-router-dom';
 // sub components
 import Lyrics from './Lyrics.jsx';
 import Mood from './Mood.jsx';
@@ -49,21 +49,17 @@ class App extends React.Component {
   }
 
   search(title, artist) {
-    this.setState({
-      showResults: true,
-      searchResultsLoading: true,
-      showPrev: true,
-      upDown: false
-    });
+    this.setState({showResults: true, searchResultsLoading: true, showPrev: true, upDown: false});
 
-    let options = { title: title, artist: artist };
-    axios.post('/search', options)
-    .then((res) => {
-      if (!res.data) { console.log('error'); };
-      this.setState({
-        searchResults: res.data,
-        searchResultsLoading: false
-      });
+    let options = {
+      title: title,
+      artist: artist
+    };
+    axios.post('/search', options).then((res) => {
+      if (!res.data) {
+        console.log('error');
+      }
+      this.setState({searchResults: res.data, searchResultsLoading: false});
     });
   }
 
@@ -89,8 +85,7 @@ class App extends React.Component {
     input.album_coverart_500x500 = trackObj.album_coverart_500x500;
     input.album_coverart_800x800 = trackObj.album_coverart_800x800;
 
-    axios.post('/process', input)
-    .then(res => {
+    axios.post('/process', input).then(res => {
       let data = res.data;
       this.setState({
         currentSongNameAndArtist: data[0],
@@ -102,17 +97,18 @@ class App extends React.Component {
         showLyrics: true,
         showMood: true
       });
-    })
-    .catch(error => { throw error; })
+    }).catch(error => {
+      throw error;
+    });
   }
 
-  showResults () {
+  showResults() {
     this.setState({
       showResults: !this.state.showResults
     });
   }
 
-  showResultsUser () {
+  showResultsUser() {
     this.setState({
       showResultsUser: !this.state.showResultsUser
     });
@@ -131,70 +127,46 @@ class App extends React.Component {
   }
 
   loadPastSearchResults(trackId) {
-    axios.post('/loadPastSearchResults', { track_id: trackId })
-    .then(res => {
+    axios.post('/loadPastSearchResults', {track_id: trackId}).then(res => {
       let songData = res.data[0];
       let watsonData = res.data[1];
       console.log(watsonData);
       this.setState({
         currentLyrics: songData.lyrics,
-        currentSongNameAndArtist: [songData.track_name, songData.artist_name],
+        currentSongNameAndArtist: [
+          songData.track_name, songData.artist_name
+        ],
         watson: watsonData,
         spotifyURI: songData.spotify_uri,
         showMood: true,
         showPlayer: true,
         showLyrics: true
       });
-    })
-    .catch(err => console.log(err));
+    }).catch(err => console.log(err));
   }
 
-  render () {
+  render() {
     return (
       <div>
         <Header url={this.state.url}/>
         <div className="container">
-        <div className="col1">
-          <Search search={this.search}
-          prev={this.showResults}
-          showPrev={this.state.showPrev}
-          upDown={this.state.upDown}
-          runUpDown={this.upDown} />
-          {this.state.showResults ?
-            <SearchResults
-            results={this.state.searchResults}
-            process={this.process}
-            searchResultsLoading={this.state.searchResultsLoading} />
-          : null}
-          {this.state.showPlayer ?
-            <Lyrics showPlayer={this.state.showPlayer}
-              spotifyURI={this.state.spotifyURI}
-              loading={this.state.spotifyLoading}
-              lyrics={this.state.currentLyrics}
-              loading={this.state.lyricsLoading}
-              songNameAndArtist={this.state.currentSongNameAndArtist} />
-          : null }
+          <div className="col1">
+            <Search search={this.search} prev={this.showResults} showPrev={this.state.showPrev} upDown={this.state.upDown} runUpDown={this.upDown}/> {this.state.showResults
+              ? <SearchResults results={this.state.searchResults} process={this.process} searchResultsLoading={this.state.searchResultsLoading}/>
+              : null}
+            {this.state.showPlayer
+              ? <Lyrics showPlayer={this.state.showPlayer} spotifyURI={this.state.spotifyURI} loading={this.state.spotifyLoading} lyrics={this.state.currentLyrics} loading={this.state.lyricsLoading} songNameAndArtist={this.state.currentSongNameAndArtist}/>
+              : null}
           </div>
           <div className="col2">
-          <User
-          showPrev={this.state.showResultsUser}
-          prev={this.showResultsUser}
-          upDown={this.state.upDownUser}
-          runUpDown={this.upDownUser}
-          process={this.process}
-          searchResultsLoading={this.state.searchResultsLoadingUser}
-          loadPastSearchResults={this.loadPastSearchResults} />
-          {this.state.showMood ?
-            <Mood watson={this.state.watson} songNameAndArtist={this.state.currentSongNameAndArtist} />
-          : null }
+            <User showPrev={this.state.showResultsUser} prev={this.showResultsUser} upDown={this.state.upDownUser} runUpDown={this.upDownUser} process={this.process} searchResultsLoading={this.state.searchResultsLoadingUser} loadPastSearchResults={this.loadPastSearchResults}/> {this.state.showMood
+              ? <Mood watson={this.state.watson} songNameAndArtist={this.state.currentSongNameAndArtist}/>
+              : null}
+          </div>
         </div>
       </div>
-    </div>)
+    );
   }
 }
 
 export default App;
-
-// {this.state.showPlayer ?
-//             <Player spotifyURI={this.state.spotifyURI} loading={this.state.spotifyLoading}/>
-//           : null }

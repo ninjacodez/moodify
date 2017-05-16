@@ -22,9 +22,9 @@ class Router extends React.Component {
             <LoginSignup />
           </Route>
         </Switch>
-      </div>)
+      </div>
+    );
   }
 }
-
 
 export default Router;

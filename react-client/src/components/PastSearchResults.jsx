@@ -29,7 +29,7 @@ class PastSearchResults extends React.Component {
         <div className="resultsBox">
           {this.props.results.map((trackObj, i) => (
             <div className="searchText" key={i} value={i} onClick={this.handleClick} >
-              {i+1}. {trackObj.track_name} by {trackObj.artist_name}
+              {i + 1}. {trackObj.track_name} by {trackObj.artist_name}
             </div>
           ))}
         </div>

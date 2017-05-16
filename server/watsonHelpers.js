@@ -43,7 +43,7 @@ const queryWatsonToneHelper = (songString) => {
       conscientiousness: socialTone.tones[1].score,
       extraversion: socialTone.tones[2].score,
       agreeableness: socialTone.tones[3].score,
-      emotionalrange: socialTone.tones[4].score   
+      emotionalrange: socialTone.tones[4].score
 
     };
   })
