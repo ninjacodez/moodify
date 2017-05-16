@@ -50,8 +50,8 @@ class App extends React.Component {
   }
 
 
-  initialload(){
-    axios.get('/initialSearch').then((res) => {
+  componentDidMount(){
+    axios.get('/initialsearch').then((res) => {
       if (!res.data){
         console.log('Error on initial load of song data');
       }
@@ -176,6 +176,8 @@ class App extends React.Component {
               ? <Mood watson={this.state.watson} songNameAndArtist={this.state.currentSongNameAndArtist}/>
               : null}
           </div>
+        </div>
+        <div>
         </div>
       </div>
     );

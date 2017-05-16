@@ -3,6 +3,8 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const bodyParser = require('body-parser');
+const SpotifyWebApi = require('spotify-web-api-node');
+
 
 /*////////////////////////////////////*ADDED FOR SPOTIFY LOGIN*******************************
 //added for passport login by FF 
@@ -20,6 +22,12 @@ const mmHelpers = require('./musixMatchHelpers.js');
 const spotifyHelpers = require('./spotifyHelpers.js');
 const watsonHelpers = require('./watsonHelpers.js');
 const db = require('../database');
+const config = require('../config/index.js');
+
+const SPOTIFY_CLIENT_SECRET_API_KEY = config.SPOTIFY_CLIENT_SECRET_API_KEY;
+const SPOTIFY_CLIENT_API_KEY = config.SPOTIFY_CLIENT_API_KEY;
+var spotifyApi = new SpotifyWebApi({clientID: SPOTIFY_CLIENT_API_KEY, clientSecret:SPOTIFY_CLIENT_SECRET_API_KEY});
+
 
 /*////////////////////////////////////*ADDED FOR SPOTIFY LOGIN*******************************
 //added for passport SPotify
@@ -119,6 +127,16 @@ app.get('/callback',
 app.get('/logout', (req, res) => {
   req.session.destroy()
   res.send('logged out!')
+})
+
+app.get('/initialsearch', (req,res) => {
+  spotifyApi.getArtist('2hazSY4Ef3aB9ATXW7F5w3')
+  .then(function(data) {
+    console.log('Artist', data.body);
+    res.send(data.body);
+  }).catch(err => {
+    console.error("FAILURE IN SPOTIFY CALL");
+  });
 })
 
 
