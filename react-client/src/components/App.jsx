@@ -20,7 +20,6 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      initialSongList: [],
       currentSongNameAndArtist: [],
       currentLyrics: '',
       watson: {},
@@ -41,7 +40,7 @@ class App extends React.Component {
       loggedIn: false,
       upDownUser: false,
       searchResultsLoadingUser: false,
-      spotifyHomePage: sampleSpotify.albums.items,
+      spotifyHomePage: [],
     };
     this.search = this.search.bind(this);
     this.process = this.process.bind(this);
@@ -54,12 +53,12 @@ class App extends React.Component {
 
 
   componentDidMount(){
-    axios.get('/initialsearch').then((res) => {
+    axios.get('/newreleases').then((res) => {
       if (!res.data){
         console.log('Error on initial load of song data');
       }
       this.setState({
-        initialSongList: res.data
+        spotifyHomePage: res.data
       });
     })
   }

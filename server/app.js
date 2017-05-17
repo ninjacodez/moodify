@@ -7,7 +7,7 @@ const SpotifyWebApi = require('spotify-web-api-node');
 
 
 /*////////////////////////////////////*ADDED FOR SPOTIFY LOGIN*******************************
-//added for passport login by FF 
+//added for passport login by FF
 const passport = require('passport');
 const SpotifyStrategy = require('../node_modules/passport-spotify/lib/passport-spotify/index').Strategy;
 ////////////////////////////////////*ADDED FOR SPOTIFY LOGIN********************************/
@@ -30,7 +30,7 @@ var spotifyApi = new SpotifyWebApi({clientId: SPOTIFY_CLIENT_API_KEY, clientSecr
 spotifyApi.clientCredentialsGrant()
   .then(function(data) {
     console.log('The access token expires in ' + data.body['expires_in']);
-    console.log('The access token is ' + data.body['access_token']);
+    //console.log('The access token is ' + data.body['access_token']);
 
     // Save the access token so that it's used in future calls
     spotifyApi.setAccessToken(data.body['access_token']);
@@ -138,16 +138,17 @@ app.get('/logout', (req, res) => {
   res.send('logged out!')
 })
 
-app.get('/initialsearch', (req,res) => {
-spotifyApi.getNewReleases({ limit : 20, offset: 0, country: 'US' })
-  .then(function(data) {
-    console.log(data.body);
+app.get('/newreleases', (req,res) => {
+  spotifyApi.getNewReleases({ limit : 20, offset: 0, country: 'US' })
+    .then(function(data) {
       res.send(data.body.albums.items);
     }, function(err) {
-       console.log("Something went wrong!", err);
-    });
+      console.log("could not get new releases", err);
   });
+});
 
+//add a post request sending the user-name and artist in an array of key value
+//pairs and insert then on at a time into the mm lyrics finder
 
 
 app.post('/search', (req, res) => {
