@@ -11,6 +11,9 @@ class Recommendations extends React.Component {
     return (
       <div>
         <h2>Recommendations</h2>
+        <iframe src="https://open.spotify.com/embed?uri=spotify:track:49edox3q89CG1g6rJVfmHE" width="350" height="100" frameborder="0" allowtransparency="true"></iframe>
+        <iframe src="https://open.spotify.com/embed?uri=spotify:track:49edox3q89CG1g6rJVfmHE" width="350" height="100" frameborder="0" allowtransparency="true"></iframe>
+        <iframe src="https://open.spotify.com/embed?uri=spotify:track:49edox3q89CG1g6rJVfmHE" width="350" height="100" frameborder="0" allowtransparency="true"></iframe>
       </div>
     );
   }
