@@ -1,25 +1,33 @@
 {
-  "name": "ninjacodez",
-  "scripts": {
-  },
-  "env": {
-    "MM_API_KEY": {"required": true},
-    "MONGODB_URI": {"required": true},
-    "NODE_ENV": {"required": true},
-    "WATSON_NLU_PASSWORD": {"required": true},
-    "WATSON_NLU_USERNAME": {"required": true},
-    "WATSON_TONE_PASSWORD": {"required": true},
-    "WATSON_TONE_USERNAME": {"required": true},
-    "NPM_CONFIG_PRODUCTION": {"required": true}
-  },
-  "formation": {
-  },
+  "name": "Moodify",
+  "description": "Music moodifiation application",
   "addons": [
-
+    "mongolab:sandbox"
   ],
   "buildpacks": [
     {
       "url": "heroku/nodejs"
     }
-  ]
+  ],
+  "env": {
+    "NODE_ENV": { "required": true },
+    "MONGODB_URI": { "required": true },
+    "MM_API_KEY": { "required": true },
+    "WATSON_NLU_PASSWORD": { "required": true },
+    "WATSON_NLU_USERNAME": { "required": true },
+    "WATSON_TONE_PASSWORD": { "required": true },
+    "WATSON_TONE_USERNAME": { "required": true }
+  },
+  "environments": {
+    "test": {
+      "addons": [
+        "mongolab:sandbox"
+      ],
+      "buildpacks": [
+        {
+          "url": "heroku/nodejs"
+        }
+      ]
+    }
+  }
 }
