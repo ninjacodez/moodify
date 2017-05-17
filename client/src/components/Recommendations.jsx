@@ -10,7 +10,7 @@ class Recommendations extends React.Component {
   render() {
     return (
       <div>
-        <h1>Recommendations</h1>
+        <h2>Recommendations</h2>
       </div>
     );
   }
