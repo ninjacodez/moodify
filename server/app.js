@@ -3,12 +3,14 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const bodyParser = require('body-parser');
+const SpotifyWebApi = require('spotify-web-api-node');
 
-////////////////////////////////////*ADDED FOR SPOTIFY LOGIN*******************************
+
+/*////////////////////////////////////*ADDED FOR SPOTIFY LOGIN*******************************
 //added for passport login by FF 
 const passport = require('passport');
-const SpotifyStrategy = require('../../lib/passport-spotify/index').Strategy;
-////////////////////////////////////*ADDED FOR SPOTIFY LOGIN*******************************
+const SpotifyStrategy = require('../node_modules/passport-spotify/lib/passport-spotify/index').Strategy;
+////////////////////////////////////*ADDED FOR SPOTIFY LOGIN********************************/
 
 // const path = require('path');
 const cors = require('cors');
@@ -20,8 +22,23 @@ const mmHelpers = require('./musixMatchHelpers.js');
 const spotifyHelpers = require('./spotifyHelpers.js');
 const watsonHelpers = require('./watsonHelpers.js');
 const db = require('../database');
+const config = require('../config/index.js');
 
-////////////////////////////////////*ADDED FOR SPOTIFY LOGIN*******************************
+const SPOTIFY_CLIENT_SECRET_API_KEY = config.SPOTIFY_CLIENT_SECRET_API_KEY;
+const SPOTIFY_CLIENT_API_KEY = config.SPOTIFY_CLIENT_API_KEY;
+var spotifyApi = new SpotifyWebApi({clientId: SPOTIFY_CLIENT_API_KEY, clientSecret:SPOTIFY_CLIENT_SECRET_API_KEY});
+spotifyApi.clientCredentialsGrant()
+  .then(function(data) {
+    console.log('The access token expires in ' + data.body['expires_in']);
+    console.log('The access token is ' + data.body['access_token']);
+
+    // Save the access token so that it's used in future calls
+    spotifyApi.setAccessToken(data.body['access_token']);
+  }, function(err) {
+    console.log('Something went wrong when retrieving an access token', err.message);
+  });
+
+/*////////////////////////////////////*ADDED FOR SPOTIFY LOGIN*******************************
 //added for passport SPotify
 passport.serializeUser(function(user, done) {
   done(null, user);
@@ -48,7 +65,7 @@ passport.use(new SpotifyStrategy({
   }));
 
 
-////////////////////////////////////*ADDED FOR SPOTIFY LOGIN*******************************
+////////////////////////////////////*ADDED FOR SPOTIFY LOGIN*******************************/
 
 // initialize and set up app
 const app = express();
@@ -59,11 +76,11 @@ app.use(cookieParser());
 app.use(session({secret: "ssshhh", resave: false, saveUninitialized: true}));
 app.use(bodyParser.urlencoded({ extended: true }));
 
-////////////////////////////////////*ADDED FOR SPOTIFY LOGIN*******************************
+/*///////////////////////////////////*ADDED FOR SPOTIFY LOGIN*******************************
 //added for passport SPotify
 app.use(passport.initialize());
 app.use(passport.session());
-////////////////////////////////////*ADDED FOR SPOTIFY LOGIN*******************************
+////////////////////////////////////*ADDED FOR SPOTIFY LOGIN*******************************/
 
 app.use(express.static(__dirname + '/../react-client/dist'));
 
@@ -90,7 +107,7 @@ app.get('/check', (req, res) => {
   }
 })
 
-////////////////////////////////////*ADDED FOR SPOTIFY LOGIN*******************************
+/*////////////////////////////////////*ADDED FOR SPOTIFY LOGIN*******************************
 // GET /auth/spotify
 //   Use passport.authenticate() as route middleware to authenticate the
 //   request. The first step in spotify authentication will involve redirecting
@@ -113,8 +130,7 @@ app.get('/callback',
   function(req, res) {
     res.redirect('/');
   });
-////////////////////////////////////*ADDED FOR SPOTIFY LOGIN*******************************
-
+////////////////////////////////////*ADDED FOR SPOTIFY LOGIN********************************/
 
 
 app.get('/logout', (req, res) => {
@@ -122,8 +138,15 @@ app.get('/logout', (req, res) => {
   res.send('logged out!')
 })
 
-
-
+app.get('/initialsearch', (req,res) => {
+spotifyApi.getNewReleases({ limit : 20, offset: 0, country: 'US' })
+  .then(function(data) {
+    console.log(data.body);
+      res.send(data.body.albums.items);
+    }, function(err) {
+       console.log("Something went wrong!", err);
+    });
+  });
 
 
 
