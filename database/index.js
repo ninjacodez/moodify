@@ -5,7 +5,7 @@ mongoose.createConnection('mongodb://localhost/test');
 const config = require('../config/index.js');
 const DATABASE_URL = config.DATABASE_URL;
 
-mongoose.connect(DATABASE_URL);
+// mongoose.connect(DATABASE_URL);
 const db = mongoose.connection;
 
 db.on('error', (err) => {
