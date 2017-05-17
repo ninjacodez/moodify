@@ -3,6 +3,7 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const bodyParser = require('body-parser');
+const axios = require('axios');
 
 const passport = require('passport');
 const SpotifyStrategy = require('passport-spotify').Strategy;
@@ -22,6 +23,7 @@ const config = require('../config/index.js');
 
 
 passport.serializeUser(function(user, done) {
+  // console.log('serialized user: ', user);
   done(null, user);
 });
 
@@ -39,9 +41,21 @@ passport.use(new SpotifyStrategy({
   callbackURL: config.SPOTIFY.cbURL
   },
   function(accessToken, refreshToken, profile, done) {
-    console.log('accessToken: ', accessToken);
-    console.log('refreshToken: ', refreshToken);
-    console.log('profile: ', profile);
+
+    let url = `https://api.spotify.com/v1/users/${profile.id}/playlists`
+    // let options = {
+    //   url: url,
+    //   headers: {"Authorization": 'Bearer ' + accessToken}
+    // }
+
+    axios.get(url, { 'headers': { 'Authorization': `Bearer ${accessToken}` } })
+
+      .then((res) => {
+        console.log('received playlists from spotify: ', res.data.items);
+      })
+      .catch((err) => {
+        console.log('error retrieving playlists from spotify ', err);
+      })
     done(null, profile);
   }
   ));
@@ -81,7 +95,8 @@ app.get('/auth/spotify',
 app.get('/auth/spotify/callback',
   passport.authenticate('spotify', { failureRedirect: '/login' }),
   (req, res) => {
-    console.log('SUCCESSFUL AUTHENTICATION. ONE DAY');
+    console.log('Successfully authenticated with Spotify');
+
     res.redirect('/');
   });
 
