@@ -9,7 +9,8 @@ module.exports = {
     path: DIST_DIR
   },
   module : {
-    loaders : [
+    loaders :
+    [
       {
         test : /\.jsx?/,
         include : SRC_DIR,
@@ -17,7 +18,16 @@ module.exports = {
         query: {
           presets: ['react', 'es2015']
        }
-      }
-    ]
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
+      },
+      {
+        test: /\.css$/,
+        use: [ 'style-loader', 'css-loader' ],
+      },
+    ],
   }
 };
