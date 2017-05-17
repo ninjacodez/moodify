@@ -148,7 +148,6 @@ app.get('/logout', (req, res) => {
           dateadded: Date.now()
         };
       const newTopTenEntry = new db.TopTenSongs(topTenData);
-      console.log(newTopTenEntry);
       newTopTenEntry.save(err => {
         if (err) {console.log('Error saving TopTenSong data')}
           })
