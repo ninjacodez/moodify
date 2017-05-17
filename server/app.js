@@ -3,14 +3,14 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const bodyParser = require('body-parser');
-const SpotifyWebApi = require('spotify-web-api-node');
+const keys = require('../config/index.js');
 
 
 /*////////////////////////////////////*ADDED FOR SPOTIFY LOGIN*******************************
 //added for passport login by FF
 const passport = require('passport');
-const SpotifyStrategy = require('../node_modules/passport-spotify/lib/passport-spotify/index').Strategy;
-////////////////////////////////////*ADDED FOR SPOTIFY LOGIN********************************/
+const SpotifyStrategy = require('passport-spotify').Strategy;
+////////////////////////////////////*ADDED FOR SPOTIFY LOGIN*******************************
 
 // const path = require('path');
 const cors = require('cors');
@@ -43,32 +43,23 @@ spotifyApi.clientCredentialsGrant()
 passport.serializeUser(function(user, done) {
   done(null, user);
 });
-
-passport.deserializeUser(function(obj, done) {
-  done(null, obj);
-});
+const app = express();
 
 passport.use(new SpotifyStrategy({
-  clientID: appKey,
-  clientSecret: appSecret,
-  callbackURL: 'http://localhost:8888/callback'
+  clientID: keys.SPOTIFY.clientId,
+  clientSecret: keys.SPOTIFY.secret,
+  callbackURL: keys.SPOTIFY.cbURL
   },
   function(accessToken, refreshToken, profile, done) {
-    // asynchronous verification, for effect...
-    process.nextTick(function () {
-      // To keep the example simple, the user's spotify profile is returned to
-      // represent the logged-in user. In a typical application, you would want
-      // to associate the spotify account with a user record in your database,
-      // and return that user instead.
-      return done(null, profile);
-    });
-  }));
-
-
-////////////////////////////////////*ADDED FOR SPOTIFY LOGIN*******************************/
-
-// initialize and set up app
-const app = express();
+    console.log('accessToken: ', accessToken);
+    console.log('refreshToken: ', refreshToken);
+    console.log('profile: ', profile);
+    done(null, profile);
+  }
+  ));
+//////////////////////////////////////////////////////////////////
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -76,30 +67,63 @@ app.use(cookieParser());
 app.use(session({secret: "ssshhh", resave: false, saveUninitialized: true}));
 app.use(bodyParser.urlencoded({ extended: true }));
 
-/*///////////////////////////////////*ADDED FOR SPOTIFY LOGIN*******************************
-//added for passport SPotify
-app.use(passport.initialize());
-app.use(passport.session());
-////////////////////////////////////*ADDED FOR SPOTIFY LOGIN*******************************/
 
 app.use(express.static(__dirname + '/../react-client/dist'));
 
 // routes
 let sess = {};
 
+
+app.get('/auth/spotify',
+  passport.authenticate('spotify', {scope: ['user-read-email'], showDialog: true}),
+  (req, res) => {
+    console.log('You fucked up, this should not be called');
+  });
+
+app.get('/auth/spotify/callback',
+  passport.authenticate('spotify', { failureRedirect: '/login' }),
+  (req, res) => {
+    console.log('SUCCESSFUL AUTHENTICATION. ONE DAY');
+    res.redirect('/');
+  });
+
+app.get('/callback',
+  passport.authenticate('spotify', { failureRedirect: '/login' }),
+  (req, res) => {
+    console.log('SUCCESSFUL AUTHENTICATION. ONE DAY');
+    res.redirect('/');
+  });
+
+
+app.get('/dance', (req, res) => {
+  res.redirect('/auth/spotify');
+})
+
+
+
+
+
+
+
+
+
+
 app.post('/signup', auth.createUser, (req, res) => {
+  console.log('signing up');
   sess = req.session;
   sess.username = req.body.username;
   res.send({statusCode: 200});
 });
 
 app.post('/login', auth.verifyUser, (req, res) => {
+  console.log('logging in');
   sess = req.session;
   sess.username = req.body.username;
   res.send({statusCode: 200});
 });
 
 app.get('/check', (req, res) => {
+  console.log('checking something');
   if (req.session.username) {
     res.send({statusCode: 200});
   } else {
@@ -107,33 +131,10 @@ app.get('/check', (req, res) => {
   }
 })
 
-/*////////////////////////////////////*ADDED FOR SPOTIFY LOGIN*******************************
-// GET /auth/spotify
-//   Use passport.authenticate() as route middleware to authenticate the
-//   request. The first step in spotify authentication will involve redirecting
-//   the user to spotify.com. After authorization, spotify will redirect the user
-//   back to this application at /auth/spotify/callback
-app.get('/auth/spotify',
-  passport.authenticate('spotify', {scope: ['user-read-email', 'user-read-private'], showDialog: true}),
-  function(req, res){
-// The request will be redirected to spotify for authentication, so this
-// function will not be called.
-});
-
-// GET /auth/spotify/callback
-//   Use passport.authenticate() as route middleware to authenticate the
-//   request. If authentication fails, the user will be redirected back to the
-//   login page. Otherwise, the primary route function function will be called,
-//   which, in this example, will redirect the user to the home page.
-app.get('/callback',
-  passport.authenticate('spotify', { failureRedirect: '/login' }),
-  function(req, res) {
-    res.redirect('/');
-  });
-////////////////////////////////////*ADDED FOR SPOTIFY LOGIN********************************/
-
 
 app.get('/logout', (req, res) => {
+  console.log('logging out');
+  console.log('logging out');
   req.session.destroy()
   res.send('logged out!')
 })
@@ -147,11 +148,8 @@ app.get('/newreleases', (req,res) => {
   });
 });
 
-//add a post request sending the user-name and artist in an array of key value
-//pairs and insert then on at a time into the mm lyrics finder
-
-
 app.post('/search', (req, res) => {
+  console.log('searching');
   return mmHelpers.searchByTitleAndArtist(req.body.title, req.body.artist)
   .then(data => {
     if (data.track_list.length === 0) { res.send({errorMessage: 'No Search Results'}); }
@@ -161,6 +159,7 @@ app.post('/search', (req, res) => {
 });
 
 app.post('/fetchLyricsByTrackId', (req, res) => {
+  console.log('getting lyrics by track id');
   const trackId = req.body.trackId;
   return mmHelpers.getLyricsByTrackId(trackId)
   .then(lyrics => {
@@ -170,6 +169,7 @@ app.post('/fetchLyricsByTrackId', (req, res) => {
 });
 
 app.post('/process', (req, res) => {
+  console.log('process');
   let input = req.body;
   const songNameAndArtist = [input.artist_name, input.track_name];
   let watsonData = {};
@@ -232,6 +232,7 @@ app.post('/process', (req, res) => {
 })
 
 app.get('/pastSearches', (req, res) => {
+  console.log('pastSearches');
   const username = req.session.username;
   return new Promise ((resolve, reject) => {
     db.User.where({ username: username }).findOne((err, user) => {
@@ -266,6 +267,7 @@ app.get('/pastSearches', (req, res) => {
 });
 
 app.post('/loadPastSearchResults', (req, res) => {
+  console.log('load pas things');
   return new Promise((resolve, reject) => {
     db.Song
     .find({ track_id: req.body.track_id })

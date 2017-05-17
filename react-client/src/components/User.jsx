@@ -17,6 +17,7 @@ class User extends React.Component {
     this.logout = this.logout.bind(this);
     this.redirect = this.redirect.bind(this);
     this.pastSearch = this.pastSearch.bind(this);
+    this.loginSpotify = this.loginSpotify.bind(this);
   }
 
   redirect() {
@@ -30,11 +31,13 @@ class User extends React.Component {
   }
 
   loginSpotify() {
-    console.log('Spotify login request here...');
-    axios.get('/auth/spotify')
-      .then(res => {
-        console.log(res.data);
-      })
+    // axios.get('/auth/spotify')
+    //   .then((res) => {
+    //     console.log(res);
+    //   })
+    //   .catch( (err) => {
+    //     console.log(err);
+    //   })
   }
 
   componentDidMount() {
@@ -66,9 +69,9 @@ class User extends React.Component {
               <div className="loginButton" onClick={this.redirect}>
                 Login/Signup!
               </div>
-              <div className="loginButton" onClick={this.loginSpotify}>
+              <a href="http://localhost:8080/auth/spotify" className="loginButton" onClick={this.loginSpotify}>
               Spotify
-              </div>
+              </a>
             </div>
           )}
           {renderif(this.state.loggedIn)(

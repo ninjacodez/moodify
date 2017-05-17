@@ -34,3 +34,5 @@ config/config.dev.js
 # orig files
 **.orig.js
 **.orig
+
+untitled.js
