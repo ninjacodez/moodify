@@ -3,16 +3,10 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const bodyParser = require('body-parser');
-const keys = require('../config/index.js');
 
-
-/*////////////////////////////////////*ADDED FOR SPOTIFY LOGIN*******************************
-//added for passport login by FF
 const passport = require('passport');
 const SpotifyStrategy = require('passport-spotify').Strategy;
-////////////////////////////////////*ADDED FOR SPOTIFY LOGIN*******************************
 
-// const path = require('path');
 const cors = require('cors');
 const Promise = require('bluebird');
 
@@ -24,31 +18,22 @@ const watsonHelpers = require('./watsonHelpers.js');
 const db = require('../database');
 const config = require('../config/index.js');
 
-const SPOTIFY_CLIENT_SECRET_API_KEY = config.SPOTIFY_CLIENT_SECRET_API_KEY;
-const SPOTIFY_CLIENT_API_KEY = config.SPOTIFY_CLIENT_API_KEY;
-var spotifyApi = new SpotifyWebApi({clientId: SPOTIFY_CLIENT_API_KEY, clientSecret:SPOTIFY_CLIENT_SECRET_API_KEY});
-spotifyApi.clientCredentialsGrant()
-  .then(function(data) {
-    console.log('The access token expires in ' + data.body['expires_in']);
-    //console.log('The access token is ' + data.body['access_token']);
-
-    // Save the access token so that it's used in future calls
-    spotifyApi.setAccessToken(data.body['access_token']);
-  }, function(err) {
-    console.log('Something went wrong when retrieving an access token', err.message);
-  });
-
-/*////////////////////////////////////*ADDED FOR SPOTIFY LOGIN*******************************
-//added for passport SPotify
 passport.serializeUser(function(user, done) {
   done(null, user);
 });
+
+passport.deserializeUser(function(id, done) {
+  User.findById(id, function(err, user) {
+    done(err, user);
+  });
+});
+
 const app = express();
 
 passport.use(new SpotifyStrategy({
-  clientID: keys.SPOTIFY.clientId,
-  clientSecret: keys.SPOTIFY.secret,
-  callbackURL: keys.SPOTIFY.cbURL
+  clientID: config.SPOTIFY.clientId,
+  clientSecret: config.SPOTIFY.secret,
+  callbackURL: config.SPOTIFY.cbURL
   },
   function(accessToken, refreshToken, profile, done) {
     console.log('accessToken: ', accessToken);
@@ -87,20 +72,6 @@ app.get('/auth/spotify/callback',
     res.redirect('/');
   });
 
-app.get('/callback',
-  passport.authenticate('spotify', { failureRedirect: '/login' }),
-  (req, res) => {
-    console.log('SUCCESSFUL AUTHENTICATION. ONE DAY');
-    res.redirect('/');
-  });
-
-
-app.get('/dance', (req, res) => {
-  res.redirect('/auth/spotify');
-})
-
-
-
 
 
 
@@ -125,8 +96,10 @@ app.post('/login', auth.verifyUser, (req, res) => {
 app.get('/check', (req, res) => {
   console.log('checking something');
   if (req.session.username) {
+    console.log('cool')
     res.send({statusCode: 200});
   } else {
+    console.log('I mdskjhfkjhdfkjshd')
     res.send({statusCode: 404});
   }
 })
@@ -139,14 +112,14 @@ app.get('/logout', (req, res) => {
   res.send('logged out!')
 })
 
-app.get('/newreleases', (req,res) => {
-  spotifyApi.getNewReleases({ limit : 20, offset: 0, country: 'US' })
-    .then(function(data) {
-      res.send(data.body.albums.items);
-    }, function(err) {
-      console.log("could not get new releases", err);
-  });
-});
+// app.get('/newreleases', (req,res) => {
+//   spotifyApi.getNewReleases({ limit : 20, offset: 0, country: 'US' })
+//     .then(function(data) {
+//       res.send(data.body.albums.items);
+//     }, function(err) {
+//       console.log("could not get new releases", err);
+//   });
+// });
 
 app.post('/search', (req, res) => {
   console.log('searching');
