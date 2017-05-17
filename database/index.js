@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const beautifyUnique = require('mongoose-beautiful-unique-validation');
 mongoose.Promise = require('bluebird');
-mongoose.connect('mongodb://localhost/test');
+mongoose.createConnection('mongodb://localhost/test');
 const config = require('../config/index.js');
 const DATABASE_URL = config.DATABASE_URL;
 

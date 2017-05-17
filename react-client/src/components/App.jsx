@@ -13,13 +13,13 @@ import SearchResults from './SearchResults.jsx';
 import User from './User.jsx';
 import LoginSignup from './LoginSignup.jsx';
 import PastSearchResults from './PastSearchResults.jsx';
+import TopTen from './TopTen.jsx';
 import sampleSpotify from '../../../spotify_new_release_sample_data.js';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      initialSongList: [],
       currentSongNameAndArtist: [],
       currentLyrics: '',
       watson: {},
@@ -40,9 +40,8 @@ class App extends React.Component {
       loggedIn: false,
       upDownUser: false,
       searchResultsLoadingUser: false,
-      spotifyHomePage: sampleSpotify.albums.items,
+      spotifyHomePage: [],
     };
-    console.log('this all the props', this.state)
     this.search = this.search.bind(this);
     this.process = this.process.bind(this);
     this.showResults = this.showResults.bind(this);
@@ -54,12 +53,12 @@ class App extends React.Component {
 
 
   componentDidMount(){
-    axios.get('/initialsearch').then((res) => {
+    axios.get('/newreleases').then((res) => {
       if (!res.data){
         console.log('Error on initial load of song data');
       }
       this.setState({
-        initialSongList: res.data
+        spotifyHomePage: res.data
       });
     })
   }
@@ -172,10 +171,8 @@ class App extends React.Component {
               : null}
 
               {/* add component for top 10 here*/}
-              {!this.state.showResults ?
-                <div className='test'>
-                  top ten songs component.
-                </div>
+              {!this.state.showLyrics && !this.state.showResults ?
+                <TopTen spotifyHomePage={this.state.spotifyHomePage}/>
               : null}
 
             {this.state.showPlayer

@@ -13,6 +13,7 @@ class Player extends React.Component {
       <div>
         {renderIf(this.props.spotifyURI)(
           <div className="player" >
+
             <iframe src={'https://open.spotify.com/embed?uri=' + this.props.spotifyURI}
                     frameBorder="0" width="100%" height="auto"/>
           </div>
