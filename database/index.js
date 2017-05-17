@@ -5,7 +5,7 @@ mongoose.createConnection('mongodb://localhost/test');
 const config = require('../config/index.js');
 const DATABASE_URL = config.DATABASE_URL;
 
-// mongoose.connect(DATABASE_URL);
+ mongoose.connect(DATABASE_URL);
 const db = mongoose.connection;
 
 db.on('error', (err) => {
@@ -74,7 +74,7 @@ const User = mongoose.model('User', userSchema);
 ///////////TOP TEN SONGS SCHEMA///////////////
 let topTenSongsSchema = mongoose.Schema({
   songs: Array,
-  dateadded: {type: Date, default: Date.now}
+  dateadded: Date
 });
 topTenSongsSchema.plugin(beautifyUnique);
 const TopTenSongs = mongoose.model('TopTenSongs', topTenSongsSchema)
