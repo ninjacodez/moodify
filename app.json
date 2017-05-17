@@ -1,20 +1,6 @@
 {
   "name": "Moodify",
   "description": "Music moodifiation application",
-  "scripts": {
-  },
-  "env": {
-    "NODE_ENV": {"required": true},
-    "NPM_CONFIG_PRODUCTION": {"required": true},
-    "MONGODB_URI": {"required": true},
-    "MM_API_KEY": {"required": true},
-    "WATSON_NLU_PASSWORD": {"required": true},
-    "WATSON_NLU_USERNAME": {"required": true},
-    "WATSON_TONE_PASSWORD": {"required": true},
-    "WATSON_TONE_USERNAME": {"required": true}
-  },
-  "formation": {
-  },
   "addons": [
     "mongolab:sandbox"
   ],
@@ -23,13 +9,24 @@
       "url": "heroku/nodejs"
     }
   ],
+  "env": {
+    "NODE_ENV": { "required": true },
+    "MONGODB_URI": { "required": true },
+    "MM_API_KEY": { "required": true },
+    "WATSON_NLU_PASSWORD": { "required": true },
+    "WATSON_NLU_USERNAME": { "required": true },
+    "WATSON_TONE_PASSWORD": { "required": true },
+    "WATSON_TONE_USERNAME": { "required": true }
+  },
   "environments": {
     "test": {
-      "buildpacks": [
-        { "url": "heroku/nodejs" }
-      ],
-      "addons":[
+      "addons": [
         "mongolab:sandbox"
+      ],
+      "buildpacks": [
+        {
+          "url": "heroku/nodejs"
+        }
       ]
     }
   }
