@@ -161,7 +161,7 @@ class App extends React.Component {
           <div className="col2">
             <User showPrev={this.state.showResultsUser} prev={this.showResultsUser} upDown={this.state.upDownUser} runUpDown={this.upDownUser} process={this.process} searchResultsLoading={this.state.searchResultsLoadingUser} loadPastSearchResults={this.loadPastSearchResults}/> {this.state.showMood
               ? <Mood watson={this.state.watson} songNameAndArtist={this.state.currentSongNameAndArtist}/>
-              : null}
+              : null />}
           </div>
         </div>
       </div>
