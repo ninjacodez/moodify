@@ -18,6 +18,7 @@ import sampleSpotify from '../../../spotify_new_release_sample_data.js';
 
 class App extends React.Component {
   constructor(props) {
+    //console.log(sampleSpotify.albums.items)
     super(props);
     this.state = {
       currentSongNameAndArtist: [],
@@ -40,7 +41,10 @@ class App extends React.Component {
       loggedIn: false,
       upDownUser: false,
       searchResultsLoadingUser: false,
+      landingPageComponents: false,
       spotifyHomePage: [],
+      showSpotifyPlayer: false,
+      spotifyPlayerUri: ''
     };
     this.search = this.search.bind(this);
     this.process = this.process.bind(this);
@@ -49,6 +53,8 @@ class App extends React.Component {
     this.upDownUser = this.upDownUser.bind(this);
     this.showResultsUser = this.showResultsUser.bind(this);
     this.loadPastSearchResults = this.loadPastSearchResults.bind(this);
+    this.newReleaseClick = this.newReleaseClick.bind(this);
+    this.closePlayer = this.closePlayer.bind(this);
   }
 
 
@@ -160,6 +166,25 @@ class App extends React.Component {
     }).catch(err => console.log(err));
   }
 
+  newReleaseClick(val) {
+    if(!this.state.showSpotifyPlayer) {
+      this.setState({
+        showSpotifyPlayer: true,
+        spotifyPlayerUri: val
+      })
+    } else if(this.state.showSpotifyPlayer && this.state.spotifyPlayerUri !== '') {
+      this.setState({
+        spotifyPlayerUri: val
+      })
+    }
+  }
+  closePlayer() {
+    this.setState({
+      showSpotifyPlayer: false,
+    })
+  }
+
+
   render() {
     return (
       <div>
@@ -171,8 +196,13 @@ class App extends React.Component {
               : null}
 
               {/* add component for top 10 here*/}
-              {!this.state.showLyrics && !this.state.showResults ?
-                <TopTen spotifyHomePage={this.state.spotifyHomePage}/>
+
+              {!this.state.showLyrics && !this.state.showResults && !this.showPlayer ?
+                <TopTen showSpotifyPlayer={this.state.showSpotifyPlayer} newReleaseClick={this.newReleaseClick} spotifyHomePage={this.state.spotifyHomePage}
+                  showSpotifyPlayer={this.state.showSpotifyPlayer}
+                  spotifyPlayerUri={this.state.spotifyPlayerUri}
+                  closePlayer={this.closePlayer}
+                />
               : null}
 
             {this.state.showPlayer
@@ -185,7 +215,7 @@ class App extends React.Component {
               : null}
 
               {/* add component for top 10 mood here*/}
-              {!this.state.showResults ?
+              {!this.state.showLyrics && !this.state.showResults && !this.showPlayer ?
                 <div className='test'>
                   show top ten mood component.
                 </div>
