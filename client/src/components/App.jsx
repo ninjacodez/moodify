@@ -170,5 +170,3 @@ class App extends React.Component {
 }
 
 export default App;
-
-/*       {this.state.showMood ? <Music watson={this.state.watson} songNameAndArtist={this.state.currentSongNameAndArtist}/> : null}*/
