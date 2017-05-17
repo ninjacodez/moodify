@@ -5,7 +5,7 @@ mongoose.createConnection('mongodb://localhost/test');
 const config = require('../config/index.js');
 const DATABASE_URL = config.DATABASE_URL;
 
-// mongoose.connect(DATABASE_URL);
+ mongoose.connect(DATABASE_URL);
 const db = mongoose.connection;
 
 db.on('error', (err) => {
@@ -16,6 +16,7 @@ db.once('open', () => {
   console.log('mongoose connection success! b(^.~)z');
 });
 
+///////////SONG SCHEMA///////////////
 let songSchema = mongoose.Schema({
 	track_id: {type: Number, unique: true},
 	track_name: String,
@@ -30,6 +31,8 @@ let songSchema = mongoose.Schema({
 songSchema.plugin(beautifyUnique);
 const Song = mongoose.model('Song', songSchema);
 
+
+///////////WATSON SCHEMA///////////////
 let watsonSchema = mongoose.Schema({
 
   track_id: { type: Number, unique: true },
@@ -57,6 +60,8 @@ let watsonSchema = mongoose.Schema({
 watsonSchema.plugin(beautifyUnique);
 const Watson = mongoose.model('Watson', watsonSchema);
 
+
+///////////USER SCHEMA///////////////
 let userSchema = mongoose.Schema({
   username: {type: String, unique: true},
   password: String,
@@ -65,6 +70,17 @@ let userSchema = mongoose.Schema({
 userSchema.plugin(beautifyUnique);
 const User = mongoose.model('User', userSchema);
 
+
+///////////TOP TEN SONGS SCHEMA///////////////
+let topTenSongsSchema = mongoose.Schema({
+  songs: Array,
+  dateadded: Date
+});
+topTenSongsSchema.plugin(beautifyUnique);
+const TopTenSongs = mongoose.model('TopTenSongs', topTenSongsSchema)
+
+
+module.exports.TopTenSongs = TopTenSongs;
 module.exports.Song = Song;
 module.exports.Watson = Watson;
 module.exports.User = User;

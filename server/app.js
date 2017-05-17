@@ -6,6 +6,8 @@ const bodyParser = require('body-parser');
 
 const passport = require('passport');
 const SpotifyStrategy = require('passport-spotify').Strategy;
+const SpotifyWebApi = require('spotify-web-api-node');
+
 
 const cors = require('cors');
 const Promise = require('bluebird');
@@ -17,6 +19,7 @@ const spotifyHelpers = require('./spotifyHelpers.js');
 const watsonHelpers = require('./watsonHelpers.js');
 const db = require('../database');
 const config = require('../config/index.js');
+
 
 passport.serializeUser(function(user, done) {
   done(null, user);
@@ -58,6 +61,16 @@ app.use(express.static(__dirname + '/../react-client/dist'));
 // routes
 let sess = {};
 
+var spotifyApi = new SpotifyWebApi({clientId: config.SPOTIFY_CLIENT_API_KEY, clientSecret: config.SPOTIFY_CLIENT_SECRET_API_KEY});
+spotifyApi.clientCredentialsGrant()
+ .then(function(data) {
+   console.log('The access token expires in ' + data.body['expires_in']);
+
+   // Save the access token so that it’s used in future calls
+   spotifyApi.setAccessToken(data.body['access_token']);
+ }, function(err) {
+   console.log('Something went wrong when retrieving an access token', err.message);
+ });
 
 app.get('/auth/spotify',
   passport.authenticate('spotify', {scope: ['user-read-email'], showDialog: true}),
@@ -112,14 +125,27 @@ app.get('/logout', (req, res) => {
   res.send('logged out!')
 })
 
-// app.get('/newreleases', (req,res) => {
-//   spotifyApi.getNewReleases({ limit : 20, offset: 0, country: 'US' })
-//     .then(function(data) {
-//       res.send(data.body.albums.items);
-//     }, function(err) {
-//       console.log("could not get new releases", err);
-//   });
-// });
+ app.get('/newreleases', (req,res) => {
+   spotifyApi.getNewReleases({ limit : 20, offset: 0, country: 'US' })
+     .then(data => {
+        topTenData = {
+          songs: data.body.albums.items,
+          dateadded: Date.now()
+        };
+      const newTopTenEntry = new db.TopTenSongs(topTenData);
+      console.log(newTopTenEntry);
+      newTopTenEntry.save(err => {
+        if (err) {console.log('Error saving TopTenSong data')}
+          })
+       res.send(data.body.albums.items);
+     });
+
+     }, function(err) {
+       console.log("could not get new releases", err);
+   });
+
+
+
 
 app.post('/search', (req, res) => {
   console.log('searching');
