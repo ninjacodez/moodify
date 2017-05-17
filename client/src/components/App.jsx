@@ -13,6 +13,7 @@ import SearchResults from './SearchResults.jsx';
 import User from './User.jsx';
 import LoginSignup from './LoginSignup.jsx';
 import PastSearchResults from './PastSearchResults.jsx';
+import AnalysisTabs from './AnalysisTabs.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -159,9 +160,8 @@ class App extends React.Component {
               : null}
           </div>
           <div className="col2">
-            <User showPrev={this.state.showResultsUser} prev={this.showResultsUser} upDown={this.state.upDownUser} runUpDown={this.upDownUser} process={this.process} searchResultsLoading={this.state.searchResultsLoadingUser} loadPastSearchResults={this.loadPastSearchResults}/> {this.state.showMood
-              ? <Mood watson={this.state.watson} songNameAndArtist={this.state.currentSongNameAndArtist}/>
-              : null />}
+            <User showPrev={this.state.showResultsUser} prev={this.showResultsUser} upDown={this.state.upDownUser} runUpDown={this.upDownUser} process={this.process} searchResultsLoading={this.state.searchResultsLoadingUser} loadPastSearchResults={this.loadPastSearchResults}/>
+            <AnalysisTabs  watson={this.state.watson} songNameAndArtist={this.state.currentSongNameAndArtist} />
           </div>
         </div>
       </div>
@@ -170,3 +170,5 @@ class App extends React.Component {
 }
 
 export default App;
+
+/*       {this.state.showMood ? <Music watson={this.state.watson} songNameAndArtist={this.state.currentSongNameAndArtist}/> : null}*/

@@ -1,11 +1,9 @@
 import React from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import '../../dist/react-tabs.css';
 
-// import mood component (lyrics analysis)
-// import songMood component (song analysis)
-
-import SongAnalysis from './SongAnalysis';
-import Mood from './Mood';
+import MusicAnalysis from './MusicAnalysis.jsx';
+import Mood from './Mood.jsx';
 
 class AnalysisTabs extends React.Component {
   constructor(props) {
@@ -20,21 +18,23 @@ class AnalysisTabs extends React.Component {
     return (
       <Tabs>
         <TabList>
-          <Tab className="tab-text">Lyrics Analysis</Tab>
-          <Tab className="tab-text">Mood Analysis</Tab>
+          <Tab >Lyrics Analysis</Tab>
+          <Tab >Music Analysis</Tab>
         </TabList>
 
         <TabPanel>
           <h3>Lyrics Analysis</h3>
-          <Mood watson={this.props.watson} songNameAndArtist={this.props.currentSongNameAndArtist} ></Mood>
+          <Mood watson={this.props.watson} songNameAndArtist={this.props.songNameAndArtist} ></Mood>
         </TabPanel>
 
         <TabPanel>
           <h3>Mood Analysis</h3>
-          <MusicAnalysis ></MusicAnalysis>
+          <MusicAnalysis watson={this.props.watson} songNameAndArtist={this.props.songNameAndArtist} ></MusicAnalysis>
         </TabPanel>
       </Tabs>
     );
   }
 
 };
+
+export default AnalysisTabs;
