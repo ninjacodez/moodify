@@ -53,12 +53,8 @@ app.get('/logout', (req, res) => {
 })
 
 app.post('/search', (req, res) => {
-  // console.log('inside post method /search ')
-  // console.log('req.body.title ', req.body.title)
   return mmHelpers.searchByTitleAndArtist(req.body.title, req.body.artist)
   .then(data => {
-    console.log('DATA === ', data)
-    // debugger;
     if (data.track_list.length === 0) { res.send({errorMessage: 'No Search Results'}); }
     res.send(data);
   })
