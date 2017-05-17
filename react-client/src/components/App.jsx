@@ -13,6 +13,7 @@ import SearchResults from './SearchResults.jsx';
 import User from './User.jsx';
 import LoginSignup from './LoginSignup.jsx';
 import PastSearchResults from './PastSearchResults.jsx';
+import sampleSpotify from '../../../spotify_new_release_sample_data.js';
 
 class App extends React.Component {
   constructor(props) {
@@ -38,8 +39,10 @@ class App extends React.Component {
       url: window.location.href,
       loggedIn: false,
       upDownUser: false,
-      searchResultsLoadingUser: false
+      searchResultsLoadingUser: false,
+      spotifyHomePage: sampleSpotify.albums.items,
     };
+    console.log('this all the props', this.state)
     this.search = this.search.bind(this);
     this.process = this.process.bind(this);
     this.showResults = this.showResults.bind(this);
@@ -167,6 +170,14 @@ class App extends React.Component {
             <Search search={this.search} prev={this.showResults} showPrev={this.state.showPrev} upDown={this.state.upDown} runUpDown={this.upDown}/> {this.state.showResults
               ? <SearchResults results={this.state.searchResults} process={this.process} searchResultsLoading={this.state.searchResultsLoading}/>
               : null}
+
+              {/* add component for top 10 here*/}
+              {!this.state.showResults ?
+                <div className='test'>
+                  top ten songs component.
+                </div>
+              : null}
+
             {this.state.showPlayer
               ? <Lyrics showPlayer={this.state.showPlayer} spotifyURI={this.state.spotifyURI} loading={this.state.spotifyLoading} lyrics={this.state.currentLyrics} loading={this.state.lyricsLoading} songNameAndArtist={this.state.currentSongNameAndArtist}/>
               : null}
@@ -175,6 +186,14 @@ class App extends React.Component {
             <User showPrev={this.state.showResultsUser} prev={this.showResultsUser} upDown={this.state.upDownUser} runUpDown={this.upDownUser} process={this.process} searchResultsLoading={this.state.searchResultsLoadingUser} loadPastSearchResults={this.loadPastSearchResults}/> {this.state.showMood
               ? <Mood watson={this.state.watson} songNameAndArtist={this.state.currentSongNameAndArtist}/>
               : null}
+
+              {/* add component for top 10 mood here*/}
+              {!this.state.showResults ?
+                <div className='test'>
+                  show top ten mood component.
+                </div>
+              : null}
+
           </div>
         </div>
         <div>
