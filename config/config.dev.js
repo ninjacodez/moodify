@@ -1,5 +1,3 @@
-// FILL IN WITH KEYS
-
 module.exports = {
   WATSON_TONE_API_KEY: {
     username: 'WATSON_TONE_USERNAME',
@@ -9,6 +7,6 @@ module.exports = {
     username: 'WATSON_NLU_USERNAME',
     password: 'WATSON_NLU_PASSWORD'
   },
-  MM_API_KEY: 'MM_API_KEY',
-  DATABASE_URL: 'MONGODB_URI'
+  MM_API_KEY: '675ea4490103dff7676107516037d475',
+  DATABASE_URL: 'mongodb://localhost/moodify'
 };

@@ -3,8 +3,10 @@ const request = Promise.promisifyAll(require('request'));
 
 const getSongByTitleAndArtist = (title, artist) => {
   const rootURL = 'https://api.spotify.com/v1/';
+  console.log('before the api request ...')
   return request.getAsync(rootURL + 'search?q=track:' + title + '%20artist:' + artist + '&type=track')
   .then(data => {
+    console.log('api response received...')
     let parsedData = JSON.parse(data.body);
     return parsedData.tracks.items[0].uri;
   })
