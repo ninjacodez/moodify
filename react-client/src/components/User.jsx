@@ -72,8 +72,13 @@ class User extends React.Component {
             </div>
           )}
           {renderif(this.state.loggedIn)(
+            <div>
             <div className="loginButton" onClick={this.logout}>
               Logout!
+            </div>
+            <div className="loginButton" onClick={this.loginSpotify}>
+              thisfuckinlist!
+            </div>
             </div>
           )}
           {renderif(this.state.loggedIn)(<PastSearches search={this.props.search} 

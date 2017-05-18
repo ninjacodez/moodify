@@ -33,15 +33,16 @@ passport.deserializeUser(function(id, done) {
 });
 
 const app = express();
-
+let accesTime = null;
 passport.use(new SpotifyStrategy({
   clientID: config.SPOTIFY.clientId,
   clientSecret: config.SPOTIFY.secret,
   callbackURL: config.SPOTIFY.cbURL
   },
   function(accessToken, refreshToken, profile, done) {
-
+    //console.log('ACCESS TOKEN IS THIS THING RIGHT HERE BITCH', accessToken)
     console.log('Profile from spotify: ', profile);
+    accesTime = accessToken;
 
     db.User.findOrCreate({
       username: profile.username,
@@ -76,7 +77,7 @@ let sess = {};
 
 
 app.get('/auth/spotify',
-  passport.authenticate('spotify', {scope: ['user-read-email'], showDialog: true}),
+  passport.authenticate('spotify', {scope: ['user-read-email', 'user-read-recently-played', 'user-top-read'], showDialog: true}),
   (req, res) => {
     console.log('You fucked up, this should not be called');
   });
@@ -84,8 +85,6 @@ app.get('/auth/spotify',
 app.get('/auth/spotify/callback',
   passport.authenticate('spotify', { failureRedirect: '/login' }),
   (req, res) => {
-
-
     console.log('Second thing that happens!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
 
     console.log('Successfully authenticated with Spotify');
@@ -93,6 +92,20 @@ app.get('/auth/spotify/callback',
     res.redirect('/');
   });
 
+app.get('/thisfuckinlist', (req, res) => {
+  
+  let url = `https://api.spotify.com/v1/me/player/recently-played`
+  
+  axios(url, { 'headers': { 'Authorization': `Bearer ${accesTime}` } })
+    .then((res) => {  
+        console.log('First thing that happens!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+        console.log('This is playlist tracks request: ', res.data)
+      })
+    .catch((err) => {
+        console.log('error retrieving playlists TRACKS from spotify ', err);
+  })
+
+})
 
 
 
