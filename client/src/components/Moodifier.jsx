@@ -86,7 +86,7 @@ class Moodifier extends React.Component {
     return (
       <div className="maingraph">
       <h2>Music Analysis</h2>
-      <Bar data={this.props.emotionData} options={this.state.emotionOptions} width={500}/>
+      <Bar data={this.props.spotifyAnalysis} options={this.state.emotionOptions} width={500}/>
       <div className="inputFields">
         <label>
         Danceability
