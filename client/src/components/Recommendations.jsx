@@ -8,16 +8,14 @@ class Recommendations extends React.Component {
   }
 
   render() {
+    console.log('Props in Recommendations === ', this.props)
     return (
-      <div id="react-tabs">
+      <div >
         <h2>Recommendations</h2>
-        <iframe src="https://open.spotify.com/embed?uri=spotify:track:49edox3q89CG1g6rJVfmHE" width="300" height="100" frameborder="0" allowtransparency="true"></iframe>
-
-        <iframe src="https://open.spotify.com/embed?uri=spotify:track:49edox3q89CG1g6rJVfmHE" width="300" height="100" frameborder="0" allowtransparency="true"></iframe>
-
-        <iframe src="https://open.spotify.com/embed?uri=spotify:track:49edox3q89CG1g6rJVfmHE" width="300" height="100" frameborder="0" allowtransparency="true"></iframe>
-
-        <iframe src="https://open.spotify.com/embed?uri=spotify:track:49edox3q89CG1g6rJVfmHE" width="300" height="100" frameborder="0" allowtransparency="true"></iframe>
+        <p>{this.props.dummyd.songName + ' ' + this.props.dummyd.artistName}</p>
+        <p>{this.props.dummyd.songName + ' ' + this.props.dummyd.artistName}</p>
+        <p>{this.props.dummyd.songName + ' ' + this.props.dummyd.artistName}</p>
+        <p>{this.props.dummyd.songName + ' ' + this.props.dummyd.artistName}</p>
       </div>
     );
   }

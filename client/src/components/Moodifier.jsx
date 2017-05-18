@@ -12,7 +12,11 @@ class Moodifier extends React.Component {
       danceability: '',
       energy: '',
       mood: '',
-      songURIs: []
+      songURIs: [],
+      dummyd: {
+        songName: 'hello',
+        artistName: 'Adele'
+      }
     }
 
     this.danceability = this.danceability.bind(this);
@@ -22,19 +26,19 @@ class Moodifier extends React.Component {
 
   danceability(event) {
     this.setState({
-      danceability: event.target.value,
+      danceability: event.target.value
     });
   }
 
   energy(event) {
     this.setState({
-      energy: event.target.value,
+      energy: event.target.value
     });
   }
 
   mood(event) {
     this.setState({
-      mood: event.target.value,
+      mood: event.target.value
     });
   }
 
@@ -46,22 +50,22 @@ class Moodifier extends React.Component {
       energy: this.state.energy,
       spotifyURI: this.props.spotifyURI
     }
-
     axios.post('/moodify', queries).then(res => {
       const data = res.data;
 
       this.setState({
         songURIs: data.uris
-      }).catch(error => {
+      })
+      .catch(error => {
         throw error;
       });
-
+    });
   }
 
-  render() { // FIX data on BAR
-    console.log('getting inside mood jsx')
-    console.log('PROPS inside moodifier === ', this.props)
-    console.log('spotifyURI inside moodifier === ', this.props.spotifyURI)
+  render() {
+    console.log('getting inside moodifier jsx');
+    console.log('PROPS inside moodifier === ', this.props);
+    console.log('spotifyURI inside moodifier === ', this.props.spotifyURI);
     return (
       <div className="maingraph">
       <h2>Music Analysis</h2>
@@ -81,7 +85,7 @@ class Moodifier extends React.Component {
         </label>
       </div>
       <button onClick={this.moodify} >Moodify</button>
-      <Recommendations songUris={this.state.songUris} />
+      <Recommendations songUris={this.state.songUris} dummyd={this.state.dummyd} />
       </div>
     );
   }
