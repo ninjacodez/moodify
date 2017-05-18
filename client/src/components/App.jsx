@@ -27,7 +27,6 @@ class App extends React.Component {
       searchResultsLoading: false,
       searchResultsLoadingUser: false,
       searchResultsUser: [],
-      spotifyAnalysis: null,
       spotifyLoading: false,
       spotifyURI: null,
       showLyrics: false,
@@ -70,11 +69,12 @@ class App extends React.Component {
     this.setState({
       lyricsLoading: true,
       showLyrics: false,
-      spotifyLoading: true,
       showMood: false,
       showPlayer: true,
       showResults: false,
       showResultsUser: false,
+      spotifyAnalysis: null,
+      spotifyLoading: true,
       upDown: true,
       upDownUser: false
     });
@@ -164,7 +164,7 @@ class App extends React.Component {
           </div>
           <div className="col2">
             <User showPrev={this.state.showResultsUser} prev={this.showResultsUser} upDown={this.state.upDownUser} runUpDown={this.upDownUser} process={this.process} searchResultsLoading={this.state.searchResultsLoadingUser} loadPastSearchResults={this.loadPastSearchResults}/>
-            <AnalysisTabs spotifyAnalysis={this.state.spotifyAnalysis} spotifyURI={this.state.spotifyURI} watson={this.state.watson} songNameAndArtist={this.state.currentSongNameAndArtist} />
+            <AnalysisTabs process={this.process} spotifyAnalysis={this.state.spotifyAnalysis} spotifyURI={this.state.spotifyURI} watson={this.state.watson} songNameAndArtist={this.state.currentSongNameAndArtist} />
           </div>
         </div>
       </div>
