@@ -9,9 +9,9 @@ const Promise = require('bluebird');
 
 // other module exports
 const auth = require('./auth.js');
-const mmHelpers = require('./musixMatchHelpers.js');
-const spotifyHelpers = require('./spotifyHelpers.js');
-const watsonHelpers = require('./watsonHelpers.js');
+const musixMath = require('./service/musixMatch.js');
+const spotify = require('./service/spotify.js');
+const watson = require('./service/watson.js');
 const db = require('../database');
 
 // initialize and set up app
@@ -53,7 +53,7 @@ app.get('/logout', (req, res) => {
 })
 
 app.post('/search', (req, res) => {
-  return mmHelpers.searchByTitleAndArtist(req.body.title, req.body.artist)
+  return musixMath.searchByTitleAndArtist(req.body.title, req.body.artist)
   .then(data => {
     if (data.track_list.length === 0) { res.send({errorMessage: 'No Search Results'}); }
     res.send(data);
@@ -63,7 +63,7 @@ app.post('/search', (req, res) => {
 
 app.post('/fetchLyricsByTrackId', (req, res) => {
   const trackId = req.body.trackId;
-  return mmHelpers.getLyricsByTrackId(trackId)
+  return musixMath.getLyricsByTrackId(trackId)
   .then(lyrics => {
     res.send(lyrics);
   })
@@ -75,7 +75,7 @@ app.post('/process', (req, res) => {
   const songNameAndArtist = [input.artist_name, input.track_name];
   let watsonData = {};
 
-  return mmHelpers.getLyricsByTrackId(input.track_id)
+  return musixMath.getLyricsByTrackId(input.track_id)
   .then(data => {
     const lyrics = data.lyrics.lyrics_body;
 
@@ -83,7 +83,7 @@ app.post('/process', (req, res) => {
     return;
   })
   .then(() => {
-    return watsonHelpers.queryWatsonToneHelper(input.lyrics)
+    return watson.queryWatsonToneHelper(input.lyrics)
   })
   .then(data => {
     watsonData = {
@@ -104,7 +104,7 @@ app.post('/process', (req, res) => {
     };
     const newEntry = new db.Watson(watsonData);
     newEntry.save(err => {
-      if (err) { console.log('SAVE WATSON ERROR'); }
+      if (err) { console.log('SAVE WATSON ERROR', err ); }
     })
   })
   .then(() => {
@@ -113,14 +113,14 @@ app.post('/process', (req, res) => {
     }
   })
   .then(() => {
-    return spotifyHelpers.getSongByTitleAndArtist(input.track_name, input.artist_name)
+    return spotify.getSongByTitleAndArtist(input.track_name, input.artist_name)
   })
   .then((spotifyData) => {
     input.spotify_uri = spotifyData
 
     const songEntry = new db.Song(input);
     songEntry.save(err => {
-      if (err) { console.log("SAVE SONG ERROR"); }
+      if (err) { console.log("SAVE SONG ERROR", err ); }
     })
   })
   .then(() => {

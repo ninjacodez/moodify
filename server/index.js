@@ -2,7 +2,7 @@ const Promise = require('bluebird');
 
 const app = require('./app.js');
 const config = require('./config');
-const spotify = require('./spotifyHelpers');
+const spotify = require('./service/spotify');
 
 app.listen = Promise.promisify( app.listen );
 
