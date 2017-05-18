@@ -10,9 +10,11 @@
     "start": "nodemon server/index.js",
     "postinstall": "webpack -p",
     "client-dev": "webpack -d --watch",
-    "server-dev": "nodemon --inspect server/index.js",
+    "server-dev": "nodemon server/index.js",
+    "server-debug": "nodemon --inspect server/index.js",
     "server-debug-brk": "nodemon --inspect --debug-brk server/index.js",
-    "test": "mocha test"
+    "test": "mocha test",
+    "test-debug": "mocha --inspect --debug-brk test"
   },
   "dependencies": {
     "axios": "^0.16.1",
@@ -52,7 +54,8 @@
     "style-loader": "^0.17.0",
     "watson-developer-cloud": "^2.31.1",
     "webpack": "^2.4.1",
-    "webpack-dev-server": "^2.4.5"
+    "webpack-dev-server": "^2.4.5",
+    "www-authenticate": "^0.6.2"
   },
   "devDependencies": {
     "chai": "^3.5.0",
