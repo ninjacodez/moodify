@@ -85,10 +85,7 @@ app.get('/auth/spotify',
 app.get('/auth/spotify/callback',
   passport.authenticate('spotify', { failureRedirect: '/login' }),
   (req, res) => {
-    console.log('Second thing that happens!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
-
-    console.log('Successfully authenticated with Spotify');
-
+    console.log('spotify callback');
     res.redirect('/');
   });
 
@@ -109,9 +106,8 @@ app.get('/thisfuckinlist', (req, res) => {
 
 
 
-
-
 var spotifyApi = new SpotifyWebApi({clientId: config.SPOTIFY_CLIENT_API_KEY, clientSecret: config.SPOTIFY_CLIENT_SECRET_API_KEY});
+
 spotifyApi.clientCredentialsGrant()
  .then(function(data) {
    console.log('The access token expires in ' + data.body['expires_in']);
@@ -121,7 +117,6 @@ spotifyApi.clientCredentialsGrant()
  }, function(err) {
    console.log('Something went wrong when retrieving an access token', err.message);
  });
-
 
 
 app.post('/signup', auth.createUser, (req, res) => {
