@@ -11,7 +11,8 @@ class Moodifier extends React.Component {
     this.state = {
       danceability: '',
       energy: '',
-      mood: ''
+      mood: '',
+      songURIs: []
     }
 
     this.danceability = this.danceability.bind(this);
@@ -42,29 +43,25 @@ class Moodifier extends React.Component {
     const queries = {
       danceability: this.state.danceability,
       mood: this.state.mood,
-      energy: this.state.energy
+      energy: this.state.energy,
+      spotifyURI: this.props.spotifyURI
     }
-  // make an ajax request to the server '/moodify'
-  // send the queries object to the server
+
     axios.post('/moodify', queries).then(res => {
       const data = res.data;
-  // display the results returned from the server in the chart
+
       this.setState({
-        danceability: res.data[4].danceability,
-        mood:  res.data[4].show,
-        energy: res.data[4].energy
+        songURIs: data.uris
+      }).catch(error => {
+        throw error;
       });
-    }).catch(error => {
-      throw error;
-    });
-// set a uris property on the Recommendations component and set it's value to uris returned from  the server
 
   }
 
-  render() {
+  render() { // FIX data on BAR
     console.log('getting inside mood jsx')
     console.log('PROPS inside moodifier === ', this.props)
-
+    console.log('spotifyURI inside moodifier === ', this.props.spotifyURI)
     return (
       <div className="maingraph">
       <h2>Music Analysis</h2>
@@ -83,8 +80,8 @@ class Moodifier extends React.Component {
         <input value={this.state.energy} type="text" onChange={this.energy} />
         </label>
       </div>
-      <button onSubmit={this.moodify} >Moodify</button>
-      <Recommendations />
+      <button onClick={this.moodify} >Moodify</button>
+      <Recommendations songUris={this.state.songUris} />
       </div>
     );
   }

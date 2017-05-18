@@ -155,16 +155,45 @@ class App extends React.Component {
         <Header url={this.state.url}/>
         <div className="container">
           <div className="col1">
-            <Search search={this.search} prev={this.showResults} showPrev={this.state.showPrev} upDown={this.state.upDown} runUpDown={this.upDown}/> {this.state.showResults
-              ? <SearchResults results={this.state.searchResults} process={this.process} searchResultsLoading={this.state.searchResultsLoading}/>
+            <Search
+              search={this.search}
+              prev={this.showResults}
+              showPrev={this.state.showPrev}
+              upDown={this.state.upDown}
+              runUpDown={this.upDown}/>
+              {this.state.showResults ? // if show results is true, render SearchResults, otherwise nothing
+                <SearchResults
+                  results={this.state.searchResults}
+                  process={this.process}
+                  searchResultsLoading={this.state.searchResultsLoading}
+                />
               : null}
-            {this.state.showPlayer
-              ? <Lyrics showPlayer={this.state.showPlayer} spotifyURI={this.state.spotifyURI} loading={this.state.spotifyLoading} lyrics={this.state.currentLyrics} loading={this.state.lyricsLoading} songNameAndArtist={this.state.currentSongNameAndArtist}/>
-              : null}
+                {this.state.showPlayer ? // if showPlayer is true, render Lyrics, otherwise nothing
+                  <Lyrics
+                    showPlayer={this.state.showPlayer}
+                    spotifyURI={this.state.spotifyURI}
+                    loading={this.state.spotifyLoading}
+                    lyrics={this.state.currentLyrics}
+                    loading={this.state.lyricsLoading}
+                    songNameAndArtist={this.state.currentSongNameAndArtist}/>
+                : null}
           </div>
           <div className="col2">
-            <User showPrev={this.state.showResultsUser} prev={this.showResultsUser} upDown={this.state.upDownUser} runUpDown={this.upDownUser} process={this.process} searchResultsLoading={this.state.searchResultsLoadingUser} loadPastSearchResults={this.loadPastSearchResults}/>
-            <AnalysisTabs spotifyAnalysis={this.state.spotifyAnalysis} spotifyURI={this.state.spotifyURI} watson={this.state.watson} songNameAndArtist={this.state.currentSongNameAndArtist} />
+            <User
+              showPrev={this.state.showResultsUser}
+              prev={this.showResultsUser}
+              upDown={this.state.upDownUser}
+              runUpDown={this.upDownUser}
+              process={this.process}
+              searchResultsLoading={this.state.searchResultsLoadingUser}
+              loadPastSearchResults={this.loadPastSearchResults}
+            />
+            <AnalysisTabs
+              spotifyAnalysis={this.state.spotifyAnalysis}
+              spotifyURI={this.state.spotifyURI}
+              watson={this.state.watson}
+              songNameAndArtist={this.state.currentSongNameAndArtist}
+            />
           </div>
         </div>
       </div>

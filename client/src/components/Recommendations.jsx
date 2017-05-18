@@ -7,17 +7,6 @@ class Recommendations extends React.Component {
     // state? yes maybe - only when clicked on should it appear???
   }
 
-  // onChange(event) {
-  //   this.setState({
-  //     artistSearch: event.target.value
-  //   });
-  // }
-
-  // search() {
-  //   this.props.onSearch(this.state.artistSearch);
-  //   console.log('clicked');
-  // }
-
   render() {
     return (
       <div id="react-tabs">
