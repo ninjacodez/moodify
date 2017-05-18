@@ -5,7 +5,7 @@ import axios from 'axios';
 import {Switch, Route, Link} from 'react-router-dom';
 // sub components
 import Lyrics from './Lyrics.jsx';
-import Mood from './Mood.jsx';
+import LyricsAnalysis from './LyricsAnalysis.jsx';
 import Player from './Player.jsx';
 import Search from './Search.jsx';
 import Header from './Header.jsx';
@@ -19,34 +19,35 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentSongNameAndArtist: [],
       currentLyrics: '',
-      watson: {},
-      spotifyURI: null,
-      searchResults: [],
-      searchResultsUser: [],
-      searchResultsLoading: false,
-      spotifyLoading: false,
+      currentSongNameAndArtist: [],
+      loggedIn: false,
       lyricsLoading: false,
-      showPlayer: false,
+      searchResults: [],
+      searchResultsLoading: false,
+      searchResultsLoadingUser: false
+      searchResultsUser: [],
+      spotifyAnalysis: null,
+      spotifyLoading: false,
+      spotifyURI: null,
       showLyrics: false,
       showMood: false,
+      showPlayer: false,
+      showPrev: false,
       showResults: false,
       showResultsUser: false,
-      showPrev: false,
       upDown: true,
-      url: window.location.href,
-      loggedIn: false,
       upDownUser: false,
-      searchResultsLoadingUser: false
+      url: window.location.href,
+      watson: {},
     };
-    this.search = this.search.bind(this);
+    this.loadPastSearchResults = this.loadPastSearchResults.bind(this);
     this.process = this.process.bind(this);
+    this.search = this.search.bind(this);
     this.showResults = this.showResults.bind(this);
+    this.showResultsUser = this.showResultsUser.bind(this);
     this.upDown = this.upDown.bind(this);
     this.upDownUser = this.upDownUser.bind(this);
-    this.showResultsUser = this.showResultsUser.bind(this);
-    this.loadPastSearchResults = this.loadPastSearchResults.bind(this);
   }
 
   search(title, artist) {
@@ -66,15 +67,15 @@ class App extends React.Component {
 
   process(trackObj) {
     this.setState({
-      showPlayer: true,
-      spotifyLoading: true,
       lyricsLoading: true,
+      showLyrics: false,
+      spotifyLoading: true,
+      showMood: false,
+      showPlayer: true,
       showResults: false,
       showResultsUser: false,
-      upDownUser: false,
-      showLyrics: false,
-      showMood: false,
       upDown: true
+      upDownUser: false,
     });
 
     let input = {};
@@ -93,6 +94,7 @@ class App extends React.Component {
         currentLyrics: data[1],
         watson: data[2],
         spotifyURI: data[3],
+        spotifyAnalysis: data[4],
         spotifyLoading: false,
         lyricsLoading: false,
         showLyrics: true,
@@ -161,7 +163,7 @@ class App extends React.Component {
           </div>
           <div className="col2">
             <User showPrev={this.state.showResultsUser} prev={this.showResultsUser} upDown={this.state.upDownUser} runUpDown={this.upDownUser} process={this.process} searchResultsLoading={this.state.searchResultsLoadingUser} loadPastSearchResults={this.loadPastSearchResults}/>
-            <AnalysisTabs  watson={this.state.watson} songNameAndArtist={this.state.currentSongNameAndArtist} />
+            <AnalysisTabs spotifyAnalysis={this.state.spotifyAnalysis} spotifyURI={this.state.spotifyURI} watson={this.state.watson} songNameAndArtist={this.state.currentSongNameAndArtist} />
           </div>
         </div>
       </div>
