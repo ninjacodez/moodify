@@ -10,24 +10,18 @@ class Moodifier extends React.Component {
 
     this.state = {
       danceability: '',
-      mood: '',
-      energy: ''
+      energy: '',
+      mood: ''
     }
 
     this.danceability = this.danceability.bind(this);
-    this.mood = this.mood.bind(this);
     this.energy = this.energy.bind(this);
+    this.mood = this.mood.bind(this);
   }
 
   danceability(event) {
     this.setState({
       danceability: event.target.value,
-    });
-  }
-
-  mood(event) {
-    this.setState({
-      mood: event.target.value,
     });
   }
 
@@ -37,23 +31,11 @@ class Moodifier extends React.Component {
     });
   }
 
-  // pass danceability, mood, energy values to moodify?
-
-// searchArtist(artistSearch) {
-//     const context = this;
-//     const dataObj = {
-//       artistName: artistSearch
-//     }
-//     $.get('/songs', dataObj, function(songsFound) {
-//       if (songsFound.length === 0) {
-//         alert('Artist not found!');
-//         return;
-//       }
-//       context.setState({
-//         songs: songsFound
-//       });
-//     });
-//   }
+  mood(event) {
+    this.setState({
+      mood: event.target.value,
+    });
+  }
 
   moodify() {
   // declare a queries object and set danceability, mood and enery as properties on it
@@ -68,9 +50,9 @@ class Moodifier extends React.Component {
       const data = res.data;
   // display the results returned from the server in the chart
       this.setState({
-        showDanceability: true,
-        showMood: true,
-        showEnergy: true
+        danceability: res.data[4].danceability,
+        mood:  res.data[4].show,
+        energy: res.data[4].energy
       });
     }).catch(error => {
       throw error;

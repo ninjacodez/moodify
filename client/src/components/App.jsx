@@ -27,15 +27,15 @@ class App extends React.Component {
       searchResultsLoading: false,
       searchResultsLoadingUser: false,
       searchResultsUser: [],
-      spotifyAnalysis: null,
-      spotifyLoading: false,
-      spotifyURI: null,
       showLyrics: false,
       showMood: false,
       showPlayer: false,
       showPrev: false,
       showResults: false,
       showResultsUser: false,
+      spotifyAnalysis: null,
+      spotifyLoading: false,
+      spotifyURI: null,
       upDown: true,
       upDownUser: false,
       url: window.location.href,
@@ -74,7 +74,6 @@ class App extends React.Component {
       showPlayer: true,
       showResults: false,
       showResultsUser: false,
-      spotifyAnalysis: null,
       spotifyLoading: true,
       upDown: true,
       upDownUser: false
@@ -92,19 +91,38 @@ class App extends React.Component {
     axios.post('/process', input).then(res => {
       let data = res.data;
       this.setState({
-        currentSongNameAndArtist: data[0],
         currentLyrics: data[1],
-        watson: data[2],
-        spotifyURI: data[3],
-        spotifyAnalysis: data[4],
-        spotifyLoading: false,
+        currentSongNameAndArtist: data[0],
         lyricsLoading: false,
         showLyrics: true,
-        showMood: true
+        showMood: true,
+        spotifyAnalysis: data[4],
+        spotifyLoading: false,
+        spotifyURI: data[3],
+        watson: data[2],
       });
     }).catch(error => {
       throw error;
     });
+  }
+
+  loadPastSearchResults(trackId) {
+    axios.post('/loadPastSearchResults', {track_id: trackId}).then(res => {
+      let songData = res.data[0];
+      let watsonData = res.data[1];
+      console.log(watsonData);
+      this.setState({
+        currentLyrics: songData.lyrics,
+        currentSongNameAndArtist: [
+          songData.track_name, songData.artist_name
+        ],
+        watson: watsonData,
+        spotifyURI: songData.spotify_uri,
+        showMood: true,
+        showPlayer: true,
+        showLyrics: true
+      });
+    }).catch(err => console.log(err));
   }
 
   showResults() {
@@ -129,25 +147,6 @@ class App extends React.Component {
     this.setState({
       upDownUser: !this.state.upDownUser
     });
-  }
-
-  loadPastSearchResults(trackId) {
-    axios.post('/loadPastSearchResults', {track_id: trackId}).then(res => {
-      let songData = res.data[0];
-      let watsonData = res.data[1];
-      console.log(watsonData);
-      this.setState({
-        currentLyrics: songData.lyrics,
-        currentSongNameAndArtist: [
-          songData.track_name, songData.artist_name
-        ],
-        watson: watsonData,
-        spotifyURI: songData.spotify_uri,
-        showMood: true,
-        showPlayer: true,
-        showLyrics: true
-      });
-    }).catch(err => console.log(err));
   }
 
   render() {
