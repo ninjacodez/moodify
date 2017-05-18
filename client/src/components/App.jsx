@@ -25,7 +25,7 @@ class App extends React.Component {
       lyricsLoading: false,
       searchResults: [],
       searchResultsLoading: false,
-      searchResultsLoadingUser: false
+      searchResultsLoadingUser: false,
       searchResultsUser: [],
       spotifyAnalysis: null,
       spotifyLoading: false,
@@ -39,8 +39,9 @@ class App extends React.Component {
       upDown: true,
       upDownUser: false,
       url: window.location.href,
-      watson: {},
+      watson: {}
     };
+
     this.loadPastSearchResults = this.loadPastSearchResults.bind(this);
     this.process = this.process.bind(this);
     this.search = this.search.bind(this);
@@ -74,8 +75,8 @@ class App extends React.Component {
       showPlayer: true,
       showResults: false,
       showResultsUser: false,
-      upDown: true
-      upDownUser: false,
+      upDown: true,
+      upDownUser: false
     });
 
     let input = {};
