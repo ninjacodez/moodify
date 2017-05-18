@@ -66,11 +66,8 @@ class User extends React.Component {
         <div className="user">
           {renderif(!this.state.loggedIn)(
             <div>
-              <div className="loginButton" onClick={this.redirect}>
-                Login/Signup!
-              </div>
-              <a href="http://localhost:8080/auth/spotify" className="loginButton" onClick={this.loginSpotify}>
-              Spotify
+              <a href="http://localhost:8080/auth/spotify" className="loginButton">
+              Connect With Spotify
               </a>
             </div>
           )}
@@ -79,10 +76,16 @@ class User extends React.Component {
               Logout!
             </div>
           )}
-          {renderif(this.state.loggedIn)(<PastSearches search={this.props.search} prev={this.props.prev} upDown={this.props.upDown} runUpDown={this.props.runUpDown} pastSearch={this.pastSearch}/>)}
+          {renderif(this.state.loggedIn)(<PastSearches search={this.props.search} 
+                                                       prev={this.props.prev} 
+                                                       upDown={this.props.upDown} 
+                                                       runUpDown={this.props.runUpDown} 
+                                                       pastSearch={this.pastSearch}/>)}
         </div>
         <div>
-          <br/> {renderif(this.props.showPrev)(<PastSearchResults results={this.state.pastSearchResults} loading={this.state.loading} loadPastSearchResults={this.props.loadPastSearchResults}/>)}
+          <br/> {renderif(this.props.showPrev)(<PastSearchResults results={this.state.pastSearchResults} 
+                                                                  loading={this.state.loading} 
+                                                                  loadPastSearchResults={this.props.loadPastSearchResults}/>)}
         </div>
       </div>
     );
@@ -90,3 +93,17 @@ class User extends React.Component {
 }
 
 export default User;
+
+
+
+//If we want to re-add signing up feaure(?)
+// {renderif(!this.state.loggedIn)(
+//   <div>
+//     <div className="loginButton" onClick={this.redirect}>
+//       Login/Signup!
+//     </div>
+//     <a href="http://localhost:8080/auth/spotify" className="loginButton">
+//     Connect With Spotify
+//     </a>
+//   </div>
+// )}

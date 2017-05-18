@@ -4,8 +4,9 @@ mongoose.Promise = require('bluebird');
 mongoose.createConnection('mongodb://localhost/test');
 const config = require('../config/index.js');
 const DATABASE_URL = config.DATABASE_URL;
+const findOrCreate = require('mongoose-find-or-create');
 
- mongoose.connect(DATABASE_URL);
+mongoose.connect(DATABASE_URL);
 const db = mongoose.connection;
 
 db.on('error', (err) => {
@@ -68,6 +69,7 @@ let userSchema = mongoose.Schema({
   songs: [Number]
 });
 userSchema.plugin(beautifyUnique);
+userSchema.plugin(findOrCreate);
 const User = mongoose.model('User', userSchema);
 
 
