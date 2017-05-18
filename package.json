@@ -59,12 +59,14 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
+    "chai-as-promised": "^6.0.0",
     "css-loader": "^0.28.1",
     "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor",
     "file-loader": "^0.11.1",
     "mocha": "^3.3.0",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
+    "rewire": "^2.5.2"
     "url-loader": "^0.5.8"
   },
   "babel": {
