@@ -40,16 +40,19 @@ passport.use(new SpotifyStrategy({
   callbackURL: config.SPOTIFY.cbURL
   },
   function(accessToken, refreshToken, profile, done) {
-    /* CREATE A USER HERE SO THERE IS NO NEED TO EVER "SIGN UP" */
-    
-    // let url = `https://api.spotify.com/v1/users/${profile.id}/playlists`;
-    // axios.get(url, { 'headers': { 'Authorization': `Bearer ${accessToken}` } })
-    //   .then((res) => {
-    //     console.log('received playlists from spotify: ', res.data.items);
-    //   })
-    //   .catch((err) => {
-    //     console.log('error retrieving playlists from spotify ', err);
-    //   })
+    console.log('Profile from spotify: ', profile);
+
+    db.User.findOrCreate({
+      username: profile.username,
+      password: profile.id,
+    }, (err, result) => {
+      if (!err) {
+        console.log('yay!: ', result);
+      } else {
+        console.log('no :( : ', err);
+      }
+    })
+
     done(null, profile);
   }
   ));
@@ -159,6 +162,7 @@ app.post('/search', (req, res) => {
 });
 
 app.post('/fetchLyricsByTrackId', (req, res) => {
+  console.log('getting some song lyrics!');
   const trackId = req.body.trackId;
   return mmHelpers.getLyricsByTrackId(trackId)
   .then(lyrics => {
@@ -205,8 +209,8 @@ app.post('/process', (req, res) => {
     })
   })
   .then(() => {
-    if (req.session.username) {
-      return db.User.where({username: req.session.username}).update({ $push: {songs: input.track_id}})
+    if (req.session.passport.user.username) {
+      return db.User.where({username: req.session.passport.user.username}).update({ $push: {songs: input.track_id}});
     }
   })
   .then(() => {
@@ -214,10 +218,13 @@ app.post('/process', (req, res) => {
   })
   .then((spotifyData) => {
     input.spotify_uri = spotifyData
+    
+    console.log('Trying to add a new song!:');
+    console.log(input);
 
     const songEntry = new db.Song(input);
     songEntry.save(err => {
-      if (err) { console.log("SAVE SONG ERROR"); }
+      if (err) { console.log("SAVE SONG ERROR: ", err); }
     })
   })
   .then(() => {
@@ -230,10 +237,13 @@ app.post('/process', (req, res) => {
 })
 
 app.get('/pastSearches', (req, res) => {
-  const username = req.session.username || req.session.passport.username;
+  /***************************************************************************************/
+  /***************************************************************************************/
+  const username = req.session.username || req.session.passport.user.username;
   return new Promise ((resolve, reject) => {
     db.User.where({ username: username }).findOne((err, user) => {
       if (err) { reject(err); }
+      console.log('no error: ', user);
       const songs = user !== null ? user.songs : [];
       resolve(songs);
     })
@@ -264,6 +274,7 @@ app.get('/pastSearches', (req, res) => {
 });
 
 app.post('/loadPastSearchResults', (req, res) => {
+  console.log('loading previous search results');
   return new Promise((resolve, reject) => {
     db.Song
     .find({ track_id: req.body.track_id })
