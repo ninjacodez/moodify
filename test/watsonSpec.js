@@ -12,6 +12,7 @@ describe('queryWatsonToneHelper', function() {
   let queryData = {};
 
   it('should take string input', function() {
+    this.timeout(5000);
     return watson.queryWatsonToneHelper(sampleSong)
     .then(data => {
       queryData = data;
