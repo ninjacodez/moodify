@@ -81,7 +81,7 @@ class Moodifier extends React.Component {
 
   render() {
     console.log('getting inside mood jsx')
-    console.log('PROPS inside mood === ', this.props)
+    console.log('PROPS inside moodifier === ', this.props)
 
     return (
       <div className="maingraph">

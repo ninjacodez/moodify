@@ -21,7 +21,7 @@ class AnalysisTabs extends React.Component {
 
         <TabPanel>
           <h3>Music Analysis</h3>
-          <Moodifier spotifyURI={this.props.spotifyURI} watson={this.props.watson} songNameAndArtist={this.props.songNameAndArtist} ></Moodifier>
+          <Moodifier spotifyURI={this.props.spotifyURI} watson={this.props.watson} songNameAndArtist={this.props.songNameAndArtist} spotifyAnalysis={this.props.spotifyAnalysis} ></Moodifier>
         </TabPanel>
 
         <TabPanel>
