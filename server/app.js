@@ -40,6 +40,7 @@ passport.use(new SpotifyStrategy({
   callbackURL: config.SPOTIFY.cbURL
   },
   function(accessToken, refreshToken, profile, done) {
+
     console.log('Profile from spotify: ', profile);
 
     db.User.findOrCreate({
@@ -83,6 +84,12 @@ app.get('/auth/spotify',
 app.get('/auth/spotify/callback',
   passport.authenticate('spotify', { failureRedirect: '/login' }),
   (req, res) => {
+
+
+    console.log('Second thing that happens!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+
+    console.log('Successfully authenticated with Spotify');
+
     res.redirect('/');
   });
 
@@ -101,6 +108,7 @@ spotifyApi.clientCredentialsGrant()
  }, function(err) {
    console.log('Something went wrong when retrieving an access token', err.message);
  });
+
 
 
 app.post('/signup', auth.createUser, (req, res) => {
