@@ -30,6 +30,7 @@ html {
   display: flex;
   flex: 1 1 auto;
   order: 2;
+  position: relative;
   flex-direction: column;
 }
 
@@ -136,6 +137,16 @@ html {
   margin: 0;
   order: 1;
   flex: 0;
+}
+/*
+#react-tabs {
+  height: auto;
+  width: auto;
+}*/
+
+.inputFields {
+  display: inline-block;
+  text-align: center;
 }
 
 .resultsBar {

@@ -2,6 +2,7 @@
   border-bottom: 1px solid #aaa;
   margin: 0 0 10px;
   padding: 0;
+
 }
 
 .react-tabs__tab {
@@ -24,6 +25,8 @@
 
 .react-tabs__tab-panel {
   display: none;
+  height: auto;
+  width: auto;
 }
 
 .react-tabs__tab-panel--selected {
@@ -50,3 +53,34 @@
   bottom: -5px;
   background: #fff;
 }
+
+/*
+display:
+none
+;
+
+height:
+auto
+;
+
+width:
+auto
+;
+
+
+
+----------
+display:
+block
+;
+
+height:
+650px
+;
+
+width:
+782.638px
+;
+
+
+*/
