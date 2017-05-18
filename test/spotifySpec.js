@@ -12,6 +12,12 @@ describe( 'spotify API:', function() {
   describe( 'requestAccessToken', function() {
 
     it( 'should get a new authentication token from spotify', function () {
+      const origToken = spotify.__get__('axios').defaults.headers.common['Authorization'];
+      return spotify.__get__('requestAccessToken')()
+      .then( () => {
+        const newToken = spotify.__get__('axios').defaults.headers.common['Authorization'];
+        expect(newToken).to.not.equal(origToken);
+      });
     });
   });
 
