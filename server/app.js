@@ -78,7 +78,6 @@ app.post('/process', (req, res) => {
   return musixMath.getLyricsByTrackId(input.track_id)
   .then(data => {
     const lyrics = data.lyrics.lyrics_body;
-
     input.lyrics = lyrics.slice(0, (lyrics.indexOf('*******')));
     return;
   })
@@ -115,17 +114,16 @@ app.post('/process', (req, res) => {
   .then(() => {
     return spotify.getSongByTitleAndArtist(input.track_name, input.artist_name)
   })
-  .then((spotifyData) => {
-    input.spotify_uri = spotifyData
-
+  .then( spotifyData => {
+    input.spotifyUri = spotifyData;
     const songEntry = new db.Song(input);
-    songEntry.save(err => {
-      if (err) { console.log("SAVE SONG ERROR", err ); }
-    })
+    return songEntry.save();
   })
-  .then(() => {
-    res.json([songNameAndArtist, input.lyrics, watsonData, input.spotify_uri]);
-    // spotifyAnalysis in index4 4
+  .then( () => {
+    return spotify.getTrackAnalysis( input.spotifyUri.slice('spotify:track:'.length) );
+  })
+  .then( spotifyAnalysisData => {
+    res.json([songNameAndArtist, input.lyrics, watsonData, input.spotifyUri, spotifyAnalysisData]);
   })
   .catch((error) => {
     console.log('/PROCESS ERROR: ', error);

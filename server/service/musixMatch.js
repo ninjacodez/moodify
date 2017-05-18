@@ -1,3 +1,4 @@
+const Promise = require('bluebird');
 const qp = require('query-parse');
 const request = require('request');
 const config = require('../config');
