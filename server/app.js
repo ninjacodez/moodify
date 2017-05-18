@@ -219,6 +219,8 @@ app.post('/process', (req, res) => {
     return;
   })
   .then(() => {
+    //NEEDS TO BE DATA FROM LYRIC API CALL
+    input.lyrics = 'I hate!\nI hate!\nI hate!\nI hate!\n'
     return watsonHelpers.queryWatsonToneHelper(input.lyrics)
   })
   .then(data => {
