@@ -152,22 +152,46 @@ app.get('/logout', (req, res) => {
   res.send('logged out!')
 })
 
- app.get('/newreleases', (req,res) => {
-   // spotifyApi.getNewReleases({ limit : 10, offset: 0, country: 'US' })
-   //   .then(data => {
-   //      topTenData = {
-   //        songs: data.body.albums.items,
-   //        dateadded: Date.now()
-   //      };
-   //    const newTopTenEntry = new db.TopTenSongs(topTenData);
-   //    newTopTenEntry.save(err => {
-   //      if (err) {console.log('Error saving TopTenSong data')}
-   //        })
-   //     res.send(data.body.albums.items);
-   //   });
+//Query last database entry for date
+//Compare most recent data to today's date
+//if day does not much, query the database
 
-   //   }, function(err) {
-   //     console.log("could not get new releases", err);
+ app.get('/newreleases', (req,res) => {
+  var isSameDay = true;
+  var lastDate = db.TopTenSongs.find({}).sort({dateadded:-1}).limit(1)
+    .exec((err, lastTopTenSongData) => {
+      var dateValue = lastTopTenSongData[0].dateadded.toString();
+      var date = new Date(dateValue);
+      var dateDay = date.getDay();
+      var now = new Date()
+      var today = now.getDay();
+      if (dateDay !== today){
+        isSameDay = false;
+      }
+      });
+    if(!isSameDay){
+    spotifyApi.getNewReleases({ limit : 20, offset: 0, country: 'US' })
+      .then(data => {
+        topTenData = {
+          songs: data.body.albums.items,
+          dateadded: Date.now()
+        };
+      const newTopTenEntry = new db.TopTenSongs(topTenData);
+      newTopTenEntry.save(err => {
+        if (err) {console.log('Error saving TopTenSong data')}
+          })
+       res.send(data.body.albums.items);
+     });
+      }
+      else{
+        db.TopTenSongs.find({}).sort({dateadded:-1}).limit(1)
+        .exec((err, lastTopTenSongData) => {
+          console.log(lastTopTenSongData);
+          res.send(lastTopTenSongData[0].songs)
+        })
+      }
+     }, function(err) {
+       console.log("could not get new releases", err);
    });
 
 
