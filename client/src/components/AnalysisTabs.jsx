@@ -2,8 +2,8 @@ import React from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import '../../dist/react-tabs.css';
 
-import MusicAnalysis from './MusicAnalysis.jsx';
-import Mood from './Mood.jsx';
+import Moodifier from './Moodifier.jsx';
+import LyricsAnalysis from './LyricsAnalysis.jsx';
 
 class AnalysisTabs extends React.Component {
   constructor(props) {
@@ -11,6 +11,7 @@ class AnalysisTabs extends React.Component {
   }
 
   render() {
+    console.log('Props in AnalysisTabs === ', this.props)
     return (
       <Tabs>
         <TabList>
@@ -19,13 +20,13 @@ class AnalysisTabs extends React.Component {
         </TabList>
 
         <TabPanel>
-          <h3>Mood Analysis</h3>
-          <MusicAnalysis watson={this.props.watson} songNameAndArtist={this.props.songNameAndArtist} ></MusicAnalysis>
+          <h3>Music Analysis</h3>
+          <Moodifier spotifyURI={this.props.spotifyURI} watson={this.props.watson} songNameAndArtist={this.props.songNameAndArtist} ></Moodifier>
         </TabPanel>
 
         <TabPanel>
           <h3>Lyrics Analysis</h3>
-          <Mood watson={this.props.watson} songNameAndArtist={this.props.songNameAndArtist} ></Mood>
+          <LyricsAnalysis watson={this.props.watson} songNameAndArtist={this.props.songNameAndArtist} ></LyricsAnalysis>
         </TabPanel>
       </Tabs>
     );
