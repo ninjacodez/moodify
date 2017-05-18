@@ -52,6 +52,7 @@
     "request": "^2.81.0",
     "request-promise": "^4.2.0",
     "style-loader": "^0.17.0",
+    "underscore": "^1.8.3",
     "watson-developer-cloud": "^2.31.1",
     "webpack": "^2.4.1",
     "webpack-dev-server": "^2.4.5",

@@ -125,6 +125,7 @@ app.post('/process', (req, res) => {
   })
   .then(() => {
     res.json([songNameAndArtist, input.lyrics, watsonData, input.spotify_uri]);
+    // spotifyAnalysis in index4 4
   })
   .catch((error) => {
     console.log('/PROCESS ERROR: ', error);
