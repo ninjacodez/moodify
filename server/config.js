@@ -38,6 +38,10 @@ const determineConfig = function( key ) {
 };
 
 const config = {
+  SPOTIFY_API_KEY: {
+    id: determineConfig('SPOTIFY_CLIENT_ID'),
+    secret: determineConfig('SPOTIFY_CLIENT_SECRET'),
+  },
   WATSON_TONE_API_KEY: {
     username: determineConfig('WATSON_TONE_USERNAME'),
     password: determineConfig('WATSON_TONE_PASSWORD'),
@@ -48,6 +52,7 @@ const config = {
   },
   MM_API_KEY: determineConfig('MM_API_KEY'),
   DATABASE_URL: determineConfig('MONGODB_URI'),
+  HTTP_LISTEN_PORT: determineConfig('PORT'),
 };
 
 module.exports = config;
