@@ -256,7 +256,7 @@ app.post('/processBook', (req, res) => {
   })
   .then(() => {
     console.log('sending response to client');
-    res.json([bookTitleAndAuthor, input.description, watsonData]);
+    res.json([bookTitleAndAuthor, input.description, watsonData, input.img]);
   })
   .catch((err) => {
     console.log('Error processbook: ', err);

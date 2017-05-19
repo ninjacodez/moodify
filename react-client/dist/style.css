@@ -506,3 +506,7 @@ h6 {
 .new-iframe {
   margin-bottom: 0px;
 }
+
+.thumbnail {
+  display: block;
+}

@@ -23,6 +23,7 @@ class App extends React.Component {
       currentSongNameAndArtist: [],
       currentLyrics: '',
       watson: {},
+      thumbnail: null,
       spotifyURI: null,
       searchResults: [],
       searchResultsUser: [],
@@ -129,6 +130,7 @@ class App extends React.Component {
           currentSongNameAndArtist: data[0],
           currentLyrics: data[1],
           watson: data[2],
+          thumbnail: data[3],
           spotifyLoading: false,
           lyricsLoading: false,
           showLyrics: true,
@@ -258,6 +260,7 @@ class App extends React.Component {
 
             {this.state.showPlayer ?
               <Lyrics showPlayer={this.state.showPlayer}
+                      thumbnail={this.state.thumbnail}
                       spotifyURI={this.state.spotifyURI}
                       loading={this.state.spotifyLoading}
                       lyrics={this.state.currentLyrics}
