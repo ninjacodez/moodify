@@ -66,7 +66,8 @@ const Watson = mongoose.model('Watson', watsonSchema);
 let userSchema = mongoose.Schema({
   username: {type: String, unique: true},
   password: String,
-  songs: [Number]
+  songs: [Number],
+  books: [String]
 });
 userSchema.plugin(beautifyUnique);
 userSchema.plugin(findOrCreate);

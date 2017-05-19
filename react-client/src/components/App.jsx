@@ -112,30 +112,59 @@ class App extends React.Component {
       upDown: true
     });
 
-    let input = {};
-    input.track_id = trackObj.track_id;
-    input.track_name = trackObj.track_name;
-    input.artist_name = trackObj.artist_name;
-    input.album_coverart_100x100 = trackObj.album_coverart_100x100;
-    input.album_coverart_350x350 = trackObj.album_coverart_350x350;
-    input.album_coverart_500x500 = trackObj.album_coverart_500x500;
-    input.album_coverart_800x800 = trackObj.album_coverart_800x800;
 
-    axios.post('/process', input).then(res => {
-      let data = res.data;
-      this.setState({
-        currentSongNameAndArtist: data[0],
-        currentLyrics: data[1],
-        watson: data[2],
-        spotifyURI: data[3],
-        spotifyLoading: false,
-        lyricsLoading: false,
-        showLyrics: true,
-        showMood: true
+    if (trackObj.volumeInfo) {
+      let input = {
+        description: trackObj.volumeInfo.description,
+        title: trackObj.volumeInfo.title,
+        author: trackObj.volumeInfo.authors ? trackObj.volumeInfo.authors[0] : '',
+        img: trackObj.volumeInfo.imageLinks ? trackObj.volumeInfo.imageLinks.thumbnail : '',
+        id: trackObj.id
+      };
+
+      axios.post('/processBook', input).then(res => {
+        let data = res.data;
+        console.log(res);
+        this.setState({
+          currentSongNameAndArtist: data[0],
+          currentLyrics: data[1],
+          watson: data[2],
+          spotifyLoading: false,
+          lyricsLoading: false,
+          showLyrics: true,
+          showMood: true
+        });
+      })
+      .catch( (err) => {
+        console.log('Error retrieving book analysis from watson: ', err);
+      })
+
+    } else {
+      let input = {};
+      input.track_id = trackObj.track_id;
+      input.track_name = trackObj.track_name;
+      input.artist_name = trackObj.artist_name;
+      input.album_coverart_100x100 = trackObj.album_coverart_100x100;
+      input.album_coverart_350x350 = trackObj.album_coverart_350x350;
+      input.album_coverart_500x500 = trackObj.album_coverart_500x500;
+      input.album_coverart_800x800 = trackObj.album_coverart_800x800;
+
+      axios.post('/process', input).then(res => {
+        let data = res.data;
+        this.setState({
+          currentSongNameAndArtist: data[0],
+          currentLyrics: data[1],
+          watson: data[2],
+          spotifyURI: data[3],
+          spotifyLoading: false,
+          lyricsLoading: false,
+          showLyrics: true,
+          showMood: true
+        });
+      }).catch(error => {
+        throw error;
       });
-    }).catch(error => {
-      throw error;
-    });
+    }
   }
 
   showResults() {
@@ -166,7 +195,6 @@ class App extends React.Component {
     axios.post('/loadPastSearchResults', {track_id: trackId}).then(res => {
       let songData = res.data[0];
       let watsonData = res.data[1];
-      console.log(watsonData);
       this.setState({
         currentLyrics: songData.lyrics,
         currentSongNameAndArtist: [
