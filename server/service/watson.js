@@ -2,7 +2,7 @@ const Promise = require('bluebird');
 const request = Promise.promisifyAll(require('request'));
 const watson = Promise.promisifyAll(require('watson-developer-cloud'));
 const watsonNLU = Promise.promisifyAll(require('watson-developer-cloud/natural-language-understanding/v1.js'));
-const config = require('../config/index.js');
+const config = require('../config');
 
 const WATSON_TONE_API_KEY = config.WATSON_TONE_API_KEY;
 const WATSON_NLU_API_KEY = config.WATSON_NLU_API_KEY;

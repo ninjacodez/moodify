@@ -1,18 +1,20 @@
 {
-  "name": "ninjacodez",
-  "description": "Spotify with lyrics",
-  "author": "",
+  "name": "Moodify",
+  "description": "Music moodification application",
+  "author": "The Justice League",
   "license": "ISC",
   "engines": {
     "node": ">=6.4.0"
   },
   "scripts": {
-    "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
-    "prod": "NODE_ENV=production node server.js",
+    "start": "nodemon server/index.js",
     "postinstall": "webpack -p",
-    "react-dev": "webpack -d --watch",
-    "server-dev": "nodemon --inspect server/index.js",
-    "test": "node ./node_modules/mocha/bin/mocha"
+    "client-dev": "webpack -d --watch",
+    "server-dev": "nodemon server/index.js",
+    "server-debug": "nodemon --inspect server/index.js",
+    "server-debug-brk": "nodemon --inspect --debug-brk server/index.js",
+    "test": "mocha test",
+    "test-debug": "mocha --inspect --debug-brk test"
   },
   "dependencies": {
     "axios": "^0.16.1",
@@ -44,20 +46,29 @@
     "react-dom": "^15.5.4",
     "react-hot-loader": "^3.0.0-beta.6",
     "react-router-dom": "^4.1.1",
+    "react-tabs": "^1.0.0",
+    "read-config": "^2.0.0",
     "render-if": "^0.1.1",
     "request": "^2.81.0",
     "request-promise": "^4.2.0",
     "style-loader": "^0.17.0",
+    "underscore": "^1.8.3",
     "watson-developer-cloud": "^2.31.1",
     "webpack": "^2.4.1",
-    "webpack-dev-server": "^2.4.5"
+    "webpack-dev-server": "^2.4.5",
+    "www-authenticate": "^0.6.2"
   },
   "devDependencies": {
     "chai": "^3.5.0",
+    "chai-as-promised": "^6.0.0",
+    "css-loader": "^0.28.1",
     "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor",
+    "file-loader": "^0.11.1",
     "mocha": "^3.3.0",
     "react": "^15.5.4",
-    "react-dom": "^15.5.4"
+    "react-dom": "^15.5.4",
+    "rewire": "^2.5.2",
+    "url-loader": "^0.5.8"
   },
   "babel": {
     "presets": [
