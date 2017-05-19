@@ -184,6 +184,19 @@ class App extends React.Component {
     })
   }
 
+  loginSpotify() {
+    axios.get('/recentlyplayed')
+      .then((res) => {
+        this.setState({
+          searchResults: res.data,
+          showResults: true
+        })
+        console.log(this.state.searchResults);
+      })
+      .catch( (err) => {
+        console.log(err);
+    })
+  }
 
   render() {
     return (
@@ -210,7 +223,7 @@ class App extends React.Component {
               : null}
           </div>
           <div className="col2">
-            <User showPrev={this.state.showResultsUser} prev={this.showResultsUser} upDown={this.state.upDownUser} runUpDown={this.upDownUser} process={this.process} searchResultsLoading={this.state.searchResultsLoadingUser} loadPastSearchResults={this.loadPastSearchResults}/> {this.state.showMood
+            <User showPrev={this.state.showResultsUser} loginSpotify={this.loginSpotify.bind(this)} prev={this.showResultsUser} upDown={this.state.upDownUser} runUpDown={this.upDownUser} process={this.process} searchResultsLoading={this.state.searchResultsLoadingUser} loadPastSearchResults={this.loadPastSearchResults}/> {this.state.showMood
               ? <Mood watson={this.state.watson} songNameAndArtist={this.state.currentSongNameAndArtist}/>
               : null}
 

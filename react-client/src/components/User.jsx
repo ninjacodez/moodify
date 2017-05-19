@@ -4,6 +4,8 @@ import axios from 'axios';
 import PastSearches from './PastSearches.jsx';
 import PastSearchResults from './PastSearchResults.jsx';
 import {Redirect, Link} from 'react-router-dom';
+import SearchResults from './PastSearches.jsx';
+
 
 class User extends React.Component {
   constructor(props) {
@@ -17,7 +19,8 @@ class User extends React.Component {
     this.logout = this.logout.bind(this);
     this.redirect = this.redirect.bind(this);
     this.pastSearch = this.pastSearch.bind(this);
-    this.loginSpotify = this.loginSpotify.bind(this);
+   
+
   }
 
   redirect() {
@@ -30,15 +33,7 @@ class User extends React.Component {
     });
   }
 
-  loginSpotify() {
-    axios.get('/thisfuckinlist')
-      .then((res) => {
-        console.log(res);
-      })
-      .catch( (err) => {
-        console.log(err);
-      })
-  }
+
 
   componentDidMount() {
     axios.get('/check').then(res => {
@@ -76,8 +71,8 @@ class User extends React.Component {
             <div className="loginButton" onClick={this.logout}>
               Logout!
             </div>
-            <div className="loginButton" onClick={this.loginSpotify}>
-              thisfuckinlist!
+            <div className="loginButton" onClick={this.props.loginSpotify}>
+              Recently Played
             </div>
             </div>
           )}
