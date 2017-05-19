@@ -47,6 +47,7 @@ class App extends React.Component {
       spotifyPlayerUri: ''
     };
     this.search = this.search.bind(this);
+    this.bookSearch = this.bookSearch.bind(this);
     this.process = this.process.bind(this);
     this.showResults = this.showResults.bind(this);
     this.upDown = this.upDown.bind(this);
@@ -69,19 +70,36 @@ class App extends React.Component {
     })
   }
 
-  search(title, artist) {
+  search(title, artist, searchField) {
     this.setState({showResults: true, searchResultsLoading: true, showPrev: true, upDown: false});
 
     let options = {
       title: title,
-      artist: artist
+      artist: artist,
     };
-    axios.post('/search', options).then((res) => {
+
+    axios.post(searchField, options).then((res) => {
       if (!res.data) {
         console.log('error');
       }
       this.setState({searchResults: res.data, searchResultsLoading: false});
     });
+  }
+
+  bookSearch(title, author) {
+    this.setState({ showResults: true, searchResultsLoading: true, showPrev: true, upDown: false});
+    let options = {
+      title: title,
+      author: author
+    };
+
+    axios.post('/getbooks', options)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log('Error retrieving books from google: ', err);
+      })
   }
 
   process(trackObj) {
@@ -191,27 +209,29 @@ class App extends React.Component {
         <Header url={this.state.url}/>
         <div className="container">
           <div className="col1">
-            <Search search={this.search} prev={this.showResults} showPrev={this.state.showPrev} upDown={this.state.upDown} runUpDown={this.upDown}/> {this.state.showResults
-              ? <SearchResults results={this.state.searchResults} process={this.process} searchResultsLoading={this.state.searchResultsLoading}/>
+            <Search search={this.search}
+                    bookSearch={this.bookSearch}
+                    prev={this.showResults} 
+                    showPrev={this.state.showPrev} 
+                    upDown={this.state.upDown} 
+                    runUpDown={this.upDown}/> 
+              {this.state.showResults ?
+              <SearchResults results={this.state.searchResults} process={this.process} searchResultsLoading={this.state.searchResultsLoading}/>
               : null}
 
               {/* add component for top 10 here*/}
 
               {!this.state.showLyrics && !this.state.showResults && !this.showPlayer ?
-                <TopTen showSpotifyPlayer={this.state.showSpotifyPlayer} newReleaseClick={this.newReleaseClick} spotifyHomePage={this.state.spotifyHomePage}
-                  showSpotifyPlayer={this.state.showSpotifyPlayer}
-                  spotifyPlayerUri={this.state.spotifyPlayerUri}
-                  closePlayer={this.closePlayer}
-                />
+                <TopTen showSpotifyPlayer={this.state.showSpotifyPlayer} newReleaseClick={this.newReleaseClick} spotifyHomePage={this.state.spotifyHomePage} showSpotifyPlayer={this.state.showSpotifyPlayer} spotifyPlayerUri={this.state.spotifyPlayerUri} closePlayer={this.closePlayer} />
               : null}
 
-            {this.state.showPlayer
-              ? <Lyrics showPlayer={this.state.showPlayer} spotifyURI={this.state.spotifyURI} loading={this.state.spotifyLoading} lyrics={this.state.currentLyrics} loading={this.state.lyricsLoading} songNameAndArtist={this.state.currentSongNameAndArtist}/>
+            {this.state.showPlayer ?
+              <Lyrics showPlayer={this.state.showPlayer} spotifyURI={this.state.spotifyURI} loading={this.state.spotifyLoading} lyrics={this.state.currentLyrics} loading={this.state.lyricsLoading} songNameAndArtist={this.state.currentSongNameAndArtist}/>
               : null}
           </div>
           <div className="col2">
-            <User showPrev={this.state.showResultsUser} prev={this.showResultsUser} upDown={this.state.upDownUser} runUpDown={this.upDownUser} process={this.process} searchResultsLoading={this.state.searchResultsLoadingUser} loadPastSearchResults={this.loadPastSearchResults}/> {this.state.showMood
-              ? <Mood watson={this.state.watson} songNameAndArtist={this.state.currentSongNameAndArtist}/>
+            <User showPrev={this.state.showResultsUser} prev={this.showResultsUser} upDown={this.state.upDownUser} runUpDown={this.upDownUser} process={this.process} searchResultsLoading={this.state.searchResultsLoadingUser} loadPastSearchResults={this.loadPastSearchResults}/> 
+              {this.state.showMood ? <Mood watson={this.state.watson} songNameAndArtist={this.state.currentSongNameAndArtist}/>
               : null}
 
               {/* add component for top 10 mood here*/}

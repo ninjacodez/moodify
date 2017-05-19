@@ -33,16 +33,16 @@ passport.deserializeUser(function(id, done) {
 });
 
 const app = express();
-let accesTime = null;
+let accessTime;
+
 passport.use(new SpotifyStrategy({
   clientID: config.SPOTIFY.clientId,
   clientSecret: config.SPOTIFY.secret,
   callbackURL: config.SPOTIFY.cbURL
   },
   function(accessToken, refreshToken, profile, done) {
-    //console.log('ACCESS TOKEN IS THIS THING RIGHT HERE BITCH', accessToken)
     console.log('Profile from spotify: ', profile);
-    accesTime = accessToken;
+    accessTime = accessToken;
 
     db.User.findOrCreate({
       username: profile.username,
@@ -89,14 +89,14 @@ app.get('/auth/spotify/callback',
     res.redirect('/');
   });
 
-app.get('/thisfuckinlist', (req, res) => {
-  
+app.get('/recentlyplayed', (req, res) => {
   let url = `https://api.spotify.com/v1/me/player/recently-played`
   
-  axios(url, { 'headers': { 'Authorization': `Bearer ${accesTime}` } })
-    .then((res) => {  
-        console.log('First thing that happens!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
-        console.log('This is playlist tracks request: ', res.data)
+  axios(url, { 'headers': {'Authorization': `Bearer ${accessTime}`} })
+    .then((response) => {
+        console.log('Received recently played tracks for logged in user');
+        console.log('This is playlist tracks request: ', response.data)
+        res.send(response.data.items);
       })
     .catch((err) => {
         console.log('error retrieving playlists TRACKS from spotify ', err);
@@ -111,7 +111,6 @@ var spotifyApi = new SpotifyWebApi({clientId: config.SPOTIFY_CLIENT_API_KEY, cli
 spotifyApi.clientCredentialsGrant()
  .then(function(data) {
    console.log('The access token expires in ' + data.body['expires_in']);
-
    // Save the access token so that it’s used in future calls
    spotifyApi.setAccessToken(data.body['access_token']);
  }, function(err) {
@@ -134,7 +133,6 @@ app.post('/login', auth.verifyUser, (req, res) => {
 //modified check
 app.get('/check', (req, res) => {
   if (req.session.username || req.session.passport) {
-    console.log('cool!!!!')
     res.send({statusCode: 200});
   } else {
     res.send({statusCode: 404});
@@ -169,6 +167,7 @@ app.get('/logout', (req, res) => {
 
 
 app.post('/search', (req, res) => {
+  console.log('fucking aly exceeded the limit!');
   return mmHelpers.searchByTitleAndArtist(req.body.title, req.body.artist)
   .then(data => {
     if (data.track_list.length === 0) { res.send({errorMessage: 'No Search Results'}); }
@@ -178,7 +177,6 @@ app.post('/search', (req, res) => {
 });
 
 app.post('/fetchLyricsByTrackId', (req, res) => {
-  console.log('getting some song lyrics!');
   const trackId = req.body.trackId;
   return mmHelpers.getLyricsByTrackId(trackId)
   .then(lyrics => {
@@ -235,9 +233,6 @@ app.post('/process', (req, res) => {
   .then((spotifyData) => {
     input.spotify_uri = spotifyData
     
-    console.log('Trying to add a new song!:');
-    console.log(input);
-
     const songEntry = new db.Song(input);
     songEntry.save(err => {
       if (err) { console.log("SAVE SONG ERROR: ", err); }
@@ -290,7 +285,6 @@ app.get('/pastSearches', (req, res) => {
 });
 
 app.post('/loadPastSearchResults', (req, res) => {
-  console.log('loading previous search results');
   return new Promise((resolve, reject) => {
     db.Song
     .find({ track_id: req.body.track_id })
