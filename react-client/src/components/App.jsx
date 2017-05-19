@@ -88,7 +88,7 @@ class App extends React.Component {
 
       //this is working right now, but can't test song search to make sure so I'm leaving 
       //the commented code above available. If this doesn't work, friday morning, ask john
-      let results = res.data.items[0].volumeInfo ? res.data.items : res.data;
+      let results = res.data.items ? res.data.items : res.data;
 
       this.setState({
         searchResults: results,
@@ -212,21 +212,39 @@ class App extends React.Component {
                     upDown={this.state.upDown} 
                     runUpDown={this.upDown}/> 
               {this.state.showResults ?
-              <SearchResults results={this.state.searchResults} process={this.process} searchResultsLoading={this.state.searchResultsLoading}/>
+              <SearchResults results={this.state.searchResults} 
+                             process={this.process}
+                             searchResultsLoading={this.state.searchResultsLoading}/>
               : null}
 
               {/* add component for top 10 here*/}
 
               {!this.state.showLyrics && !this.state.showResults && !this.showPlayer ?
-                <TopTen showSpotifyPlayer={this.state.showSpotifyPlayer} newReleaseClick={this.newReleaseClick} spotifyHomePage={this.state.spotifyHomePage} showSpotifyPlayer={this.state.showSpotifyPlayer} spotifyPlayerUri={this.state.spotifyPlayerUri} closePlayer={this.closePlayer} />
+                <TopTen showSpotifyPlayer={this.state.showSpotifyPlayer}
+                        newReleaseClick={this.newReleaseClick}
+                        spotifyHomePage={this.state.spotifyHomePage}
+                        showSpotifyPlayer={this.state.showSpotifyPlayer}
+                        spotifyPlayerUri={this.state.spotifyPlayerUri}
+                        closePlayer={this.closePlayer} />
               : null}
 
             {this.state.showPlayer ?
-              <Lyrics showPlayer={this.state.showPlayer} spotifyURI={this.state.spotifyURI} loading={this.state.spotifyLoading} lyrics={this.state.currentLyrics} loading={this.state.lyricsLoading} songNameAndArtist={this.state.currentSongNameAndArtist}/>
+              <Lyrics showPlayer={this.state.showPlayer}
+                      spotifyURI={this.state.spotifyURI}
+                      loading={this.state.spotifyLoading}
+                      lyrics={this.state.currentLyrics}
+                      loading={this.state.lyricsLoading}
+                      songNameAndArtist={this.state.currentSongNameAndArtist}/>
               : null}
           </div>
           <div className="col2">
-            <User showPrev={this.state.showResultsUser} prev={this.showResultsUser} upDown={this.state.upDownUser} runUpDown={this.upDownUser} process={this.process} searchResultsLoading={this.state.searchResultsLoadingUser} loadPastSearchResults={this.loadPastSearchResults}/> 
+            <User showPrev={this.state.showResultsUser}
+                  prev={this.showResultsUser}
+                  upDown={this.state.upDownUser}
+                  runUpDown={this.upDownUser}
+                  process={this.process}//why?
+                  searchResultsLoading={this.state.searchResultsLoadingUser}
+                  loadPastSearchResults={this.loadPastSearchResults}/> 
               {this.state.showMood ? <Mood watson={this.state.watson} songNameAndArtist={this.state.currentSongNameAndArtist}/>
               : null}
 
