@@ -51,10 +51,8 @@ passport.use(new SpotifyStrategy({
       username: profile.username,
       password: profile.id,
     }, (err, result) => {
-
       if (!err) {   
         console.log('yay!: ', result);
-
       } else {
         console.log('no :( : ', err);
       }
@@ -107,16 +105,15 @@ app.get('/recentlyplayed', (req, res) => {
     playListEntry.forEach((x) => {
       let songData = {
         track: { 
-
           track_name: x.track.name,
           artist_name: x.track.album.artists[0].name,
         }
       };
+
       if( songArray.track_list.length < 10){
         songArray.track_list.push(songData); 
       }
     })
-
     return songArray
   })
   .then(data => {
@@ -271,7 +268,6 @@ app.post('/processBook', (req, res) => {
 
 app.post('/process', (req, res) => {
   let input = req.body;
-  console.log(req.body)
   const songNameAndArtist = [input.artist_name, input.track_name];
 
   console.log(songNameAndArtist);

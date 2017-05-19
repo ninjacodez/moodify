@@ -26,6 +26,7 @@ class App extends React.Component {
       watson: {},
       thumbnail: null,
       spotifyURI: null,
+      recentlyPlayed: false,
       searchResults: [],
       searchResultsUser: [],
       searchResultsLoading: false,
@@ -56,6 +57,7 @@ class App extends React.Component {
     this.loadPastSearchResults = this.loadPastSearchResults.bind(this);
     this.newReleaseClick = this.newReleaseClick.bind(this);
     this.closePlayer = this.closePlayer.bind(this);
+    this.recentlyPlayedSongs = this.recentlyPlayedSongs.bind(this);
   }
 
 
@@ -102,18 +104,8 @@ class App extends React.Component {
 
 
   process(trackObj) {
-    this.setState({
-      showPlayer: true,
-      spotifyLoading: true,
-      lyricsLoading: true,
-      showResults: false,
-      showResultsUser: false,
-      upDownUser: false,
-      showLyrics: false,
-      showMood: false,
-      upDown: true
-    });
 
+    console.log(trackObj);
 
     if (trackObj.volumeInfo) {
       let input = {
@@ -230,14 +222,40 @@ class App extends React.Component {
     })
   }
 
+  recentlyPlayedSongs(songArtist) {
+    console.log("I am getting to recentlyplayed", songArtist)
+
+    this.setState({searchResultsLoading: true, showPrev: true, upDown: false});
+
+    let options = {
+      title: songArtist[0],
+      artist: songArtist[1]
+    };
+    axios.post('/search', options)
+    .then((res) => {
+      if (!res.data) {
+        console.log('error');
+      }
+  
+      this.setState({searchResultsLoading: false});
+      return res.data.track_list[0];
+    })
+    .then(data =>  {
+      console.log(data.track)
+      this.process(data.track);
+    });
+    
+
+  }
+
   loginSpotify() {
     axios.get('/recentlyplayed')
       .then((res) => {
         this.setState({
           searchResults: res.data,
-          showResults: true
-        })
-        console.log(this.state.searchResults);
+          showResults: true,
+          recentlyPlayed: true
+        })       
       })
       .catch( (err) => {
         console.log(err);
@@ -257,8 +275,12 @@ class App extends React.Component {
                     runUpDown={this.upDown}/> 
               {this.state.showResults ?
               <SearchResults results={this.state.searchResults} 
+                            recent={this.state.recentlyPlayed} 
+                            recentlyPlayedSongs={this.recentlyPlayedSongs} 
+                            search={this.search} 
                              process={this.process}
-                             searchResultsLoading={this.state.searchResultsLoading}/>
+                             searchResultsLoading={this.state.searchResultsLoading}
+                             />
               : null}
 
               {/* add component for top 10 here*/}
