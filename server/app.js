@@ -218,29 +218,26 @@ app.post('/fetchLyricsByTrackId', (req, res) => {
 });
 
 app.post('/processBook', (req, res) => {
-  console.log(req.body);
   let input = req.body;
 
-  const bookTitleAndAuthor = [input.author, input.title];
+  const bookTitleAndAuthor = [input.author_name, input.book_name];
   let watsonData = {};
 
   return watsonHelpers.queryWatsonToneHelper(input.description)
   .then(data => {
-    console.log('received response from watson');
-    console.log(data.fear);
-    watsonData.book_id = input.id,
-    watsonData.anger = data.anger,
-    watsonData.disgust = data.disgust,
-    watsonData.fear = data.fear,
-    watsonData.joy = data.joy,
-    watsonData.sadness = data.sadness,
-    watsonData.analytical = data.analytical,
-    watsonData.confident = data.confident,
-    watsonData.tentative = data.tentative,
-    watsonData.openness = data.openness,
-    watsonData.conscientiousness = data.conscientiousness,
-    watsonData.extraversion = data.extraversion,
-    watsonData.agreeableness = data.agreeableness,
+    watsonData.book_id = input.book_id;
+    watsonData.anger = data.anger;
+    watsonData.disgust = data.disgust;
+    watsonData.fear = data.fear;
+    watsonData.joy = data.joy;
+    watsonData.sadness = data.sadness;
+    watsonData.analytical = data.analytical;
+    watsonData.confident = data.confident;
+    watsonData.tentative = data.tentative;
+    watsonData.openness = data.openness;
+    watsonData.conscientiousness = data.conscientiousness;
+    watsonData.extraversion = data.extraversion;
+    watsonData.agreeableness = data.agreeableness;
     watsonData.emotionalrange = data.emotionalrange
 
     const newEntry = new db.Watson(watsonData);
@@ -249,13 +246,17 @@ app.post('/processBook', (req, res) => {
     }) 
   })
   .then(() => {
-    console.log('saved watson info to db');
+    let bookEntry = new db.Book(input);
+    bookEntry.save(err => {
+      if (err) { console.log("SAVE BOOK ERROR: ", err); }
+    })
+  })
+  .then(() => {
     if (req.session.passport) {
-      return db.User.where({username: req.session.passport.user.username}).update({ $push: {books: input.id}});
+      return db.User.where({username: req.session.passport.user.username}).update({ $push: {books: input.book_id}});
     }
   })
   .then(() => {
-    console.log('sending response to client');
     res.json([bookTitleAndAuthor, input.description, watsonData, input.img]);
   })
   .catch((err) => {
@@ -331,34 +332,54 @@ app.post('/process', (req, res) => {
 app.get('/pastSearches', (req, res) => {
   /***************************************************************************************/
   /***************************************************************************************/
-  const username = req.session.username || req.session.passport.user.username;
+  const username = req.session.user || req.session.passport.user.username;
   return new Promise ((resolve, reject) => {
     db.User.where({ username: username }).findOne((err, user) => {
       if (err) { reject(err); }
       console.log('no error: ', user);
-      const songs = user !== null ? user.songs : [];
-      resolve(songs);
+      let songs = user !== null ? user.songs : [];
+      let books = user !== null ? user.books : [];
+      resolve([songs, books]);
     })
   })
-  .then(songs => {
-    if (songs.length === 0) { res.send({errorMessage: 'No Past Searches'}); }
+  .then(searches => {
+    if (searches[0].length === 0) { res.send({errorMessage: 'No Past Searches'}); }
     return new Promise ((resolve, reject) => {
-      songArray = []
-      songs.forEach((songId, index) => {
+      previousSearches = []
+      searches[0].forEach((songId, index) => {
         db.Song.where({ track_id: songId }).findOne((err, songData) => {
           if (err) { reject(err); }
-          songArray.push({
+          previousSearches.push({
             track_id: songId,
             track_name: songData.track_name,
             artist_name: songData.artist_name
           });
-          if (index === songs.length - 1) { resolve(songArray); }
+          if (index === searches[0].length - 1) { 
+
+            //trying to foreach the songs then books THEN resolve the results of searching whatever blah blah
+            searches[1].forEach((bookId, index) => {
+              db.Book.where({ book_id: bookId }).findOne((err, bookData) => {
+                if (err) { reject(err); }
+                previousSearches.push({
+                  book_id: bookId,
+                  book_name: bookData.book_name,
+                  author_name: bookData.author_name
+                });
+                if (index === searches[1].length - 1) { resolve(previousSearches); }
+              });
+            });
+          }
+
+
         });
       });
+
+      
+
     })
   })
-  .then((songArray) => {
-    res.send(songArray);
+  .then((previousSearches) => {
+    res.send(previousSearches);
   })
   .catch(err => {
     res.send({errorMessage: 'No Past Searches'});

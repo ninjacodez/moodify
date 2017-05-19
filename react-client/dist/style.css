@@ -508,5 +508,6 @@ h6 {
 }
 
 .thumbnail {
+  margin: auto;
   display: block;
 }

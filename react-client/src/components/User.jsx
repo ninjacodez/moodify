@@ -50,6 +50,7 @@ class User extends React.Component {
   }
 
   pastSearch() {
+    console.log('getting recent seaches');
     this.setState({loading: true});
     axios.get('/pastSearches').then(res => {
       this.setState({pastSearchResults: res.data, loading: false});
@@ -99,17 +100,3 @@ class User extends React.Component {
 }
 
 export default User;
-
-
-
-//If we want to re-add signing up feaure(?)
-// {renderif(!this.state.loggedIn)(
-//   <div>
-//     <div className="loginButton" onClick={this.redirect}>
-//       Login/Signup!
-//     </div>
-//     <a href="http://localhost:8080/auth/spotify" className="loginButton">
-//     Connect With Spotify
-//     </a>
-//   </div>
-// )}
