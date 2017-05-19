@@ -27,11 +27,22 @@ class PastSearchResults extends React.Component {
     } else {
       return (
         <div className="resultsBox">
-          {this.props.results.map((trackObj, i) => (
-            <div className="searchText" key={i} value={i} onClick={this.handleClick} >
-              {i + 1}. {trackObj.track_name} by {trackObj.artist_name}
-            </div>
-          ))}
+          {this.props.results.map((trackObj, i) => {
+            if (trackObj.track_name) {
+            return (
+              <div className="searchText" key={i} value={i} onClick={this.handleClick} >
+                {i + 1}. {trackObj.track_name} by {trackObj.artist_name}
+              </div>
+            );
+            } else {
+            return (
+              <div className="searchText" key={i} value={i} onClick={this.handleClick} >
+                {i + 1}. {trackObj.book_name} by {trackObj.author_name}
+              </div>
+            );
+            }
+            
+          })}
         </div>
       );
     }
@@ -39,3 +50,18 @@ class PastSearchResults extends React.Component {
 }
 
 export default PastSearchResults;
+
+
+ // if (trackObj.track_name) {
+ //              return (
+ //                <div className="searchText" key={i} value={i} onClick={this.handleClick} >
+ //                  {i + 1}. {trackObj.track_name} by {trackObj.artist_name}
+ //                </div>
+ //              );
+ //            } else {
+ //              return (
+ //                <div className="searchText" key={i} value={i} onClick={this.handleClick} >
+ //                  {i + 1}. {trackObj.book_name} by {trackObj.author_name}
+ //                </div>
+ //              );
+ //            }

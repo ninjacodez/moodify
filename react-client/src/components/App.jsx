@@ -116,11 +116,11 @@ class App extends React.Component {
 
     if (trackObj.volumeInfo) {
       let input = {
-        description: trackObj.volumeInfo.description,
-        title: trackObj.volumeInfo.title,
-        author: trackObj.volumeInfo.authors ? trackObj.volumeInfo.authors[0] : '',
+        book_id: trackObj.id,
+        book_name: trackObj.volumeInfo.title,
+        author_name: trackObj.volumeInfo.authors ? trackObj.volumeInfo.authors[0] : '',
         img: trackObj.volumeInfo.imageLinks ? trackObj.volumeInfo.imageLinks.thumbnail : '',
-        id: trackObj.id
+        description: trackObj.volumeInfo.description,
       };
 
       axios.post('/processBook', input).then(res => {

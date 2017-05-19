@@ -32,6 +32,15 @@ let songSchema = mongoose.Schema({
 songSchema.plugin(beautifyUnique);
 const Song = mongoose.model('Song', songSchema);
 
+let bookSchema = mongoose.Schema({
+  book_id: {type: String, unique: true},
+  book_name: String,
+  author_name: String,
+  img: String,
+  description: String,
+});
+bookSchema.plugin(beautifyUnique);
+const Book = mongoose.model('Book', bookSchema);
 
 ///////////WATSON SCHEMA///////////////
 let watsonSchema = mongoose.Schema({
@@ -85,5 +94,6 @@ const TopTenSongs = mongoose.model('TopTenSongs', topTenSongsSchema)
 
 module.exports.TopTenSongs = TopTenSongs;
 module.exports.Song = Song;
+module.exports.Book = Book;
 module.exports.Watson = Watson;
 module.exports.User = User;
