@@ -17,7 +17,7 @@ class User extends React.Component {
     this.logout = this.logout.bind(this);
     this.redirect = this.redirect.bind(this);
     this.pastSearch = this.pastSearch.bind(this);
-    this.loginSpotify = this.loginSpotify.bind(this);
+    this.recentlyplayed = this.recentlyplayed.bind(this);
   }
 
   redirect() {
@@ -30,9 +30,10 @@ class User extends React.Component {
     });
   }
 
-  loginSpotify() {
-    axios.get('/thisfuckinlist')
+  recentlyplayed() {
+    axios.get('/recentlyplayed')
       .then((res) => {
+        console.log('recently played tracks: ');
         console.log(res);
       })
       .catch( (err) => {
@@ -73,12 +74,12 @@ class User extends React.Component {
           )}
           {renderif(this.state.loggedIn)(
             <div>
-            <div className="loginButton" onClick={this.logout}>
-              Logout!
-            </div>
-            <div className="loginButton" onClick={this.loginSpotify}>
-              thisfuckinlist!
-            </div>
+              <div className="loginButton" onClick={this.logout}>
+                Logout!
+              </div>
+              <div className="loginButton" onClick={this.recentlyplayed}>
+                My Recently Played
+              </div>
             </div>
           )}
           {renderif(this.state.loggedIn)(<PastSearches search={this.props.search} 
