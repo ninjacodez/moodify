@@ -217,8 +217,55 @@ app.post('/fetchLyricsByTrackId', (req, res) => {
   .catch(error => { res.send(error); });
 });
 
+app.post('/processBook', (req, res) => {
+  console.log(req.body);
+  let input = req.body;
+
+  const bookTitleAndAuthor = [input.author, input.title];
+  let watsonData = {};
+
+  return watsonHelpers.queryWatsonToneHelper(input.description)
+  .then(data => {
+    console.log('received response from watson');
+    console.log(data.fear);
+    watsonData.book_id = input.id,
+    watsonData.anger = data.anger,
+    watsonData.disgust = data.disgust,
+    watsonData.fear = data.fear,
+    watsonData.joy = data.joy,
+    watsonData.sadness = data.sadness,
+    watsonData.analytical = data.analytical,
+    watsonData.confident = data.confident,
+    watsonData.tentative = data.tentative,
+    watsonData.openness = data.openness,
+    watsonData.conscientiousness = data.conscientiousness,
+    watsonData.extraversion = data.extraversion,
+    watsonData.agreeableness = data.agreeableness,
+    watsonData.emotionalrange = data.emotionalrange
+
+    const newEntry = new db.Watson(watsonData);
+      newEntry.save(err => {
+      if (err) { console.log('SAVE WATSON ERROR'); }
+    }) 
+  })
+  .then(() => {
+    console.log('saved watson info to db');
+    if (req.session.passport) {
+      return db.User.where({username: req.session.passport.user.username}).update({ $push: {books: input.id}});
+    }
+  })
+  .then(() => {
+    console.log('sending response to client');
+    res.json([bookTitleAndAuthor, input.description, watsonData, input.img]);
+  })
+  .catch((err) => {
+    console.log('Error processbook: ', err);
+  })
+})
+
 app.post('/process', (req, res) => {
   let input = req.body;
+
   const songNameAndArtist = [input.artist_name, input.track_name];
   let watsonData = {};
 

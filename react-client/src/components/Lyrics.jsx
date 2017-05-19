@@ -21,6 +21,7 @@ class Lyrics extends React.Component {
     } else {
       return (
         <div className="lyrics" >
+          <img className="thumbnail" src={this.props.thumbnail}></img>
           <h6>{this.props.songNameAndArtist[0] + ' - ' + this.props.songNameAndArtist[1]}</h6>
           {this.props.showPlayer ?
             <Player spotifyURI={this.props.spotifyURI} loading={this.props.loading}/>
