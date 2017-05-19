@@ -9,7 +9,7 @@ const Promise = require('bluebird');
 
 // other module exports
 const auth = require('./auth.js');
-const musixMath = require('./service/musixMatch.js');
+const musixMatch = require('./service/musixMatch.js');
 const spotify = require('./service/spotify.js');
 const watson = require('./service/watson.js');
 const db = require('../database');
@@ -53,7 +53,7 @@ app.get('/logout', (req, res) => {
 })
 
 app.post('/search', (req, res) => {
-  return musixMath.searchByTitleAndArtist(req.body.title, req.body.artist)
+  return musixMatch.searchByTitleAndArtist(req.body.title, req.body.artist)
   .then(data => {
     if (data.track_list.length === 0) { res.send({errorMessage: 'No Search Results'}); }
     res.send(data);
@@ -63,7 +63,7 @@ app.post('/search', (req, res) => {
 
 app.post('/fetchLyricsByTrackId', (req, res) => {
   const trackId = req.body.trackId;
-  return musixMath.getLyricsByTrackId(trackId)
+  return musixMatch.getLyricsByTrackId(trackId)
   .then(lyrics => {
     res.send(lyrics);
   })
@@ -75,7 +75,7 @@ app.post('/process', (req, res) => {
   const songNameAndArtist = [input.artist_name, input.track_name];
   let watsonData = {};
 
-  return musixMath.getLyricsByTrackId(input.track_id)
+  return musixMatch.getLyricsByTrackId(input.track_id)
   .then(data => {
     const lyrics = data.lyrics.lyrics_body;
     input.lyrics = lyrics.slice(0, (lyrics.indexOf('*******')));
