@@ -6,9 +6,11 @@ class SearchResults extends React.Component {
     this.state = {
     };
     this.handleClick = this.handleClick.bind(this);
+    this.handlePlaylist = this.handlePlaylist.bind(this);
   }
 
   handleClick(e) {
+
     let index = e.target.getAttribute('value');//this ternary should send song and/or book to process method.check with internet
     let toWatson = this.props.results.track_list ? this.props.results.track_list[index].track
                                                  : this.props.results[index];
@@ -16,6 +18,14 @@ class SearchResults extends React.Component {
     console.log('watson: ', toWatson);
 
     this.props.process(toWatson);
+
+  }
+
+  handlePlaylist (e) {
+   let songArtist = e.target.getAttribute('value');
+   let sendIt = songArtist.split(',');
+
+   this.props.recentlyPlayedSongs(sendIt);
   }
 
   render() {
@@ -29,7 +39,17 @@ class SearchResults extends React.Component {
       return (
         <div className="errorMessage">{this.props.results.errorMessage}</div>
       );
-    } else {
+    } else if ( this.props.recent ) {
+       return (
+        <div className="resultsBox"> 
+          <h1> I am working </h1> 
+          {this.props.results.track_list.map((trackObj, i) => (
+            <div className='searchText' key={i} value={[trackObj.track.track_name, trackObj.track.artist_name]} onClick={this.handlePlaylist} > 
+            {i + 1}. {trackObj.track.track_name} - {trackObj.track.artist_name}</div>
+          ))}
+        </div>
+        )
+    }else {
       return (
         <div className="resultsBox">
           {this.props.results.track_list ?  this.props.results.track_list.map((trackObj, i) => (

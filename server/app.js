@@ -49,10 +49,8 @@ passport.use(new SpotifyStrategy({
       username: profile.username,
       password: profile.id,
     }, (err, result) => {
-      if (!err) {
-   
+      if (!err) {   
         console.log('yay!: ', result);
-
       } else {
         console.log('no :( : ', err);
       }
@@ -105,21 +103,12 @@ app.get('/recentlyplayed', (req, res) => {
     playListEntry.forEach((x) => {
       let songData = {
         track: { 
-          track_id: 84213598,
           track_name: x.track.name,
           artist_name: x.track.album.artists[0].name,
-          album_coverart_100x100: 'http://s.mxmcdn.net/images-storage/albums/nocover.png',
-          album_coverart_350x350: '',
-          album_coverart_500x500: '',
-          album_coverart_800x800: ''
         }
-
       };
-        songArray.track_list.push(songData);
-     
+        songArray.track_list.push(songData); 
     })
-    
-    // console.log('This is playlist tracks request: ')
     return songArray
   })
   .then(data => {
@@ -293,8 +282,8 @@ app.post('/processBook', (req, res) => {
 
 app.post('/process', (req, res) => {
   let input = req.body;
-
   const songNameAndArtist = [input.artist_name, input.track_name];
+  
   console.log(songNameAndArtist);
   let watsonData = {};
 
