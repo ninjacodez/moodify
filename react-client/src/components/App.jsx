@@ -18,6 +18,7 @@ import sampleSpotify from '../../../spotify_new_release_sample_data.js';
 
 class App extends React.Component {
   constructor(props) {
+    //console.log(sampleSpotify.albums.items)
     super(props);
     this.state = {
       currentSongNameAndArtist: [],
@@ -69,15 +70,14 @@ class App extends React.Component {
     })
   }
 
-  search(title, artist, searchField) {
+  search(title, artist) {
     this.setState({showResults: true, searchResultsLoading: true, showPrev: true, upDown: false});
 
     let options = {
       title: title,
-      artist: artist,
+      artist: artist
     };
-
-    axios.post(searchField, options).then((res) => {
+    axios.post('/search', options).then((res) => {
       if (!res.data) {
         console.log('error');
       }
@@ -229,6 +229,19 @@ class App extends React.Component {
     })
   }
 
+  loginSpotify() {
+    axios.get('/recentlyplayed')
+      .then((res) => {
+        this.setState({
+          searchResults: res.data,
+          showResults: true
+        })
+        console.log(this.state.searchResults);
+      })
+      .catch( (err) => {
+        console.log(err);
+    })
+  }
 
   render() {
     return (

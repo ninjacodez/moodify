@@ -42,15 +42,17 @@ passport.use(new SpotifyStrategy({
   callbackURL: config.SPOTIFY.cbURL
   },
   function(accessToken, refreshToken, profile, done) {
-    console.log('Profile from spotify: ', profile);
-    accessTime = accessToken;
+
+    accesTime = accessToken;
 
     db.User.findOrCreate({
       username: profile.username,
       password: profile.id,
     }, (err, result) => {
       if (!err) {
+   
         console.log('yay!: ', result);
+
       } else {
         console.log('no :( : ', err);
       }
@@ -80,7 +82,7 @@ let sess = {};
 app.get('/auth/spotify',
   passport.authenticate('spotify', {scope: ['user-read-email', 'user-read-recently-played', 'user-top-read'], showDialog: true}),
   (req, res) => {
-    console.log('You fucked up, this should not be called');
+    console.log('This should not be called');
   });
 
 app.get('/auth/spotify/callback',
@@ -91,16 +93,42 @@ app.get('/auth/spotify/callback',
   });
 
 app.get('/recentlyplayed', (req, res) => {
+  
   let url = `https://api.spotify.com/v1/me/player/recently-played`
   
-  axios(url, { 'headers': {'Authorization': `Bearer ${accessTime}`} })
-    .then((response) => {
-        console.log('Received recently played tracks for logged in user');
-        console.log('This is playlist tracks request: ', response.data)
-        res.send(response.data.items);
-      })
-    .catch((err) => {
-        console.log('error retrieving playlists TRACKS from spotify ', err);
+  axios(url, { 'headers': { 'Authorization': `Bearer ${accesTime}` } })
+  .then((res) => {  
+
+    let playListEntry = res.data.items;
+    let songArray = {track_list: []};
+    
+    playListEntry.forEach((x) => {
+      let songData = {
+        track: { 
+          track_id: 84213598,
+          track_name: x.track.name,
+          artist_name: x.track.album.artists[0].name,
+          album_coverart_100x100: 'http://s.mxmcdn.net/images-storage/albums/nocover.png',
+          album_coverart_350x350: '',
+          album_coverart_500x500: '',
+          album_coverart_800x800: ''
+        }
+
+      };
+        songArray.track_list.push(songData);
+     
+    })
+    
+    // console.log('This is playlist tracks request: ')
+    return songArray
+  })
+  .then(data => {
+    // console.log(data.track_list[0])
+    res.send(data)
+  })
+  .catch((err) => {
+    console.log('error retrieving playlists TRACKS from spotify ', err);
+    res.send(err);
   })
 
 })
@@ -267,6 +295,7 @@ app.post('/process', (req, res) => {
   let input = req.body;
 
   const songNameAndArtist = [input.artist_name, input.track_name];
+  console.log(songNameAndArtist);
   let watsonData = {};
 
   return mmHelpers.getLyricsByTrackId(input.track_id)

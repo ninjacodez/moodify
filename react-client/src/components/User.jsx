@@ -4,6 +4,8 @@ import axios from 'axios';
 import PastSearches from './PastSearches.jsx';
 import PastSearchResults from './PastSearchResults.jsx';
 import {Redirect, Link} from 'react-router-dom';
+import SearchResults from './PastSearches.jsx';
+
 
 class User extends React.Component {
   constructor(props) {
@@ -41,6 +43,7 @@ class User extends React.Component {
       })
   }
 
+
   componentDidMount() {
     axios.get('/check').then(res => {
       if (res.data.statusCode === 200) {
@@ -74,12 +77,12 @@ class User extends React.Component {
           )}
           {renderif(this.state.loggedIn)(
             <div>
-              <div className="loginButton" onClick={this.logout}>
-                Logout!
-              </div>
-              <div className="loginButton" onClick={this.recentlyplayed}>
-                My Recently Played
-              </div>
+            <div className="loginButton" onClick={this.logout}>
+              Logout!
+            </div>
+            <div className="loginButton" onClick={this.props.loginSpotify}>
+              Recently Played
+            </div>
             </div>
           )}
           {renderif(this.state.loggedIn)(<PastSearches search={this.props.search} 
