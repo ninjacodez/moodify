@@ -20,6 +20,7 @@ const spotifyHelpers = require('./spotifyHelpers.js');
 const watsonHelpers = require('./watsonHelpers.js');
 const db = require('../database');
 const config = require('../config/index.js');
+const googleBookHelpers = require('./googleBookHelpers.js')
 
 
 passport.serializeUser(function(user, done) {
@@ -187,7 +188,14 @@ app.get('/logout', (req, res) => {
        console.log("could not get new releases", err);
    });
 
-
+app.get('/books', (req,res) => {
+  return googleBookHelpers.getBookDescriptionByTitleAndAuthor(req.body.title,req.body.author)
+  .then(data => {
+    if (data.length === 0) {res.send({errorMessage: 'No Search Results'}); }
+    res.send(data);
+  })
+  .catch(error => {res.send(error);});
+});
 
 
 app.post('/search', (req, res) => {
