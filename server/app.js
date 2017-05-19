@@ -188,8 +188,8 @@ app.get('/logout', (req, res) => {
        console.log("could not get new releases", err);
    });
 
-app.get('/books', (req,res) => {
-  return googleBookHelpers.getBookDescriptionByTitleAndAuthor(req.body.title,req.body.author)
+app.post('/books', (req,res) => {
+  return googleBookHelpers.getBookDescriptionByTitleAndAuthor(req.body.title, req.body.artist)
   .then(data => {
     if (data.length === 0) {res.send({errorMessage: 'No Search Results'}); }
     res.send(data);
@@ -267,7 +267,7 @@ app.post('/process', (req, res) => {
   .then((spotifyData) => {
     input.spotify_uri = spotifyData
     
-    const songEntry = new db.Song(input);
+    let songEntry = new db.Song(input);
     songEntry.save(err => {
       if (err) { console.log("SAVE SONG ERROR: ", err); }
     })

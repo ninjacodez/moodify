@@ -18,7 +18,6 @@ import sampleSpotify from '../../../spotify_new_release_sample_data.js';
 
 class App extends React.Component {
   constructor(props) {
-    //console.log(sampleSpotify.albums.items)
     super(props);
     this.state = {
       currentSongNameAndArtist: [],
@@ -47,7 +46,6 @@ class App extends React.Component {
       spotifyPlayerUri: ''
     };
     this.search = this.search.bind(this);
-    this.bookSearch = this.bookSearch.bind(this);
     this.process = this.process.bind(this);
     this.showResults = this.showResults.bind(this);
     this.upDown = this.upDown.bind(this);
@@ -82,25 +80,24 @@ class App extends React.Component {
       if (!res.data) {
         console.log('error');
       }
-      this.setState({searchResults: res.data, searchResultsLoading: false});
+      // if (res.data.items[0].volumeInfo) {
+      //   this.setState({ searchResults: res.data.items, searchResultsLoading: false })
+      // } else if (res.data) {
+      //   this.setState({ searchResults: res.data, searchResultsLoading: false });
+      // }
+
+      //this is working right now, but can't test song search to make sure so I'm leaving 
+      //the commented code above available. If this doesn't work, friday morning, ask john
+      let results = res.data.items[0].volumeInfo ? res.data.items : res.data;
+
+      this.setState({
+        searchResults: results,
+        searchResultsLoading: false
+      })
     });
   }
 
-  bookSearch(title, author) {
-    this.setState({ showResults: true, searchResultsLoading: true, showPrev: true, upDown: false});
-    let options = {
-      title: title,
-      author: author
-    };
 
-    axios.post('/getbooks', options)
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log('Error retrieving books from google: ', err);
-      })
-  }
 
   process(trackObj) {
     this.setState({
@@ -210,7 +207,6 @@ class App extends React.Component {
         <div className="container">
           <div className="col1">
             <Search search={this.search}
-                    bookSearch={this.bookSearch}
                     prev={this.showResults} 
                     showPrev={this.state.showPrev} 
                     upDown={this.state.upDown} 
