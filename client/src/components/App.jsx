@@ -160,23 +160,25 @@ class App extends React.Component {
               prev={this.showResults}
               showPrev={this.state.showPrev}
               upDown={this.state.upDown}
-              runUpDown={this.upDown}/>
-              {this.state.showResults ? // if show results is true, render SearchResults, otherwise nothing
-                <SearchResults
-                  results={this.state.searchResults}
-                  process={this.process}
-                  searchResultsLoading={this.state.searchResultsLoading}
-                />
-              : null}
-                {this.state.showPlayer ? // if showPlayer is true, render Lyrics, otherwise nothing
-                  <Lyrics
-                    showPlayer={this.state.showPlayer}
-                    spotifyURI={this.state.spotifyURI}
-                    loading={this.state.spotifyLoading}
-                    lyrics={this.state.currentLyrics}
-                    loading={this.state.lyricsLoading}
-                    songNameAndArtist={this.state.currentSongNameAndArtist}/>
-                : null}
+              runUpDown={this.upDown}
+            />
+            {this.state.showResults ? // if show results is true, render SearchResults, otherwise nothing
+              <SearchResults
+                results={this.state.searchResults}
+                process={this.process}
+                searchResultsLoading={this.state.searchResultsLoading}
+              />
+            : null}
+            {this.state.showPlayer ? // if showPlayer is true, render Lyrics, otherwise nothing
+            <Lyrics
+              showPlayer={this.state.showPlayer}
+              spotifyURI={this.state.spotifyURI}
+              loading={this.state.spotifyLoading}
+              lyrics={this.state.currentLyrics}
+              loading={this.state.lyricsLoading}
+              songNameAndArtist={this.state.currentSongNameAndArtist}
+            />
+            : null}
           </div>
           <div className="col2">
             <User

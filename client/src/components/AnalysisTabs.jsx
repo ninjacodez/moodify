@@ -11,7 +11,7 @@ class AnalysisTabs extends React.Component {
   }
 
   render() {
-    console.log('Props in AnalysisTabs === ', this.props)
+    // console.log('Props in AnalysisTabs === ', this.props)
     return (
       <Tabs>
         <TabList>
