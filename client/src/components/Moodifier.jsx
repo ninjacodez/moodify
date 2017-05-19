@@ -64,8 +64,8 @@ class Moodifier extends React.Component {
 
   render() {
   //   console.log('getting inside moodifier jsx');
-  //   console.log('PROPS inside moodifier === ', this.props);
-  //   console.log('spotifyURI inside moodifier === ', this.props.spotifyURI);
+    console.log('PROPS inside moodifier === ', this.props);
+    // console.log('spotifyURI inside moodifier === ', this.props.spotifyURI);
     return (
       <div className="maingraph">
       <h2>Music Analysis</h2>

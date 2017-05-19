@@ -11,12 +11,12 @@ class AnalysisTabs extends React.Component {
   }
 
   render() {
-    // console.log('Props in AnalysisTabs === ', this.props)
+    console.log('Props in AnalysisTabs === ', this.props)
     return (
       <Tabs>
         <TabList>
-          <Tab >Music Analysis</Tab>
-          <Tab >Lyrics Analysis</Tab>
+          <Tab>Music Analysis</Tab>
+          <Tab>Lyrics Analysis</Tab>
         </TabList>
         <TabPanel>
           <Moodifier
