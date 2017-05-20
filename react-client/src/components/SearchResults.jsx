@@ -22,9 +22,9 @@ class SearchResults extends React.Component {
   }
 
   handlePlaylist (e) {
+  console.log('I am in SearchResults and working????????????????????????')
    let songArtist = e.target.getAttribute('value');
    let sendIt = songArtist.split(',');
-
    this.props.recentlyPlayedSongs(sendIt);
   }
 
@@ -42,7 +42,7 @@ class SearchResults extends React.Component {
     } else if ( this.props.recent ) {
        return (
         <div className="resultsBox"> 
-          <h1> I am working </h1> 
+          <h1>Recently Played</h1> 
           {this.props.results.track_list.map((trackObj, i) => (
             <div className='searchText' key={i} value={[trackObj.track.track_name, trackObj.track.artist_name]} onClick={this.handlePlaylist} > 
             {i + 1}. {trackObj.track.track_name} - {trackObj.track.artist_name}</div>

@@ -33,6 +33,7 @@ class User extends React.Component {
   }
 
   recentlyplayed() {
+    console.log('!!!!!!!!!!!User.jsx!!!!!!!!!!!!!!!!!!!!!!!!!')
     axios.get('/recentlyplayed')
       .then((res) => {
         console.log('recently played tracks: ');
@@ -80,7 +81,7 @@ class User extends React.Component {
             <div className="loginButton" onClick={this.logout}>
               Logout!
             </div>
-            <div className="loginButton" onClick={this.props.loginSpotify}>
+            <div className="loginButton" onClick={this.props.playlist}>
               Recently Played
             </div>
             </div>
@@ -104,15 +105,3 @@ class User extends React.Component {
 export default User;
 
 
-
-//If we want to re-add signing up feaure(?)
-// {renderif(!this.state.loggedIn)(
-//   <div>
-//     <div className="loginButton" onClick={this.redirect}>
-//       Login/Signup!
-//     </div>
-//     <a href="http://localhost:8080/auth/spotify" className="loginButton">
-//     Connect With Spotify
-//     </a>
-//   </div>
-// )}

@@ -107,7 +107,9 @@ app.get('/recentlyplayed', (req, res) => {
           artist_name: x.track.album.artists[0].name,
         }
       };
+      if( songArray.track_list.length < 10){
         songArray.track_list.push(songData); 
+      }
     })
     return songArray
   })
@@ -167,20 +169,8 @@ app.get('/logout', (req, res) => {
 //Compare most recent data to today's date
 //if day does not much, query the database
 
+
  app.get('/newreleases', (req,res) => {
-  var isSameDay = true;
-  var lastDate = db.TopTenSongs.find({}).sort({dateadded:-1}).limit(1)
-    .exec((err, lastTopTenSongData) => {
-      var dateValue = lastTopTenSongData[0].dateadded.toString();
-      var date = new Date(dateValue);
-      var dateDay = date.getDay();
-      var now = new Date()
-      var today = now.getDay();
-      if (dateDay !== today){
-        isSameDay = false;
-      }
-      });
-    if(!isSameDay){
     spotifyApi.getNewReleases({ limit : 20, offset: 0, country: 'US' })
       .then(data => {
         topTenData = {
@@ -193,14 +183,7 @@ app.get('/logout', (req, res) => {
           })
        res.send(data.body.albums.items);
      });
-      }
-      else{
-        db.TopTenSongs.find({}).sort({dateadded:-1}).limit(1)
-        .exec((err, lastTopTenSongData) => {
-          console.log(lastTopTenSongData);
-          res.send(lastTopTenSongData[0].songs)
-        })
-      }
+
      }, function(err) {
        console.log("could not get new releases", err);
    });
@@ -296,7 +279,7 @@ app.post('/process', (req, res) => {
   })
   .then(() => {
     //NEEDS TO BE DATA FROM LYRIC API CALL
-    input.lyrics = 'I hate!\nI hate!\nI hate!\nI hate!\n'
+    //input.lyrics = 'I hate!\nI hate!\nI hate!\nI hate!\n'
     return watsonHelpers.queryWatsonToneHelper(input.lyrics)
   })
   .then(data => {
