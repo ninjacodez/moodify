@@ -76,21 +76,3 @@ class Search extends React.Component {
 
 export default Search;
 
-
-/*
-          <form onSubmit={this.bookSubmit}>
-          <input type="text" 
-                 name="title" 
-                 value={this.state.bookTitle} 
-                 placeholder="book title" 
-                 onChange={this.handleBookTitleChange} 
-                 className="textbox"/>
-          <input type="text" 
-                 name="Author" 
-                 value={this.state.author} 
-                 placeholder="author" 
-                 onChange={this.handleAuthorChange} 
-                 className="textbox"/>
-          <input type="submit" value="Search" className="submitbutton"/>
-          </form>
-*/

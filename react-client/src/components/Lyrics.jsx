@@ -12,6 +12,8 @@ class Lyrics extends React.Component {
   }
 
   render() {
+    console.log(this.props.songNameAndArtist)
+    
     if (this.props.loading) {
       return (
         <div className="loading">

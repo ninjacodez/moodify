@@ -36,6 +36,7 @@ class User extends React.Component {
 
 
   recentlyplayed() {
+    console.log('!!!!!!!!!!!User.jsx!!!!!!!!!!!!!!!!!!!!!!!!!')
     axios.get('/recentlyplayed')
       .then((res) => {
         console.log(res);
@@ -83,7 +84,7 @@ class User extends React.Component {
             <div className="loginButton" onClick={this.logout}>
               Logout!
             </div>
-            <div className="loginButton" onClick={this.props.loginSpotify}>
+            <div className="loginButton" onClick={this.props.playlist}>
               Recently Played
             </div>
             </div>
@@ -105,3 +106,4 @@ class User extends React.Component {
 }
 
 export default User;
+

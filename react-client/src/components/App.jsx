@@ -72,14 +72,15 @@ class App extends React.Component {
     })
   }
 
-  search(title, artist) {
+  search(title, artist, searchField) {
     this.setState({showResults: true, searchResultsLoading: true, showPrev: true, upDown: false});
 
     let options = {
       title: title,
       artist: artist
     };
-    axios.post('/search', options).then((res) => {
+
+    axios.post(searchField, options).then((res) => {
       if (!res.data) {
         console.log('error');
       }
@@ -152,10 +153,12 @@ class App extends React.Component {
           watson: data[2],
           spotifyURI: data[3],
           spotifyLoading: false,
+          showPlayer: true,
           lyricsLoading: false,
           showLyrics: true,
           showMood: true
         });
+        console.log('I am happening is APP.JSX', this.state.showPlayer)
       }).catch(error => {
         throw error;
       });
@@ -249,6 +252,7 @@ class App extends React.Component {
   }
 
   loginSpotify() {
+    console.log('I am working loginSpotify in App,Jsx !!!!!!!!!!')
     axios.get('/recentlyplayed')
       .then((res) => {
         this.setState({
@@ -278,8 +282,8 @@ class App extends React.Component {
                             recent={this.state.recentlyPlayed} 
                             recentlyPlayedSongs={this.recentlyPlayedSongs} 
                             search={this.search} 
-                             process={this.process}
-                             searchResultsLoading={this.state.searchResultsLoading}
+                            process={this.process}
+                            searchResultsLoading={this.state.searchResultsLoading}
                              />
               : null}
 
@@ -312,7 +316,8 @@ class App extends React.Component {
                   runUpDown={this.upDownUser}
                   process={this.process}//why?
                   searchResultsLoading={this.state.searchResultsLoadingUser}
-                  loadPastSearchResults={this.loadPastSearchResults}/> 
+                  loadPastSearchResults={this.loadPastSearchResults}
+                  playlist={this.loginSpotify.bind(this)}/> 
               {this.state.showMood ? <Mood watson={this.state.watson} songNameAndArtist={this.state.currentSongNameAndArtist}/>
 
               : null}
