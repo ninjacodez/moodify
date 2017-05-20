@@ -82,11 +82,7 @@ class User extends React.Component {
             <div className="loginButton" onClick={this.logout}>
               Logout!
             </div>
-<<<<<<< HEAD
             <div className="loginButton" onClick={this.props.playlist}>
-=======
-            <div className="loginButton" onClick={this.props.loginSpotify}>
->>>>>>> c83a9c1fc34ee36d36d43fa608c82030c4bd89aa
               Recently Played
             </div>
             </div>

@@ -321,7 +321,7 @@ class App extends React.Component {
                   playlist={this.loginSpotify.bind(this)}/> 
               {this.state.showMood ? <Mood watson={this.state.watson} songNameAndArtist={this.state.currentSongNameAndArtist}/>
               : null}
-
+              
               {/* add component for top 10 mood here*/}
               {!this.state.showLyrics && !this.state.showResults && !this.showPlayer ?
                 <div className='test'>
