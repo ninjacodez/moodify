@@ -45,7 +45,7 @@ passport.use(new SpotifyStrategy({
   },
   function(accessToken, refreshToken, profile, done) {
 
-    accesTime = accessToken;
+    accessTime = accessToken;
 
     db.User.findOrCreate({
       username: profile.username,
@@ -247,10 +247,10 @@ app.post('/processBook', (req, res) => {
     watsonData.agreeableness = data.agreeableness,
     watsonData.emotionalrange = data.emotionalrange
 
-    const newEntry = new db.Watson(watsonData);
-      newEntry.save(err => {
-      if (err) { console.log('SAVE WATSON ERROR'); }
-    }) 
+    // const newEntry = new db.Watson(watsonData);
+    //   newEntry.save(err => {
+    //   if (err) { console.log('SAVE WATSON ERROR'); }
+    // }) 
   })
   .then(() => {
     console.log('saved watson info to db');
