@@ -18,6 +18,7 @@ import sampleSpotify from '../../../spotify_new_release_sample_data.js';
 
 class App extends React.Component {
   constructor(props) {
+    //console.log(sampleSpotify.albums.items)
     super(props);
     this.state = {
       currentSongNameAndArtist: [],
@@ -25,6 +26,7 @@ class App extends React.Component {
       watson: {},
       thumbnail: null,
       spotifyURI: null,
+      recentlyPlayed: false,
       searchResults: [],
       searchResultsUser: [],
       searchResultsLoading: false,
@@ -55,6 +57,7 @@ class App extends React.Component {
     this.loadPastSearchResults = this.loadPastSearchResults.bind(this);
     this.newReleaseClick = this.newReleaseClick.bind(this);
     this.closePlayer = this.closePlayer.bind(this);
+    this.recentlyPlayedSongs = this.recentlyPlayedSongs.bind(this);
   }
 
 
@@ -74,7 +77,7 @@ class App extends React.Component {
 
     let options = {
       title: title,
-      artist: artist,
+      artist: artist
     };
 
     axios.post(searchField, options).then((res) => {
@@ -102,18 +105,8 @@ class App extends React.Component {
 
 
   process(trackObj) {
-    this.setState({
-      showPlayer: true,
-      spotifyLoading: true,
-      lyricsLoading: true,
-      showResults: false,
-      showResultsUser: false,
-      upDownUser: false,
-      showLyrics: false,
-      showMood: false,
-      upDown: true
-    });
 
+    console.log(trackObj);
 
     if (trackObj.volumeInfo) {
       let input = {
@@ -160,10 +153,12 @@ class App extends React.Component {
           watson: data[2],
           spotifyURI: data[3],
           spotifyLoading: false,
+          showPlayer: true,
           lyricsLoading: false,
           showLyrics: true,
           showMood: true
         });
+        console.log('I am happening is APP.JSX', this.state.showPlayer)
       }).catch(error => {
         throw error;
       });
@@ -230,6 +225,89 @@ class App extends React.Component {
     })
   }
 
+  recentlyPlayedSongs(songArtist) {
+    console.log("I am getting to recentlyplayed", songArtist)
+
+    this.setState({searchResultsLoading: true, showPrev: true, upDown: false});
+
+    let options = {
+      title: songArtist[0],
+      artist: songArtist[1]
+    };
+    axios.post('/search', options)
+    .then((res) => {
+      if (!res.data) {
+        console.log('error');
+      }
+  
+      this.setState({searchResultsLoading: false});
+      return res.data.track_list[0];
+    })
+    .then(data =>  {
+      console.log(data.track)
+      this.process(data.track);
+    });
+    
+
+  }
+
+  loginSpotify() {
+    console.log('I am working loginSpotify in App,Jsx !!!!!!!!!!')
+    axios.get('/recentlyplayed')
+      .then((res) => {
+        this.setState({
+          searchResults: res.data,
+          showResults: true,
+          recentlyPlayed: true
+        })       
+      })
+      .catch( (err) => {
+        console.log(err);
+    })
+  }
+
+  recentlyPlayedSongs(songArtist) {
+    console.log("I am getting to recentlyplayed", songArtist)
+
+    this.setState({searchResultsLoading: true, showPrev: true, upDown: false});
+
+    let options = {
+      title: songArtist[0],
+      artist: songArtist[1]
+    };
+    axios.post('/search', options)
+    .then((res) => {
+      if (!res.data) {
+        console.log('error');
+      }
+  
+      this.setState({searchResultsLoading: false});
+      return res.data.track_list[0];
+    })
+    .then(data =>  {
+      console.log(data.track)
+      this.process(data.track);
+    });
+    
+
+  }
+
+
+  loginSpotify() {
+    axios.get('/recentlyplayed')
+      .then((res) => {
+        this.setState({
+          searchResults: res.data,
+          showResults: true,
+          recentlyPlayed: true,
+          showResults: true
+        })
+        console.log(this.state.searchResults);
+      })
+      .catch( (err) => {
+        console.log(err);
+    })
+  }
 
   render() {
     return (
@@ -244,8 +322,12 @@ class App extends React.Component {
                     runUpDown={this.upDown}/> 
               {this.state.showResults ?
               <SearchResults results={this.state.searchResults} 
-                             process={this.process}
-                             searchResultsLoading={this.state.searchResultsLoading}/>
+                            recent={this.state.recentlyPlayed} 
+                            recentlyPlayedSongs={this.recentlyPlayedSongs} 
+                            search={this.search} 
+                            process={this.process}
+                            searchResultsLoading={this.state.searchResultsLoading}
+                             />
               : null}
 
               {/* add component for top 10 here*/}
@@ -270,16 +352,18 @@ class App extends React.Component {
               : null}
           </div>
           <div className="col2">
+
             <User showPrev={this.state.showResultsUser}
                   prev={this.showResultsUser}
                   upDown={this.state.upDownUser}
                   runUpDown={this.upDownUser}
                   process={this.process}//why?
                   searchResultsLoading={this.state.searchResultsLoadingUser}
-                  loadPastSearchResults={this.loadPastSearchResults}/> 
+                  loadPastSearchResults={this.loadPastSearchResults}
+                  playlist={this.loginSpotify.bind(this)}/> 
               {this.state.showMood ? <Mood watson={this.state.watson} songNameAndArtist={this.state.currentSongNameAndArtist}/>
               : null}
-
+              
               {/* add component for top 10 mood here*/}
               {!this.state.showLyrics && !this.state.showResults && !this.showPlayer ?
                 <div className='test'>
