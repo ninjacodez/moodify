@@ -240,10 +240,10 @@ app.post('/processBook', (req, res) => {
     watsonData.agreeableness = data.agreeableness;
     watsonData.emotionalrange = data.emotionalrange
 
-    const newEntry = new db.Watson(watsonData);
-      newEntry.save(err => {
-      if (err) { console.log('SAVE WATSON ERROR'); }
-    }) 
+    // const newEntry = new db.Watson(watsonData);
+    //   newEntry.save(err => {
+    //   if (err) { console.log('SAVE WATSON ERROR'); }
+    // }) 
   })
   .then(() => {
     let bookEntry = new db.Book(input);
@@ -301,7 +301,9 @@ app.post('/process', (req, res) => {
     };
     const newEntry = new db.Watson(watsonData);
     newEntry.save(err => {
-      if (err) { console.log('SAVE WATSON ERROR'); }
+      if (err) { 
+        console.log('SAVE WATSON ERROR');
+        console.log(err); }
     })
   })
   .then(() => {
@@ -329,6 +331,8 @@ app.post('/process', (req, res) => {
   });
 })
 
+
+let userPreviousSearches = [];
 app.get('/pastSearches', (req, res) => {
   /***************************************************************************************/
   /***************************************************************************************/
@@ -336,50 +340,49 @@ app.get('/pastSearches', (req, res) => {
   return new Promise ((resolve, reject) => {
     db.User.where({ username: username }).findOne((err, user) => {
       if (err) { reject(err); }
-      console.log('no error: ', user);
       let songs = user !== null ? user.songs : [];
       let books = user !== null ? user.books : [];
-      resolve([songs, books]);
+      resolve(songs.concat(books));
     })
   })
   .then(searches => {
-    if (searches[0].length === 0) { res.send({errorMessage: 'No Past Searches'}); }
+    let previousSearches = [];
     return new Promise ((resolve, reject) => {
-      previousSearches = []
-      searches[0].forEach((songId, index) => {
-        db.Song.where({ track_id: songId }).findOne((err, songData) => {
-          if (err) { reject(err); }
-          previousSearches.push({
-            track_id: songId,
-            track_name: songData.track_name,
-            artist_name: songData.artist_name
-          });
-          if (index === searches[0].length - 1) { 
-
-            //trying to foreach the songs then books THEN resolve the results of searching whatever blah blah
-            searches[1].forEach((bookId, index) => {
-              db.Book.where({ book_id: bookId }).findOne((err, bookData) => {
-                if (err) { reject(err); }
-                previousSearches.push({
-                  book_id: bookId,
-                  book_name: bookData.book_name,
-                  author_name: bookData.author_name
-                });
-                if (index === searches[1].length - 1) { resolve(previousSearches); }
+      if (searches.length > 0) {
+        searches.forEach((ID, index) => {
+          if (typeof ID === 'number') {
+            db.Song.where({ track_id: ID }).findOne((err, songData) => {
+              if (err) { reject(err); }
+              previousSearches.push({
+                track_id: ID,
+                track_name: songData.track_name,
+                artist_name: songData.artist_name
               });
+              if (index === searches.length - 1) { 
+                resolve(previousSearches);
+              }
+            });
+          } else {
+            db.Book.where({ book_id: ID }).findOne((err, bookData) => {
+              if (err) { reject(err); }
+              previousSearches.push({
+                book_id: ID,
+                book_name: bookData.book_name,
+                author_name: bookData.author_name
+              });
+              if (index === searches.length - 1) { 
+                resolve(previousSearches);
+              }
             });
           }
-
-
         });
-      });
-
+      } else {
+        throw err;
+      }
       
-
-    })
   })
-  .then((previousSearches) => {
-    res.send(previousSearches);
+  .then((previous) => {
+    res.send(previous);
   })
   .catch(err => {
     res.send({errorMessage: 'No Past Searches'});
@@ -406,5 +409,58 @@ app.post('/loadPastSearchResults', (req, res) => {
   })
   .catch(err => { res.send(err); })
 });
-
+})
 module.exports = app;
+
+
+
+
+
+  //   if (searches[0].length === 0 && searches[1].length === 0) { res.send({errorMessage: 'No Past Searches'}); }
+  //   return new Promise ((resolve, reject) => {
+  //     previousSearches = []
+  //     if (searches[0].length > 0) {
+  //       searches[0].forEach((songId, index) => {
+  //         db.Song.where({ track_id: songId }).findOne((err, songData) => {
+  //           if (err) { reject(err); }
+  //           previousSearches.push({
+  //             track_id: songId,
+  //             track_name: songData.track_name,
+  //             artist_name: songData.artist_name
+  //           });
+  //           if (index === searches[0].length - 1) { 
+
+  //             //trying to foreach the songs then books THEN resolve the results of searching whatever blah blah
+  //             searches[1].forEach((bookId, index) => {
+  //               db.Book.where({ book_id: bookId }).findOne((err, bookData) => {
+  //                 console.log(bookData);
+  //                 if (err) { reject(err); }
+  //                 previousSearches.push({
+  //                   book_id: bookId,
+  //                   book_name: bookData.book_name,
+  //                   author_name: bookData.author_name
+  //                 });
+  //                 if (index === searches[1].length - 1) { resolve(previousSearches); }
+  //               });
+  //             });
+  //           }
+  //         });
+  //       });
+  //     } else {
+  //       searches[1].forEach((bookId, index) => {
+  //         db.Book.where({ book_id: bookId }).findOne((err, bookData) => {
+  //           console.log(bookData);
+  //           if (err) { reject(err); }
+  //           previousSearches.push({
+  //             book_id: bookId,
+  //             book_name: bookData.book_name,
+  //             author_name: bookData.author_name
+  //           });
+  //           if (index === searches[1].length - 1) { resolve(previousSearches); }
+  //         });
+  //       });
+
+  //     }
+    
+  //   })
+  // })

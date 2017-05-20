@@ -90,7 +90,8 @@ class App extends React.Component {
       //this is working right now, but can't test song search to make sure so I'm leaving 
       //the commented code above available. If this doesn't work, friday morning, ask john
       let results = res.data.items ? res.data.items : res.data;
-
+      console.log('from search: ')
+      console.log(res.data);
       this.setState({
         searchResults: results,
         searchResultsLoading: false

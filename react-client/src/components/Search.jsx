@@ -6,21 +6,29 @@ class Search extends React.Component {
     this.state = {
       title: '',
       artist: '',
+      selection: null,
       showPrev: false
     };
     this.handleTitleChange = this.handleTitleChange.bind(this);
     this.handleArtistChange = this.handleArtistChange.bind(this);
+    this.handleRadioSelect = this.handleRadioSelect.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.prevResults = this.prevResults.bind(this);
   }
 
   handleTitleChange(e) { this.setState({ title: e.target.value }); }
   handleArtistChange(e) { this.setState({ artist: e.target.value }); }
+  handleRadioSelect(e) { this.setState({ selection: e.target.value}); }
 
   handleSubmit(e) {
+    console.log(this.state.selection);
     e.preventDefault();
-    this.props.search(this.state.title, this.state.artist, e.target.id);
-    this.setState({ title: '', artist: '', showPrev: true});
+    if (this.state.selection !== null) {
+      this.props.search(this.state.title, this.state.artist, this.state.selection);
+      this.setState({ title: '', artist: '', showPrev: true});
+    } else {
+      alert('Please select a media to search!');
+    }
   }
 
   prevResults(e) {
@@ -45,8 +53,9 @@ class Search extends React.Component {
                    placeholder="artist"
                    onChange={this.handleArtistChange}
                    className="textbox"/>
-            <button id="/search" onClick={this.handleSubmit} className="submitbutton">Search Songs</button>
-            <button id="/books" onClick={this.handleSubmit} className="submitbutton">Search Books</button>
+            <input onChange={this.handleRadioSelect} type="radio" name="media" value="/search"/> Song  
+            <input onChange={this.handleRadioSelect} type="radio" name="media" value="/books"/> Book
+            <button id="ilovecats" onClick={this.handleSubmit} className="submitbutton">Search</button>
           </form>
 
           <form>
