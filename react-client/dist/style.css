@@ -499,3 +499,15 @@ h6 {
   margin-top: 10%;
   text-align: center;
 }
+
+.new-releases {
+  width: 50%;
+}
+.new-iframe {
+  margin-bottom: 0px;
+}
+
+.thumbnail {
+  margin: auto;
+  display: block;
+}

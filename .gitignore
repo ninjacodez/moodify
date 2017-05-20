@@ -30,3 +30,10 @@ bower_components/
 
 # Config files
 config/config.dev.js
+
+# orig files
+**.orig.js
+**.orig
+
+untitled.js
+elena.js

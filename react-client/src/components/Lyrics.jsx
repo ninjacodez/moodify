@@ -8,9 +8,12 @@ class Lyrics extends React.Component {
       title: ' ',
       artist: ' '
     };
+    console.log('this is the props', props)
   }
 
   render() {
+    console.log(this.props.songNameAndArtist)
+    
     if (this.props.loading) {
       return (
         <div className="loading">
@@ -20,6 +23,7 @@ class Lyrics extends React.Component {
     } else {
       return (
         <div className="lyrics" >
+          <img className="thumbnail" src={this.props.thumbnail}></img>
           <h6>{this.props.songNameAndArtist[0] + ' - ' + this.props.songNameAndArtist[1]}</h6>
           {this.props.showPlayer ?
             <Player spotifyURI={this.props.spotifyURI} loading={this.props.loading}/>

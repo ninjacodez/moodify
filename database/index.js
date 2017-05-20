@@ -1,21 +1,23 @@
 const mongoose = require('mongoose');
 const beautifyUnique = require('mongoose-beautiful-unique-validation');
 mongoose.Promise = require('bluebird');
-// mongoose.connect('mongodb://localhost/test');
+mongoose.createConnection('mongodb://localhost/test');
 const config = require('../config/index.js');
 const DATABASE_URL = config.DATABASE_URL;
+const findOrCreate = require('mongoose-find-or-create');
 
 mongoose.connect(DATABASE_URL);
 const db = mongoose.connection;
 
-db.on('error', () => {
-  console.log('mongoose connection fail ._____.');
+db.on('error', (err) => {
+  console.log('mongoose connection fail ._____.', err.message);
 });
 
 db.once('open', () => {
   console.log('mongoose connection success! b(^.~)z');
 });
 
+///////////SONG SCHEMA///////////////
 let songSchema = mongoose.Schema({
 	track_id: {type: Number, unique: true},
 	track_name: String,
@@ -30,6 +32,17 @@ let songSchema = mongoose.Schema({
 songSchema.plugin(beautifyUnique);
 const Song = mongoose.model('Song', songSchema);
 
+let bookSchema = mongoose.Schema({
+  book_id: {type: String, unique: true},
+  book_name: String,
+  author_name: String,
+  img: String,
+  description: String,
+});
+bookSchema.plugin(beautifyUnique);
+const Book = mongoose.model('Book', bookSchema);
+
+///////////WATSON SCHEMA///////////////
 let watsonSchema = mongoose.Schema({
 
   track_id: { type: Number, unique: true },
@@ -57,14 +70,30 @@ let watsonSchema = mongoose.Schema({
 watsonSchema.plugin(beautifyUnique);
 const Watson = mongoose.model('Watson', watsonSchema);
 
+
+///////////USER SCHEMA///////////////
 let userSchema = mongoose.Schema({
   username: {type: String, unique: true},
   password: String,
-  songs: [Number]
+  songs: [Number],
+  books: [String]
 });
 userSchema.plugin(beautifyUnique);
+userSchema.plugin(findOrCreate);
 const User = mongoose.model('User', userSchema);
 
+
+///////////TOP TEN SONGS SCHEMA///////////////
+let topTenSongsSchema = mongoose.Schema({
+  songs: Array,
+  dateadded: Date
+});
+topTenSongsSchema.plugin(beautifyUnique);
+const TopTenSongs = mongoose.model('TopTenSongs', topTenSongsSchema)
+
+
+module.exports.TopTenSongs = TopTenSongs;
 module.exports.Song = Song;
+module.exports.Book = Book;
 module.exports.Watson = Watson;
 module.exports.User = User;

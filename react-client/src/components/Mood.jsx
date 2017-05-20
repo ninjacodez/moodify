@@ -205,16 +205,16 @@ componentWillReceiveProps(props) {
   render() {
     return (
       <div className="maingraph">
-      <h2>Emotion</h2>
-      <Bar data={this.state.emotionData} options={this.state.emotionOptions} width={500}/>
-      <div className="maingraph">
-      <h5>Social</h5>
-      <Polar data={this.state.socialData} options={this.state.socialData} width={500}/>
-      </div>
-      <div className="maingraph">
-      <h5>Language</h5>
-      <Doughnut data={this.state.languageData} options={this.state.languageOptions} width={500}/>
-      </div>
+        <h2>Emotion</h2>
+        <Bar data={this.state.emotionData} options={this.state.emotionOptions} width={500}/>
+        <div className="maingraph">
+          <h5>Social</h5>
+        <Polar data={this.state.socialData} options={this.state.socialData} width={500}/>
+        </div>
+        <div className="maingraph">
+          <h5>Language</h5>
+          <Doughnut data={this.state.languageData} options={this.state.languageOptions} width={500}/>
+        </div>
       </div>
     )
   }

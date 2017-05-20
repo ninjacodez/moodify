@@ -4,6 +4,8 @@ import axios from 'axios';
 import PastSearches from './PastSearches.jsx';
 import PastSearchResults from './PastSearchResults.jsx';
 import {Redirect, Link} from 'react-router-dom';
+import SearchResults from './PastSearches.jsx';
+
 
 class User extends React.Component {
   constructor(props) {
@@ -17,6 +19,9 @@ class User extends React.Component {
     this.logout = this.logout.bind(this);
     this.redirect = this.redirect.bind(this);
     this.pastSearch = this.pastSearch.bind(this);
+
+    this.recentlyplayed = this.recentlyplayed.bind(this);
+
   }
 
   redirect() {
@@ -29,6 +34,19 @@ class User extends React.Component {
     });
   }
 
+
+  recentlyplayed() {
+    console.log('!!!!!!!!!!!User.jsx!!!!!!!!!!!!!!!!!!!!!!!!!')
+    axios.get('/recentlyplayed')
+      .then((res) => {
+        console.log(res);
+      })
+      .catch( (err) => {
+        console.log(err);
+      })
+  }
+
+
   componentDidMount() {
     axios.get('/check').then(res => {
       if (res.data.statusCode === 200) {
@@ -38,6 +56,7 @@ class User extends React.Component {
   }
 
   pastSearch() {
+    console.log('getting recent seaches');
     this.setState({loading: true});
     axios.get('/pastSearches').then(res => {
       this.setState({pastSearchResults: res.data, loading: false});
@@ -54,19 +73,32 @@ class User extends React.Component {
       <div className="allUser">
         <div className="user">
           {renderif(!this.state.loggedIn)(
-            <div className="loginButton" onClick={this.redirect}>
-              Login/Signup!
+            <div>
+              <a href="http://localhost:8080/auth/spotify" className="loginButton">
+              Connect With Spotify
+              </a>
             </div>
           )}
           {renderif(this.state.loggedIn)(
+            <div>
             <div className="loginButton" onClick={this.logout}>
               Logout!
             </div>
+            <div className="loginButton" onClick={this.props.playlist}>
+              Recently Played
+            </div>
+            </div>
           )}
-          {renderif(this.state.loggedIn)(<PastSearches search={this.props.search} prev={this.props.prev} upDown={this.props.upDown} runUpDown={this.props.runUpDown} pastSearch={this.pastSearch}/>)}
+          {renderif(this.state.loggedIn)(<PastSearches search={this.props.search} 
+                                                       prev={this.props.prev} 
+                                                       upDown={this.props.upDown} 
+                                                       runUpDown={this.props.runUpDown} 
+                                                       pastSearch={this.pastSearch}/>)}
         </div>
         <div>
-          <br/> {renderif(this.props.showPrev)(<PastSearchResults results={this.state.pastSearchResults} loading={this.state.loading} loadPastSearchResults={this.props.loadPastSearchResults}/>)}
+          <br/> {renderif(this.props.showPrev)(<PastSearchResults results={this.state.pastSearchResults} 
+                                                                  loading={this.state.loading} 
+                                                                  loadPastSearchResults={this.props.loadPastSearchResults}/>)}
         </div>
       </div>
     );
@@ -74,3 +106,4 @@ class User extends React.Component {
 }
 
 export default User;
+

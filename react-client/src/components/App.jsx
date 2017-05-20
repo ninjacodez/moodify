@@ -13,15 +13,20 @@ import SearchResults from './SearchResults.jsx';
 import User from './User.jsx';
 import LoginSignup from './LoginSignup.jsx';
 import PastSearchResults from './PastSearchResults.jsx';
+import TopTen from './TopTen.jsx';
+import sampleSpotify from '../../../spotify_new_release_sample_data.js';
 
 class App extends React.Component {
   constructor(props) {
+    //console.log(sampleSpotify.albums.items)
     super(props);
     this.state = {
       currentSongNameAndArtist: [],
       currentLyrics: '',
       watson: {},
+      thumbnail: null,
       spotifyURI: null,
+      recentlyPlayed: false,
       searchResults: [],
       searchResultsUser: [],
       searchResultsLoading: false,
@@ -37,7 +42,11 @@ class App extends React.Component {
       url: window.location.href,
       loggedIn: false,
       upDownUser: false,
-      searchResultsLoadingUser: false
+      searchResultsLoadingUser: false,
+      landingPageComponents: false,
+      spotifyHomePage: [],
+      showSpotifyPlayer: false,
+      spotifyPlayerUri: ''
     };
     this.search = this.search.bind(this);
     this.process = this.process.bind(this);
@@ -46,60 +55,114 @@ class App extends React.Component {
     this.upDownUser = this.upDownUser.bind(this);
     this.showResultsUser = this.showResultsUser.bind(this);
     this.loadPastSearchResults = this.loadPastSearchResults.bind(this);
+    this.newReleaseClick = this.newReleaseClick.bind(this);
+    this.closePlayer = this.closePlayer.bind(this);
+    this.recentlyPlayedSongs = this.recentlyPlayedSongs.bind(this);
   }
 
-  search(title, artist) {
+
+  componentDidMount(){
+    axios.get('/newreleases').then((res) => {
+      if (!res.data){
+        console.log('Error on initial load of song data');
+      }
+      this.setState({
+        spotifyHomePage: res.data
+      });
+    })
+  }
+
+  search(title, artist, searchField) {
     this.setState({showResults: true, searchResultsLoading: true, showPrev: true, upDown: false});
 
     let options = {
       title: title,
       artist: artist
     };
-    axios.post('/search', options).then((res) => {
+
+    axios.post(searchField, options).then((res) => {
       if (!res.data) {
         console.log('error');
       }
-      this.setState({searchResults: res.data, searchResultsLoading: false});
+      // if (res.data.items[0].volumeInfo) {
+      //   this.setState({ searchResults: res.data.items, searchResultsLoading: false })
+      // } else if (res.data) {
+      //   this.setState({ searchResults: res.data, searchResultsLoading: false });
+      // }
+
+      //this is working right now, but can't test song search to make sure so I'm leaving 
+      //the commented code above available. If this doesn't work, friday morning, ask john
+      let results = res.data.items ? res.data.items : res.data;
+      console.log('from search: ')
+      console.log(res.data);
+      this.setState({
+        searchResults: results,
+        searchResultsLoading: false
+      })
     });
   }
 
+
+
   process(trackObj) {
-    this.setState({
-      showPlayer: true,
-      spotifyLoading: true,
-      lyricsLoading: true,
-      showResults: false,
-      showResultsUser: false,
-      upDownUser: false,
-      showLyrics: false,
-      showMood: false,
-      upDown: true
-    });
 
-    let input = {};
-    input.track_id = trackObj.track_id;
-    input.track_name = trackObj.track_name;
-    input.artist_name = trackObj.artist_name;
-    input.album_coverart_100x100 = trackObj.album_coverart_100x100;
-    input.album_coverart_350x350 = trackObj.album_coverart_350x350;
-    input.album_coverart_500x500 = trackObj.album_coverart_500x500;
-    input.album_coverart_800x800 = trackObj.album_coverart_800x800;
+    console.log(trackObj);
 
-    axios.post('/process', input).then(res => {
-      let data = res.data;
-      this.setState({
-        currentSongNameAndArtist: data[0],
-        currentLyrics: data[1],
-        watson: data[2],
-        spotifyURI: data[3],
-        spotifyLoading: false,
-        lyricsLoading: false,
-        showLyrics: true,
-        showMood: true
+    if (trackObj.volumeInfo) {
+      let input = {
+        book_id: trackObj.id,
+        book_name: trackObj.volumeInfo.title,
+        author_name: trackObj.volumeInfo.authors ? trackObj.volumeInfo.authors[0] : '',
+        img: trackObj.volumeInfo.imageLinks ? trackObj.volumeInfo.imageLinks.thumbnail : '',
+        description: trackObj.volumeInfo.description,
+      };
+
+      axios.post('/processBook', input).then(res => {
+        let data = res.data;
+        console.log(res);
+        this.setState({
+          currentSongNameAndArtist: data[0],
+          currentLyrics: data[1],
+          watson: data[2],
+          thumbnail: data[3],
+          spotifyLoading: false,
+          lyricsLoading: false,
+          showLyrics: true,
+          showMood: true
+        });
+      })
+      .catch( (err) => {
+        console.log('Error retrieving book analysis from watson: ', err);
+      })
+
+    } else {
+      let input = {};
+      input.track_id = trackObj.track_id;
+      input.track_name = trackObj.track_name;
+      input.artist_name = trackObj.artist_name;
+      input.album_coverart_100x100 = trackObj.album_coverart_100x100;
+      input.album_coverart_350x350 = trackObj.album_coverart_350x350;
+      input.album_coverart_500x500 = trackObj.album_coverart_500x500;
+      input.album_coverart_800x800 = trackObj.album_coverart_800x800;
+
+      axios.post('/process', input).then(res => {
+        let data = res.data;
+        this.setState({
+          currentSongNameAndArtist: data[0],
+          currentLyrics: data[1],
+          watson: data[2],
+          spotifyURI: data[3],
+          spotifyLoading: false,
+          showPlayer: true,
+          lyricsLoading: false,
+          showLyrics: true,
+          showMood: true
+        });
+        console.log('I am happening is APP.JSX', this.state.showPlayer)
+      }).catch(error => {
+        throw error;
       });
-    }).catch(error => {
-      throw error;
-    });
+    }
   }
 
   showResults() {
@@ -130,7 +193,6 @@ class App extends React.Component {
     axios.post('/loadPastSearchResults', {track_id: trackId}).then(res => {
       let songData = res.data[0];
       let watsonData = res.data[1];
-      console.log(watsonData);
       this.setState({
         currentLyrics: songData.lyrics,
         currentSongNameAndArtist: [
@@ -145,24 +207,173 @@ class App extends React.Component {
     }).catch(err => console.log(err));
   }
 
+  newReleaseClick(val) {
+    if(!this.state.showSpotifyPlayer) {
+      this.setState({
+        showSpotifyPlayer: true,
+        spotifyPlayerUri: val
+      })
+    } else if(this.state.showSpotifyPlayer && this.state.spotifyPlayerUri !== '') {
+      this.setState({
+        spotifyPlayerUri: val
+      })
+    }
+  }
+  closePlayer() {
+    this.setState({
+      showSpotifyPlayer: false,
+    })
+  }
+
+  recentlyPlayedSongs(songArtist) {
+    console.log("I am getting to recentlyplayed", songArtist)
+
+    this.setState({searchResultsLoading: true, showPrev: true, upDown: false});
+
+    let options = {
+      title: songArtist[0],
+      artist: songArtist[1]
+    };
+    axios.post('/search', options)
+    .then((res) => {
+      if (!res.data) {
+        console.log('error');
+      }
+  
+      this.setState({searchResultsLoading: false});
+      return res.data.track_list[0];
+    })
+    .then(data =>  {
+      console.log(data.track)
+      this.process(data.track);
+    });
+    
+
+  }
+
+  loginSpotify() {
+    console.log('I am working loginSpotify in App,Jsx !!!!!!!!!!')
+    axios.get('/recentlyplayed')
+      .then((res) => {
+        this.setState({
+          searchResults: res.data,
+          showResults: true,
+          recentlyPlayed: true
+        })       
+      })
+      .catch( (err) => {
+        console.log(err);
+    })
+  }
+
+  recentlyPlayedSongs(songArtist) {
+    console.log("I am getting to recentlyplayed", songArtist)
+
+    this.setState({searchResultsLoading: true, showPrev: true, upDown: false});
+
+    let options = {
+      title: songArtist[0],
+      artist: songArtist[1]
+    };
+    axios.post('/search', options)
+    .then((res) => {
+      if (!res.data) {
+        console.log('error');
+      }
+  
+      this.setState({searchResultsLoading: false});
+      return res.data.track_list[0];
+    })
+    .then(data =>  {
+      console.log(data.track)
+      this.process(data.track);
+    });
+    
+
+  }
+
+
+  loginSpotify() {
+    axios.get('/recentlyplayed')
+      .then((res) => {
+        this.setState({
+          searchResults: res.data,
+          showResults: true,
+          recentlyPlayed: true,
+          showResults: true
+        })
+        console.log(this.state.searchResults);
+      })
+      .catch( (err) => {
+        console.log(err);
+    })
+  }
+
   render() {
     return (
       <div>
         <Header url={this.state.url}/>
         <div className="container">
           <div className="col1">
-            <Search search={this.search} prev={this.showResults} showPrev={this.state.showPrev} upDown={this.state.upDown} runUpDown={this.upDown}/> {this.state.showResults
-              ? <SearchResults results={this.state.searchResults} process={this.process} searchResultsLoading={this.state.searchResultsLoading}/>
+            <Search search={this.search}
+                    prev={this.showResults} 
+                    showPrev={this.state.showPrev} 
+                    upDown={this.state.upDown} 
+                    runUpDown={this.upDown}/> 
+              {this.state.showResults ?
+              <SearchResults results={this.state.searchResults} 
+                            recent={this.state.recentlyPlayed} 
+                            recentlyPlayedSongs={this.recentlyPlayedSongs} 
+                            search={this.search} 
+                            process={this.process}
+                            searchResultsLoading={this.state.searchResultsLoading}
+                             />
               : null}
-            {this.state.showPlayer
-              ? <Lyrics showPlayer={this.state.showPlayer} spotifyURI={this.state.spotifyURI} loading={this.state.spotifyLoading} lyrics={this.state.currentLyrics} loading={this.state.lyricsLoading} songNameAndArtist={this.state.currentSongNameAndArtist}/>
+
+              {/* add component for top 10 here*/}
+
+              {!this.state.showLyrics && !this.state.showResults && !this.showPlayer ?
+                <TopTen showSpotifyPlayer={this.state.showSpotifyPlayer}
+                        newReleaseClick={this.newReleaseClick}
+                        spotifyHomePage={this.state.spotifyHomePage}
+                        showSpotifyPlayer={this.state.showSpotifyPlayer}
+                        spotifyPlayerUri={this.state.spotifyPlayerUri}
+                        closePlayer={this.closePlayer} />
+              : null}
+
+            {this.state.showPlayer ?
+              <Lyrics showPlayer={this.state.showPlayer}
+                      thumbnail={this.state.thumbnail}
+                      spotifyURI={this.state.spotifyURI}
+                      loading={this.state.spotifyLoading}
+                      lyrics={this.state.currentLyrics}
+                      loading={this.state.lyricsLoading}
+                      songNameAndArtist={this.state.currentSongNameAndArtist}/>
               : null}
           </div>
           <div className="col2">
-            <User showPrev={this.state.showResultsUser} prev={this.showResultsUser} upDown={this.state.upDownUser} runUpDown={this.upDownUser} process={this.process} searchResultsLoading={this.state.searchResultsLoadingUser} loadPastSearchResults={this.loadPastSearchResults}/> {this.state.showMood
-              ? <Mood watson={this.state.watson} songNameAndArtist={this.state.currentSongNameAndArtist}/>
+
+            <User showPrev={this.state.showResultsUser}
+                  prev={this.showResultsUser}
+                  upDown={this.state.upDownUser}
+                  runUpDown={this.upDownUser}
+                  process={this.process}//why?
+                  searchResultsLoading={this.state.searchResultsLoadingUser}
+                  loadPastSearchResults={this.loadPastSearchResults}
+                  playlist={this.loginSpotify.bind(this)}/> 
+              {this.state.showMood ? <Mood watson={this.state.watson} songNameAndArtist={this.state.currentSongNameAndArtist}/>
               : null}
+              
+              {/* add component for top 10 mood here*/}
+              {!this.state.showLyrics && !this.state.showResults && !this.showPlayer ?
+                <div className='test'>
+                  show top ten mood component.
+                </div>
+              : null}
+
           </div>
+        </div>
+        <div>
         </div>
       </div>
     );
