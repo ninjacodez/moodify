@@ -34,7 +34,9 @@ passport.deserializeUser(function(id, done) {
 });
 
 const app = express();
+
 let accessTime;
+
 
 passport.use(new SpotifyStrategy({
   clientID: config.SPOTIFY.clientId,
@@ -51,6 +53,7 @@ passport.use(new SpotifyStrategy({
     }, (err, result) => {
       if (!err) {   
         console.log('yay!: ', result);
+
       } else {
         console.log('no :( : ', err);
       }
@@ -86,7 +89,7 @@ app.get('/auth/spotify',
 app.get('/auth/spotify/callback',
   passport.authenticate('spotify', { failureRedirect: '/login' }),
   (req, res) => {
-    console.log('spotify callback');
+
     res.redirect('/');
   });
 
@@ -111,6 +114,7 @@ app.get('/recentlyplayed', (req, res) => {
         songArray.track_list.push(songData); 
       }
     })
+
     return songArray
   })
   .then(data => {
@@ -265,8 +269,9 @@ app.post('/processBook', (req, res) => {
 
 app.post('/process', (req, res) => {
   let input = req.body;
+  console.log(req.body)
   const songNameAndArtist = [input.artist_name, input.track_name];
-  
+
   console.log(songNameAndArtist);
   let watsonData = {};
 

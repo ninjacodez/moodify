@@ -224,6 +224,7 @@ class App extends React.Component {
     })
   }
 
+
   recentlyPlayedSongs(songArtist) {
     console.log("I am getting to recentlyplayed", songArtist)
 
@@ -250,15 +251,17 @@ class App extends React.Component {
 
   }
 
+
   loginSpotify() {
-    console.log('I am working loginSpotify in App,Jsx !!!!!!!!!!')
     axios.get('/recentlyplayed')
       .then((res) => {
         this.setState({
           searchResults: res.data,
           showResults: true,
-          recentlyPlayed: true
-        })       
+          recentlyPlayed: true,
+          showResults: true
+        })
+        console.log(this.state.searchResults);
       })
       .catch( (err) => {
         console.log(err);
