@@ -4,6 +4,8 @@ import axios from 'axios';
 import PastSearches from './PastSearches.jsx';
 import PastSearchResults from './PastSearchResults.jsx';
 import {Redirect, Link} from 'react-router-dom';
+import SearchResults from './PastSearches.jsx';
+
 
 class User extends React.Component {
   constructor(props) {
@@ -17,7 +19,9 @@ class User extends React.Component {
     this.logout = this.logout.bind(this);
     this.redirect = this.redirect.bind(this);
     this.pastSearch = this.pastSearch.bind(this);
+
     this.recentlyplayed = this.recentlyplayed.bind(this);
+
   }
 
   redirect() {
@@ -30,6 +34,7 @@ class User extends React.Component {
     });
   }
 
+
   recentlyplayed() {
     axios.get('/recentlyplayed')
       .then((res) => {
@@ -39,6 +44,7 @@ class User extends React.Component {
         console.log(err);
       })
   }
+
 
   componentDidMount() {
     axios.get('/check').then(res => {
@@ -74,12 +80,12 @@ class User extends React.Component {
           )}
           {renderif(this.state.loggedIn)(
             <div>
-              <div className="loginButton" onClick={this.logout}>
-                Logout!
-              </div>
-              <div className="loginButton" onClick={this.recentlyplayed}>
-                My Recently Played
-              </div>
+            <div className="loginButton" onClick={this.logout}>
+              Logout!
+            </div>
+            <div className="loginButton" onClick={this.props.loginSpotify}>
+              Recently Played
+            </div>
             </div>
           )}
           {renderif(this.state.loggedIn)(<PastSearches search={this.props.search} 
