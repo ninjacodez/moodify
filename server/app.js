@@ -53,6 +53,7 @@ passport.use(new SpotifyStrategy({
     }, (err, result) => {
       if (!err) {   
         console.log('yay!: ', result);
+
       } else {
         console.log('no :( : ', err);
       }
@@ -268,6 +269,7 @@ app.post('/processBook', (req, res) => {
 
 app.post('/process', (req, res) => {
   let input = req.body;
+
   const songNameAndArtist = [input.artist_name, input.track_name];
 
   console.log(songNameAndArtist);

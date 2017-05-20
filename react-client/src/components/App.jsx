@@ -266,6 +266,49 @@ class App extends React.Component {
     })
   }
 
+  recentlyPlayedSongs(songArtist) {
+    console.log("I am getting to recentlyplayed", songArtist)
+
+    this.setState({searchResultsLoading: true, showPrev: true, upDown: false});
+
+    let options = {
+      title: songArtist[0],
+      artist: songArtist[1]
+    };
+    axios.post('/search', options)
+    .then((res) => {
+      if (!res.data) {
+        console.log('error');
+      }
+  
+      this.setState({searchResultsLoading: false});
+      return res.data.track_list[0];
+    })
+    .then(data =>  {
+      console.log(data.track)
+      this.process(data.track);
+    });
+    
+
+  }
+
+
+  loginSpotify() {
+    axios.get('/recentlyplayed')
+      .then((res) => {
+        this.setState({
+          searchResults: res.data,
+          showResults: true,
+          recentlyPlayed: true,
+          showResults: true
+        })
+        console.log(this.state.searchResults);
+      })
+      .catch( (err) => {
+        console.log(err);
+    })
+  }
+
   render() {
     return (
       <div>
@@ -319,7 +362,6 @@ class App extends React.Component {
                   loadPastSearchResults={this.loadPastSearchResults}
                   playlist={this.loginSpotify.bind(this)}/> 
               {this.state.showMood ? <Mood watson={this.state.watson} songNameAndArtist={this.state.currentSongNameAndArtist}/>
-
               : null}
               
               {/* add component for top 10 mood here*/}
