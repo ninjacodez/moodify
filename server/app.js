@@ -225,7 +225,7 @@ app.post('/processBook', (req, res) => {
   console.log(req.body);
   let input = req.body;
 
-  const bookTitleAndAuthor = [input.author, input.title];
+  const bookTitleAndAuthor = [input.author_name, input.book_name];
   let watsonData = {};
 
   return watsonHelpers.queryWatsonToneHelper(input.description)
