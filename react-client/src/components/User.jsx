@@ -33,7 +33,6 @@ class User extends React.Component {
   recentlyplayed() {
     axios.get('/recentlyplayed')
       .then((res) => {
-        console.log('recently played tracks: ');
         console.log(res);
       })
       .catch( (err) => {
